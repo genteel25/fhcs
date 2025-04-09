@@ -19,4 +19,7 @@ class RouteConstants {
   static const String cardDepositRoute = '/card_deposit';
   static const String withdrawFromRoute = '/withdraw_from';
   static const String withdrawFundRoute = '/withdraw_fund';
+  static const String loanApplicationRoute = '/loan_application';
+  static const String normalLoanRoute = '/normal_loan';
+  static const String selectRefereeRoute = '/select_referee';
 }

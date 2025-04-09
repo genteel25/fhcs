@@ -172,7 +172,8 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                       HomeActionWidget(
                         actionLabel: "Apply for\nLoans",
                         actionAsset: "wallet",
-                        onTap: () {},
+                        onTap: () => context
+                            .pushNamed(RouteConstants.loanApplicationRoute),
                       ),
                       HomeActionWidget(
                         actionLabel: "Apply for\nInvestments",

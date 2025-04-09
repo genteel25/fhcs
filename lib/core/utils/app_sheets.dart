@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fhcs/core/components/custom_bottom_sheet_wrapper.dart';
 import 'package:fhcs/features/auth/presentation/sheets/bank_transfer.dart';
 import 'package:fhcs/features/auth/presentation/sheets/membership_payment.dart';
@@ -5,6 +7,8 @@ import 'package:fhcs/features/auth/presentation/sheets/otp_success.dart';
 import 'package:fhcs/features/home/presentation/sheets/deposit.dart';
 import 'package:fhcs/features/home/presentation/sheets/deposit_success.dart';
 import 'package:fhcs/features/home/presentation/sheets/payment_method.dart';
+import 'package:fhcs/features/loans/presentation/sheets/file_picker.dart';
+import 'package:fhcs/features/loans/presentation/sheets/loan_confirmation.dart';
 import 'package:flutter/material.dart';
 
 class AppSheets {
@@ -135,6 +139,47 @@ class AppSheets {
             onPressed: () => onPressed(),
             selectedCard: selectedCard,
             onSelectCard: onSelectCard,
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> filePickerSheet(
+    BuildContext context, {
+    required File? selectedFile,
+    required Function(File? doc) onPickFile,
+  }) async {
+    return await showModalBottomSheet(
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+      context: context,
+      builder: (context) {
+        return CustomBottomSheetWrapperWidget(
+            child: CustomFilePickerSheet(
+          onSelectFile: onPickFile,
+          selectedFile: selectedFile,
+        ));
+      },
+    );
+  }
+
+  static Future<void> loanConfirmationSheet(
+    BuildContext context, {
+    required bool isNormalLoan,
+    required Map<String, dynamic> loanInfo,
+  }) async {
+    return await showModalBottomSheet(
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+      context: context,
+      builder: (context) {
+        return CustomBottomSheetWrapperWidget(
+          child: LoanConfirmationSheetWidget(
+            isNormaLoan: isNormalLoan,
+            loanInfo: loanInfo,
           ),
         );
       },

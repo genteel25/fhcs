@@ -21,7 +21,10 @@ import 'package:fhcs/features/auth/presentation/controllers/withdrawal_bank.dart
 import 'package:fhcs/features/home/presentation/controllers/withdraw_from.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_funds.dart';
 import 'package:fhcs/features/investments/presentation/controllers/investments.dart';
+import 'package:fhcs/features/loans/presentation/controllers/loan_application.dart';
 import 'package:fhcs/features/loans/presentation/controllers/loans.dart';
+import 'package:fhcs/features/loans/presentation/controllers/normal_loan.dart';
+import 'package:fhcs/features/loans/presentation/controllers/select_referee.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -133,6 +136,26 @@ class AppRouter {
         path: RouteConstants.withdrawFundRoute,
         name: RouteConstants.withdrawFundRoute,
         pageBuilder: (context, state) => _buildPage(WithdrawFundScreen()),
+      ),
+      GoRoute(
+        path: RouteConstants.loanApplicationRoute,
+        name: RouteConstants.loanApplicationRoute,
+        pageBuilder: (context, state) => _buildPage(LoanApplicationScreen()),
+      ),
+      GoRoute(
+        path: RouteConstants.normalLoanRoute,
+        name: RouteConstants.normalLoanRoute,
+        pageBuilder: (context, state) => _buildPage(
+          NormalLoanScreen(isNormalLoan: state.extra as bool),
+        ),
+      ),
+      GoRoute(
+        path: RouteConstants.selectRefereeRoute,
+        name: RouteConstants.selectRefereeRoute,
+        pageBuilder: (context, state) => _buildPage(SelectRefereeScreen(
+          isNormalLoan: state.extra as bool,
+          amount: state.uri.queryParameters['amount'] as String,
+        )),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

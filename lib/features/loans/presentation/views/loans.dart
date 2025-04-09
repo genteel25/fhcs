@@ -1,15 +1,15 @@
-import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
-import 'package:fhcs/features/home/presentation/widgets/home_balance_card.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class LoansView extends StatelessWidget implements LoansViewContract {
   const LoansView({super.key, required this.controller});
@@ -43,8 +43,8 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                     Row(
                       children: [
                         Container(
-                          width: 43.w,
-                          height: 43.h,
+                          width: 43.sp,
+                          height: 43.sp,
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1.w,
@@ -153,7 +153,8 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                   isFilled: true,
                   actionLabel: "Apply for loans",
                   actionAsset: "money_bag",
-                  onTap: () {},
+                  onTap: () =>
+                      context.pushNamed(RouteConstants.loanApplicationRoute),
                 ),
                 HomeActionWidget(
                   actionLabel: "Repay loans",
@@ -174,11 +175,21 @@ class LoansView extends StatelessWidget implements LoansViewContract {
               child: TabBar(
                 labelPadding: REdgeInsets.symmetric(horizontal: 6),
                 padding: REdgeInsets.symmetric(horizontal: 16),
-                indicatorPadding: EdgeInsets.zero,
+                indicatorPadding: REdgeInsets.only(top: 8),
                 tabAlignment: TabAlignment.start,
                 labelColor: AppColors.neutral800,
                 unselectedLabelColor: AppColors.neutral500,
                 isScrollable: true,
+                labelStyle: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.neutral800,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.neutral500,
+                ),
                 dividerColor: Colors.transparent,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorWeight: 2.h,

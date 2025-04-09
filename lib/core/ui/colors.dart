@@ -17,4 +17,5 @@ class AppColors {
   static Color gold800 = Color(0xff92400E);
   static Color warning500 = Color(0xffF59E0B);
   static Color info700 = Color(0xff007AFF);
+  static Color violet800 = Color(0xffAF52DE);
 }

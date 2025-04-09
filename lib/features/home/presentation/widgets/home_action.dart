@@ -38,8 +38,8 @@ class HomeActionWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: 52.w,
-              height: 52.h,
+              width: 52.sp,
+              height: 52.sp,
               // width: 83.w,
               // padding: REdgeInsets.all(19),
               decoration: BoxDecoration(
