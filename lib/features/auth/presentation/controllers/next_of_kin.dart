@@ -1,7 +1,9 @@
 import 'package:fhcs/core/router/route_constants.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/next_of_kin.dart';
 import 'package:fhcs/features/auth/presentation/views/next_of_kin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
@@ -51,7 +53,16 @@ class NextOfKinController extends State<NextOfKinScreen>
   @override
   void onContinue() {
     if (formKey.currentState?.validate() ?? false) {
-      context.pushNamed(RouteConstants.withdrawalBankRoute);
+      final payload = {
+        "primary_nok": {
+          "name": nextOfKinController.text,
+          "relationship": selectedNokRelationship,
+          "phone_number": phoneController.value.nsn,
+          "address": officialAddressController.text,
+        }
+      };
+      context.read<AuthCubit>().nokDetail(payload);
+      
     }
   }
 

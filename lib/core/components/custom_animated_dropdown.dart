@@ -1,5 +1,6 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,7 +69,7 @@ class CustomAnimatedDropdownWidget<T> extends StatelessWidget {
               listItemBuilder: (context, item, isSelected, onItemSelect) {
                 return AppText(
                   switch (item) {
-                    // CategoryData(:final name) => name ?? "",
+                    BankData(:final name) => name ?? "",
                     // SubCategoryData(:final name) => name ?? "",
                     _ => item?.displayText ?? "",
                   },
@@ -87,6 +88,7 @@ class CustomAnimatedDropdownWidget<T> extends StatelessWidget {
                   REdgeInsets.symmetric(vertical: 12, horizontal: 12),
               headerBuilder: (context, selectedItem, enabled) => AppText(
                     switch (selectedItem) {
+                      BankData(:final name) => name ?? "",
                       _ => selectedItem!.displayText,
                     },
                     // selectedItem?.displayText ?? "",

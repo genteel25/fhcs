@@ -2,16 +2,21 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_button.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../controllers/contracts/enter_otp.dart';
 import 'contracts/enter_otp.dart';
@@ -56,7 +61,7 @@ class EnterOtpView extends StatelessWidget implements EnterOtpViewContract {
                       ),
                       children: [
                         TextSpan(
-                            text: "'genteelajagbe@gmail.com'",
+                            text: "'${controller.email}'",
                             style: GoogleFonts.onest(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -91,18 +96,35 @@ class EnterOtpView extends StatelessWidget implements EnterOtpViewContract {
                   SizedBox(
                     height: 44.h,
                     width: double.infinity,
-                    child: CustomButtonWidget(
-                      "Continue",
-                      onPressed: controller.isComplete
-                          ? () => AppSheets.otpVerificationSuccessSheet(
-                                context,
-                                onPressed: () {
-                                  context.pop();
-                                  context
-                                      .pushNamed(RouteConstants.nextOfKinRoute);
-                                },
-                              )
-                          : null,
+                    child: BlocListener<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        state.whenOrNull(
+                          verifyLoading: () => context.loaderOverlay.show(),
+                          verifySuccess: (response) {
+                            context.loaderOverlay.hide();
+                            AppSheets.otpVerificationSuccessSheet(
+                              context,
+                              onPressed: () {
+                                context.pop();
+                                context
+                                    .pushNamed(RouteConstants.nextOfKinRoute);
+                              },
+                            );
+                          },
+                          verifyFailure: (error) {
+                            context.loaderOverlay.hide();
+                            GetIt.I
+                                .get<IWidgetHelper>()
+                                .showErrorToast(context, message: error);
+                          },
+                        );
+                      },
+                      child: CustomButtonWidget(
+                        "Continue",
+                        onPressed: controller.isComplete
+                            ? controller.onVerifyOtp
+                            : null,
+                      ),
                     ),
                   ),
                   16.h.heightBox,
@@ -112,7 +134,7 @@ class EnterOtpView extends StatelessWidget implements EnterOtpViewContract {
                     child: CustomButtonWidget(
                       "Go back",
                       backgroundColor: AppColors.primary100,
-                      onPressed: () {},
+                      onPressed: () => context.pop(),
                       textColor: AppColors.primary700,
                     ),
                   ),

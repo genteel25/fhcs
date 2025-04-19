@@ -29,19 +29,23 @@ class WithdrawFundView extends StatelessWidget
           mainAxisSize: MainAxisSize.min,
           children: [
             20.w.widthBox,
-            Container(
-              width: 36.w,
-              height: 36.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.neutral200,
-                  width: 1.w,
+            InkWell(
+              onTap: () => context.pop(),
+              borderRadius: BorderRadius.circular(100.r),
+              child: Container(
+                width: 36.w,
+                height: 36.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.neutral200,
+                    width: 1.w,
+                  ),
                 ),
-              ),
-              child: SvgPicture.asset(
-                "assets/svgs/back.svg",
-                fit: BoxFit.scaleDown,
+                child: SvgPicture.asset(
+                  "assets/svgs/back.svg",
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ],

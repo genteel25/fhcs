@@ -22,4 +22,8 @@ class RouteConstants {
   static const String loanApplicationRoute = '/loan_application';
   static const String normalLoanRoute = '/normal_loan';
   static const String selectRefereeRoute = '/select_referee';
+  static const String repayLoanRoute = '/repay_loan';
+  static const String cashInjectionRoute = '/cash_injection';
+  static const String refereeRequestRoute = '/referee_request';
+  static const String statementRoute = '/statement';
 }

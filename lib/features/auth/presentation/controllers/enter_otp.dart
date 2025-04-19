@@ -1,14 +1,19 @@
 import 'dart:async';
 
+import 'package:fhcs/core/storage/contract/istorage.dart';
+import 'package:fhcs/core/storage/storage_constant.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../views/contracts/enter_otp.dart';
 import '../views/enter_otp.dart';
 import 'contracts/enter_otp.dart';
 
 class EnterOtpScreen extends StatefulWidget {
-  static const String route = 'forgot_password';
-  const EnterOtpScreen({super.key});
+  const EnterOtpScreen({super.key, required this.email});
+  final String email;
 
   @override
   State<EnterOtpScreen> createState() => EnterOtpController();
@@ -30,11 +35,15 @@ class EnterOtpController extends State<EnterOtpScreen>
   bool isComplete = false;
 
   @override
+  String? email;
+
+  @override
   void initState() {
     super.initState();
     view = EnterOtpView(controller: this);
     startCountdown(5);
     onOtpControllerListener();
+    email = widget.email;
   }
 
   @override
@@ -76,6 +85,21 @@ class EnterOtpController extends State<EnterOtpScreen>
         });
       }
     });
+  }
+
+  @override
+  void onVerifyOtp() async {
+    final token = await GetIt.I
+        .get<IAppStorage>()
+        .fetchString(StorageConstant.accessToken);
+    final payload = {
+      "email": email,
+      "otp": otpController.text,
+      "token": token,
+    };
+    if (mounted) {
+      context.read<AuthCubit>().verifyOtp(payload);
+    }
   }
 
   @override

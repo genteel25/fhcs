@@ -12,4 +12,5 @@ abstract class CreatePasswordControllerContract {
   //Methods
   void onToggleObscure();
   void onPasswordListener();
+  void onSubmitPassword();
 }

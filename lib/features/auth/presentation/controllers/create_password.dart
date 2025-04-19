@@ -1,7 +1,9 @@
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/create_password.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/create_password.dart';
 import 'package:fhcs/features/auth/presentation/views/create_password.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
@@ -92,6 +94,15 @@ class CreatePasswordController extends State<CreatePasswordScreen>
     setState(() {
       isObscure = !isObscure;
     });
+  }
+
+  @override 
+  void onSubmitPassword() {
+    final payload = {
+      "password": passwordController.text,
+      "confirm_password": confirmPasswordController.text,
+    };
+    context.read<AuthCubit>().setPassword(payload);
   }
 
   @override

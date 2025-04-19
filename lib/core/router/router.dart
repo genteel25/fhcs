@@ -4,6 +4,7 @@ import 'package:fhcs/core/components/custom_scaffold_menu.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/global_variables.dart';
 import 'package:fhcs/features/accounts/presentation/controllers/accounts.dart';
+import 'package:fhcs/features/accounts/presentation/controllers/statement.dart';
 import 'package:fhcs/features/auth/presentation/controllers/create_password.dart';
 import 'package:fhcs/features/auth/presentation/controllers/enter_otp.dart';
 import 'package:fhcs/features/home/presentation/controllers/add_money.dart';
@@ -18,6 +19,9 @@ import 'package:fhcs/features/auth/presentation/controllers/onboarding.dart';
 import 'package:fhcs/features/auth/presentation/controllers/set_transaction_pin.dart';
 import 'package:fhcs/features/auth/presentation/controllers/signup.dart';
 import 'package:fhcs/features/auth/presentation/controllers/withdrawal_bank.dart';
+import 'package:fhcs/features/loans/presentation/controllers/cash_injection.dart';
+import 'package:fhcs/features/loans/presentation/controllers/referee_request.dart';
+import 'package:fhcs/features/loans/presentation/controllers/repay_loan.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_from.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_funds.dart';
 import 'package:fhcs/features/investments/presentation/controllers/investments.dart';
@@ -76,7 +80,8 @@ class AppRouter {
       GoRoute(
         path: RouteConstants.enterOtpRoute,
         name: RouteConstants.enterOtpRoute,
-        pageBuilder: (context, state) => _buildPage(EnterOtpScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(EnterOtpScreen(email: state.extra as String)),
       ),
       GoRoute(
         path: RouteConstants.nextOfKinRoute,
@@ -152,10 +157,17 @@ class AppRouter {
       GoRoute(
         path: RouteConstants.selectRefereeRoute,
         name: RouteConstants.selectRefereeRoute,
-        pageBuilder: (context, state) => _buildPage(SelectRefereeScreen(
-          isNormalLoan: state.extra as bool,
-          amount: state.uri.queryParameters['amount'] as String,
-        )),
+        pageBuilder: (context, state) => _buildPage(
+          SelectRefereeScreen(
+            isNormalLoan: state.extra as bool,
+            amount: state.uri.queryParameters['amount'] as String,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: RouteConstants.refereeRequestRoute,
+        name: RouteConstants.refereeRequestRoute,
+        pageBuilder: (context, state) => _buildPage(RefereeRequestScreen()),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -180,12 +192,21 @@ class AppRouter {
             navigatorKey: accountNavigatorKey,
             routes: [
               GoRoute(
-                path: RouteConstants.accountRoute,
-                name: RouteConstants.accountRoute,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: AccountsScreen(),
-                ),
-              ),
+                  path: RouteConstants.accountRoute,
+                  name: RouteConstants.accountRoute,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                        child: AccountsScreen(),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: RouteConstants.statementRoute,
+                      name: RouteConstants.statementRoute,
+                      parentNavigatorKey: GlobalVariables.rootNavigatorKey,
+                      pageBuilder: (context, state) => _buildPage(
+                        StatementScreen(),
+                      ),
+                    ),
+                  ]),
             ],
           ),
           StatefulShellBranch(
@@ -209,6 +230,24 @@ class AppRouter {
                 pageBuilder: (context, state) => NoTransitionPage(
                   child: LoansScreen(),
                 ),
+                routes: [
+                  GoRoute(
+                    path: RouteConstants.repayLoanRoute,
+                    name: RouteConstants.repayLoanRoute,
+                    parentNavigatorKey: GlobalVariables.rootNavigatorKey,
+                    pageBuilder: (context, state) => _buildPage(
+                      RepayLoanScreen(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.cashInjectionRoute,
+                    name: RouteConstants.cashInjectionRoute,
+                    parentNavigatorKey: GlobalVariables.rootNavigatorKey,
+                    pageBuilder: (context, state) => _buildPage(
+                      CashInjectionScreen(),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

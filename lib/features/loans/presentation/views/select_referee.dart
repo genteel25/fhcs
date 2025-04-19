@@ -1,7 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_checkbox.dart';
-import 'package:fhcs/core/components/custom_radio.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';

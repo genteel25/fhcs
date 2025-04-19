@@ -13,6 +13,10 @@ class AppColors {
   static Color neutral500 = Color(0xff64748B);
   static Color neutral600 = Color(0xff475569);
   static Color neutral800 = Color(0xff1E293B);
+  static Color secondary50 = Color(0xffFFF0EF);
+  static Color secondary100 = Color(0xffFEDCDB);
+  static Color secondary600 = Color(0xffEB2C25);
+  static Color secondary700 = Color(0xffC81E19);
   static Color gold600 = Color(0xffFEF3C7);
   static Color gold800 = Color(0xff92400E);
   static Color warning500 = Color(0xffF59E0B);

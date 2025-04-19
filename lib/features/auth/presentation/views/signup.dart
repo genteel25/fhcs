@@ -2,14 +2,19 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/components/custom_button.dart';
 import 'package:fhcs/core/components/custom_outlined_button.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/widgets/linear_indicator.dart';
 import 'package:fhcs/features/auth/presentation/widgets/second_kyc_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../widgets/first_kyc_info.dart';
 
@@ -103,6 +108,7 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                           employmentStatus: controller.employmentStatus,
                           onSelectEmploymentStatus:
                               controller.onSelectEmploymentStatus,
+                          onSelectSalaryStep: controller.onSelectSalaryStep,
                         )
                           .animate()
                           .fade(duration: const Duration(milliseconds: 300))
@@ -157,11 +163,28 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                       Expanded(
                         child: SizedBox(
                           height: 44.h,
-                          child: CustomButtonWidget(
-                            "Continue",
-                            onPressed: controller.secondPercent.length == 10
-                                ? () => controller.onSecondContinue()
-                                : null,
+                          child: BlocListener<AuthCubit, AuthState>(
+                            listener: (context, state) {
+                              state.whenOrNull(
+                                loading: () => context.loaderOverlay.show(),
+                                success: (response) {
+                                  context.loaderOverlay.hide();
+                                  controller.onSecondContinue();
+                                },
+                                failure: (error) {
+                                  context.loaderOverlay.hide();
+                                  GetIt.I
+                                      .get<IWidgetHelper>()
+                                      .showErrorToast(context, message: error);
+                                },
+                              );
+                            },
+                            child: CustomButtonWidget(
+                              "Continue",
+                              onPressed: controller.secondPercent.length > 10
+                                  ? () => controller.onSubmit()
+                                  : null,
+                            ),
                           ),
                         ),
                       ),

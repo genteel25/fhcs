@@ -5,6 +5,7 @@ import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/loans.dart';
+import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
 import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -92,56 +93,7 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                       ],
                     ).paddingSymmetric(horizontal: 20.w),
                     24.h.heightBox,
-                    Container(
-                      height: 108.h,
-                      width: double.infinity,
-                      margin: REdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        // color: AppColors.primary700,
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xff30A46C),
-                            Color(0xff193B2D),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/images/home_card_pattern.png",
-                            fit: BoxFit.fitWidth,
-                            width: double.infinity,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              AppText(
-                                "Loan balance",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.lightest,
-                              ),
-                              4.h.heightBox,
-                              AppText(
-                                "N 1,205,890.00",
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.lightest,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    AssetCardWidget(),
                   ],
                 ),
               ),
@@ -159,13 +111,14 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                 HomeActionWidget(
                   actionLabel: "Repay loans",
                   actionAsset: "curve",
-                  onTap: () {},
+                  onTap: () => context.pushNamed(RouteConstants.repayLoanRoute),
                 ),
                 HomeActionWidget(
                   actionLabel: "Referee request",
                   actionAsset: "person_group",
                   iconSize: 18.sp,
-                  onTap: () {},
+                  onTap: () =>
+                      context.pushNamed(RouteConstants.refereeRequestRoute),
                 ),
               ],
             ).paddingSymmetric(horizontal: 20.w),

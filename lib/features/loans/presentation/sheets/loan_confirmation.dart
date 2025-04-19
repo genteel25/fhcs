@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/components/custom_button.dart';
 import 'package:fhcs/core/components/custom_text.dart';

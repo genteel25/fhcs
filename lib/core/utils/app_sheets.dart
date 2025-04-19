@@ -124,6 +124,25 @@ class AppSheets {
     );
   }
 
+  static Future<void> repaymentSuccessfulSheet(BuildContext context,
+      {required Function onPressed, String? title, String? subtitle}) async {
+    return await showModalBottomSheet(
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+      context: context,
+      builder: (context) {
+        return CustomBottomSheetWrapperWidget(
+          child: DepositSuccessWidget(
+            onPressed: () => onPressed(),
+            title: title,
+            subtitle: subtitle,
+          ),
+        );
+      },
+    );
+  }
+
   static Future<void> paymentMethodSheet(BuildContext context,
       {required Function onPressed,
       required String selectedCard,

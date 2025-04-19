@@ -2,6 +2,7 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_bouncy_wrapper.dart';
 import 'package:fhcs/core/components/custom_button.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/onboarding.dart';
@@ -9,6 +10,7 @@ import 'package:fhcs/features/auth/presentation/views/contracts/onboarding.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class OnboardingView extends StatelessWidget implements OnboardingViewContract {
@@ -131,12 +133,13 @@ class OnboardingView extends StatelessWidget implements OnboardingViewContract {
                     Row(
                       children: [
                         Expanded(
-                          child: CustomButtonWidget(
-                            "Login",
-                            textColor: AppColors.lightest,
-                            onPressed: () =>
-                                context.pushNamed(RouteConstants.loginRoute),
-                          ),
+                          child: CustomButtonWidget("Login",
+                              textColor: AppColors.lightest, onPressed: () {
+                            // GetIt.I.get<IWidgetHelper>().showSuccessToast(
+                            //     context,
+                            //     message: "Hello world");
+                            context.pushNamed(RouteConstants.loginRoute);
+                          }),
                         ),
                         16.w.widthBox,
                         Expanded(

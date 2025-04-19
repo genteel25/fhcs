@@ -23,6 +23,7 @@ class CustomInputLabelWidget extends StatelessWidget {
     this.isReadOnly,
     this.prefixAsset,
     this.minLines,
+    this.maxLines,
   });
   final String labelText;
   final String hintText;
@@ -37,6 +38,7 @@ class CustomInputLabelWidget extends StatelessWidget {
   final bool? isReadOnly;
   final String? prefixAsset;
   final int? minLines;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,7 @@ class CustomInputLabelWidget extends StatelessWidget {
             controller: controller,
             validator: validator,
             minLines: minLines,
-            maxLines: null,
+            maxLines: maxLines,
             inputFormatters: formatter,
             decoration: InputDecoration(
               isCollapsed: true,

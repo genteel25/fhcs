@@ -8,4 +8,5 @@ abstract class LoginControllerContract {
 
   //Methods
   void onToggleObscure();
+  void onLogin();
 }

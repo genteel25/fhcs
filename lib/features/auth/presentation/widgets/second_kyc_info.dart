@@ -25,11 +25,13 @@ class SecondKycInfoWidget extends StatelessWidget {
     required this.employmentDateController,
     required this.employmentStatus,
     required this.onSelectEmploymentStatus,
+    required this.onSelectSalaryStep,
   });
   final GlobalKey<FormState> formKey;
   final Function(String? value)? onSelectMaritalStatus;
   final Function(String? value)? onSelectStateOfOrigin;
   final Function(String? value)? onSelectSalaryGrade;
+  final Function(String? value)? onSelectSalaryStep;
   final Function onPickDate;
   final TextEditingController dobController;
   final TextEditingController residentialAddressController;
@@ -93,11 +95,18 @@ class SecondKycInfoWidget extends StatelessWidget {
               onChanged: onSelectStateOfOrigin,
             ),
             16.h.heightBox,
-            CustomAnimatedDropdownWidget(
+            CustomAnimatedDropdownWidget<String>(
               hintLabel: "Enter your salary grade",
-              ['Senior', 'Intern', 'Graduate', "Analyst"],
+              List.generate(19, (index) => (index + 1).toString()).toList(),
               labelText: "Salary Grade",
               onChanged: onSelectSalaryGrade,
+            ),
+            16.h.heightBox,
+            CustomAnimatedDropdownWidget<String>(
+              hintLabel: "Enter your salary step",
+              List.generate(9, (index) => (index + 1).toString()).toList(),
+              labelText: "Salary step",
+              onChanged: onSelectSalaryStep,
             ),
             16.h.heightBox,
             CustomDatePickerWidget(

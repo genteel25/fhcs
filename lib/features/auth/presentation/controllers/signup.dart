@@ -1,11 +1,16 @@
 import 'dart:io';
 
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/extensions.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/signup.dart';
+import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phone_form_field/phone_form_field.dart';
@@ -73,6 +78,8 @@ class SignUpController extends State<SignUpScreen>
   String selectedStateOfOrigin = "";
   @override
   String selectedSalaryGrade = "";
+  @override
+  String selectedSalaryStep = "";
   @override
   bool employmentStatus = false;
 
@@ -194,6 +201,18 @@ class SignUpController extends State<SignUpScreen>
         setState(() {
           selectedSalaryGrade = value ?? "";
           secondPercent.addAll({"salary_grade": true});
+        });
+      });
+    });
+  }
+
+  @override
+  void onSelectSalaryStep(String? value) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.microtask(() {
+        setState(() {
+          selectedSalaryStep = value ?? "";
+          secondPercent.addAll({"salary_step": true});
         });
       });
     });
@@ -327,7 +346,8 @@ class SignUpController extends State<SignUpScreen>
   @override
   void onSecondContinue() {
     if (secondFormKey.currentState?.validate() ?? false) {
-      context.pushNamed(RouteConstants.enterOtpRoute);
+      context.pushNamed(RouteConstants.enterOtpRoute,
+          extra: emailController.text);
     }
   }
 
@@ -336,6 +356,38 @@ class SignUpController extends State<SignUpScreen>
     setState(() {
       isFirstPercentComplete = false;
     });
+  }
+
+  @override
+  void onSubmit() {
+    final payload = {
+      "first_name": fullNameController.text.split(" ").first,
+      "last_name": fullNameController.text.split(" ").last,
+      "email": emailController.text,
+      "ir_number": irNumberController.text,
+      "image_url": '',
+      "marital_status": selectedMaritalStatus,
+      "dob": dobController.text,
+      "residential_address": residentialAddressController.text,
+      "permanent_address": permanentAddressController.text,
+      "deployment": deploymentOfficeController.text,
+      "office_address": officeAddressController.text,
+      "state_of_origin": selectedStateOfOrigin,
+      "phone_number": phoneNumberController.value.nsn,
+      "salary_grade": selectedSalaryGrade,
+      "salary_grade_step": selectedSalaryGrade,
+      "employment_date": employmentDateController.text,
+      "in_service": employmentStatus,
+    };
+    if (pickedImagePath != null) {
+      context.read<AuthCubit>().register(payload, File("")
+          // pickedImagePath!,
+          );
+    } else {
+      GetIt.I
+          .get<IWidgetHelper>()
+          .showErrorToast(context, message: "Passport photo is required");
+    }
   }
 
   @override

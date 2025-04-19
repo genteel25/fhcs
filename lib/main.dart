@@ -3,19 +3,21 @@
 //     FlutterLocalNotificationsPlugin();
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fhcs/config/di/app_initializer.dart';
 import 'package:fhcs/config/flavor/app_flavor.dart';
 import 'package:fhcs/fhcs_app.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   BuildFlavor.init(
-    baseUrl: const String.fromEnvironment('BASE_URL', defaultValue: ""),
+    // baseUrl: const String.fromEnvironment('BASE_URL', defaultValue: ""),
+    baseUrl: "https://fhcs.techeducratic.com/api/v1/",
     appName: const String.fromEnvironment('APP_NAME', defaultValue: ""),
     encKey: const String.fromEnvironment('ASDKJDKLKFDLKFEK', defaultValue: ""),
     vector:
         const String.fromEnvironment('KJEFKREKFJSNKLJFSVC', defaultValue: ""),
   );
-  // await AppInitializer.initGetIt();
+  await AppInitializer.initGetIt();
   // if (kDebugMode) {}
   // await Firebase.initializeApp();
   // if (!kDebugMode) {

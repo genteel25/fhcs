@@ -2,15 +2,20 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/login.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class LoginView extends StatelessWidget implements LoginViewContract {
   const LoginView({super.key, required this.controller});
@@ -91,22 +96,41 @@ class LoginView extends StatelessWidget implements LoginViewContract {
         children: [
           Padding(
             padding: MediaQuery.viewInsetsOf(context),
-            child: CustomBottomButtonWrapperWidget(
-              "Continue",
-              onPressed: () => context.pushNamed(RouteConstants.kycRoute),
-              isSecondary: true,
+            child: BlocListener<AuthCubit, AuthState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  loginLoading: () => context.loaderOverlay.show(),
+                  loginSuccess: (token) {
+                    context.loaderOverlay.hide();
+                    context.pushNamed(RouteConstants.kycRoute);
+                  },
+                  loginFailure: (failure) {
+                    context.loaderOverlay.hide();
+                    GetIt.I
+                        .get<IWidgetHelper>()
+                        .showErrorToast(context, message: failure);
+                  },
+                );
+              },
+              child: CustomBottomButtonWrapperWidget(
+                "Continue",
+                onPressed: () => controller.onLogin(),
+                isSecondary: true,
+              ),
             ),
           ),
-          10.h.heightBox,
-          TextButton(
-            onPressed: () => context.goNamed(RouteConstants.signUpRoute),
-            child: AppText(
-              "Create an account",
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: AppColors.primary700,
+          if (MediaQuery.maybeViewInsetsOf(context)?.bottom == 0)
+            10.h.heightBox,
+          if (MediaQuery.maybeViewInsetsOf(context)?.bottom == 0)
+            TextButton(
+              onPressed: () => context.goNamed(RouteConstants.signUpRoute),
+              child: AppText(
+                "Create an account",
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primary700,
+              ),
             ),
-          ),
           30.h.heightBox,
         ],
       ),

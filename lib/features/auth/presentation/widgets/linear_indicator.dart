@@ -63,7 +63,7 @@ class _LinearIndicatorWidgetState extends State<LinearIndicatorWidget> {
           child: LinearPercentIndicator(
             percent: widget.secondPercent.isEmpty
                 ? 0
-                : 0.1 * widget.secondPercent.length,
+                : 0.1 * (widget.secondPercent.length - 1),
             padding: EdgeInsets.zero,
             barRadius: Radius.circular(100.r),
             fillColor: Colors.transparent,

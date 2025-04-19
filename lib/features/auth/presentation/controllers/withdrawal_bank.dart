@@ -1,5 +1,9 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:fhcs/core/data/bank.dart';
+import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:fhcs/features/auth/presentation/bloc/bank_list/bank_list_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../views/contracts/withdrawal_bank.dart';
 import '../views/withdrawal_bank.dart';
@@ -25,19 +29,20 @@ class WithdrawalBankController extends State<WithdrawalBankScreen>
   TextEditingController sortCodeController = TextEditingController();
 
   @override
-  SingleSelectController<String>? bankNameController;
+  SingleSelectController<BankData>? bankNameController;
 
   @override
-  String? selectedBank;
+  BankData? selectedBank;
 
   @override
   List<String> banks = ['UBA', 'First bank', 'GTB', 'Access bank', 'Wema'];
 
   @override
-  void setBank(String? value) {
+  void setBank(BankData? value) {
     Future.microtask(() {
       setState(() {
         bankNameController?.value = value;
+        selectedBank = value;
       });
     });
   }
@@ -46,7 +51,26 @@ class WithdrawalBankController extends State<WithdrawalBankScreen>
   void initState() {
     super.initState();
     view = WithdrawalBankView(controller: this);
-    bankNameController = SingleSelectController<String>(banks.first);
+    context.read<BankListCubit>().getBankList();
+    bankNameController = SingleSelectController<BankData>(BankData());
+  }
+
+  @override
+  void onSetController(BankData value) {
+    setState(() {
+      bankNameController = SingleSelectController<BankData>(value);
+    });
+  }
+
+  @override
+  void onSubmitBankInfo() {
+    final payload = {
+      "bank_id": selectedBank?.id ?? 1,
+      "account_name": accountNameController.text,
+      "account_number": accountNumberController.text,
+      "sort_code": sortCodeController.text,
+    };
+    context.read<AuthCubit>().bankDetail(payload);
   }
 
   @override

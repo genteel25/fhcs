@@ -14,6 +14,7 @@ abstract class SignUpControllerContract {
   late String selectedStateOfOrigin;
   late String selectedSalaryGrade;
   late bool employmentStatus;
+  late String selectedSalaryStep;
   File? pickedImagePath;
 
   //TextControllers
@@ -38,6 +39,7 @@ abstract class SignUpControllerContract {
   void onSelectMaritalStatus(String? value);
   void onSelectStateOfOrigin(String? value);
   void onSelectSalaryGrade(String? value);
+  void onSelectSalaryStep(String? value);
   void officeAddressControllerListener();
   void phoneNumberControllerListener();
   void fullNameControllerListener();
@@ -49,5 +51,6 @@ abstract class SignUpControllerContract {
   void uploadPassport();
   void onClearPassport();
   void onContinue();
+  void onSubmit();
   void onGoBack();
 }
