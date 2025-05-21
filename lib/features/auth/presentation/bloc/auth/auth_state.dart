@@ -4,7 +4,7 @@ part of 'auth_cubit.dart';
 class AuthState with _$AuthState {
   const factory AuthState.initial() = _Initial;
   const factory AuthState.loading() = _Loading;
-  const factory AuthState.success({required String response}) = _Success;
+  const factory AuthState.success({AuthInfoData? response}) = _Success;
   const factory AuthState.failure({required String error}) = _Failure;
   const factory AuthState.verifyLoading() = _VerifyLoading;
   const factory AuthState.verifySuccess({required InfoData response}) =

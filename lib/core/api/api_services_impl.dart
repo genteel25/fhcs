@@ -1,15 +1,19 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+
 import 'package:fhcs/core/api/api_services.dart';
 import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
 import 'package:fhcs/core/api/service/dio_client.dart';
 import 'package:fhcs/core/api/service/endpoints.dart';
+import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/data/nok_info.dart';
+import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/data/personal_info.dart';
 
 import 'service/contracts/api_client.dart';
@@ -20,12 +24,24 @@ class ApiServicesImpl implements ApiServices {
   ApiServicesImpl({required this.apiClient});
 
   @override
-  Future<Either<Failure, ApiResponse<String>>> register(
-      Map<String, dynamic> payload, File file) async {
-    return apiClient.multipartRequest<String>(
+  Future<Either<Failure, ApiResponse<({String? token, AuthInfoData? data})>>>
+      register(Map<String, dynamic> payload, File file) async {
+    return apiClient.multipartRequest<({String? token, AuthInfoData? data})>(
       ApiEndpoint.signup,
       MethodType.post,
-      (data) => data['verification_info']['token'],
+      (data) {
+        if (data.containsKey('verification_info')) {
+          return (token: data['verification_info']['token'], data: null);
+        } else if (data.containsKey('basic_info')) {
+          log("basic_info: ${data['payment_info']}");
+          // final basicInfo = BasicInfoData.fromJson(data['basic_info']);
+          return (token: null, data: AuthInfoData.fromJson(data));
+          // return (token: null, data: (basicInfo: basicInfo, personalData: null, nokInfoData: null, paymentData: null));
+        }
+        return (token: null, data: null);
+      },
+
+      // (data) => data['verification_info']['token'],
       // payload,
       FormData.fromMap({
         ...payload,
@@ -65,6 +81,7 @@ class ApiServicesImpl implements ApiServices {
             basicInfo: basicInfo,
             personalData: personalData,
             nokInfoData: null,
+            paymentInfoData: null,
           );
         },
         payload,
@@ -83,7 +100,8 @@ class ApiServicesImpl implements ApiServices {
           return (
             basicInfo: basicInfo,
             personalData: personalData,
-            nokInfoData: nokInfo
+            nokInfoData: nokInfo,
+            paymentInfoData: null,
           );
         },
         payload,
@@ -99,10 +117,12 @@ class ApiServicesImpl implements ApiServices {
           final basicInfo = BasicInfoData.fromJson(data['basic_info']);
           final personalData = PersonalInfoData.fromJson(data['personal_info']);
           final nokInfo = NokInfoData.fromJson(data['nok_info']['primary_nok']);
+          final paymentData = PaymentInfoData.fromJson(data['payment_info']);
           return (
             basicInfo: basicInfo,
             personalData: personalData,
-            nokInfoData: nokInfo
+            nokInfoData: nokInfo,
+            paymentInfoData: paymentData,
           );
         },
         payload,

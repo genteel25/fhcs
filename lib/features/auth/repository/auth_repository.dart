@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+
 import 'package:fhcs/core/api/api_services.dart';
 import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
+import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/storage/contract/istorage.dart';
@@ -17,9 +19,9 @@ class AuthRepository implements IAuthRepository {
   AuthRepository({required this.localStorage, required this.apiServices});
 
   @override
-  Future<Either<Failure, ApiResponse<String>>> register(
-          Map<String, dynamic> payload, File file) =>
-      apiServices.register(payload, file);
+  Future<Either<Failure, ApiResponse<({String? token, AuthInfoData? data})>>>
+      register(Map<String, dynamic> payload, File file) =>
+          apiServices.register(payload, file);
 
   @override
   Future<Either<Failure, ApiResponse<String>>> uploadFile(File file) =>

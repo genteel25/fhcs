@@ -1,13 +1,15 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/membership_payment.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/membership_payment.dart';
 import 'package:fhcs/features/auth/presentation/widgets/payment_method_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MembershipPaymentView extends StatelessWidget
     implements MembershipPaymentViewContract {
@@ -61,7 +63,7 @@ class MembershipPaymentView extends StatelessWidget
                 "Deposit directly with your debit card",
                 "Your membership will be activated immediately",
               ],
-              onTap: () {},
+              onTap: () => controller.payViaCard(),
             ),
           ],
         ).paddingSymmetric(horizontal: 20.w),

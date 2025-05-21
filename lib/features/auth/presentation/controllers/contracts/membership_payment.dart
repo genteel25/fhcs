@@ -1,1 +1,4 @@
-abstract class MembershipPaymentControllerContract {}
+abstract class MembershipPaymentControllerContract {
+  //Methods
+  void payViaCard();
+}

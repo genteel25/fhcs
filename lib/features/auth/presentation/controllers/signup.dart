@@ -1,13 +1,21 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
+import 'package:fhcs/core/api/api_services.dart';
+import 'package:fhcs/core/data/auth_info.dart';
+import 'package:fhcs/core/data/basic_info.dart';
+import 'package:fhcs/core/data/nok_info.dart';
+import 'package:fhcs/core/data/payment.dart';
+import 'package:fhcs/core/data/personal_info.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/extensions.dart';
@@ -15,6 +23,7 @@ import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/signup.dart';
+import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
 import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -346,10 +355,29 @@ class SignUpController extends State<SignUpScreen>
   }
 
   @override
-  void onSecondContinue() {
+  void onSecondContinue(AuthInfoData? data) {
+    log("auth info data: ${data?.toJson()}");
     if (secondFormKey.currentState?.validate() ?? false) {
-      context.pushNamed(RouteConstants.enterOtpRoute,
-          extra: emailController.text);
+      if (data == null) {
+        context.pushNamed(RouteConstants.enterOtpRoute,
+            extra: emailController.text);
+      } else {
+        if (data.nokInfo == null) {
+          context.pushNamed(RouteConstants.nextOfKinRoute, extra: data);
+          return;
+        }
+        if (data.bankInfo == null) {
+          context.pushNamed(RouteConstants.withdrawalBankRoute, extra: data);
+          // return;
+        } else {
+          log("payment info: ${data.paymentInfo?.toJson()}");
+          context.pushNamed(RouteConstants.membershipPaymentRoute, extra: (
+            amount: data.paymentInfo?.amount?.toString(),
+            ref: data.paymentInfo?.refId
+          ));
+          return;
+        }
+      }
     }
   }
 
@@ -363,8 +391,8 @@ class SignUpController extends State<SignUpScreen>
   @override
   void onSubmit() {
     final payload = {
-      "first_name": fullNameController.text.split(" ").first,
-      "last_name": fullNameController.text.split(" ").last,
+      "first_name": fullNameController.text.trim().split(" ").first,
+      "last_name": fullNameController.text.trim().split(" ").last,
       "email": emailController.text,
       "ir_number": irNumberController.text,
       "image_url": '',

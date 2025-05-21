@@ -1,13 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fhcs/core/data/payment.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:fhcs/core/api/api_services.dart';
+import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/data/nok_info.dart';
 import 'package:fhcs/core/data/personal_info.dart';
 import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
@@ -22,8 +25,13 @@ class AuthCubit extends Cubit<AuthState> {
       final response = await authRepository.register(payload, file);
       response.fold((l) => emit(AuthState.failure(error: l.failureMessage())),
           (r) {
-        authRepository.saveToken(r.data as String);
-        emit(AuthState.success(response: r.data as String));
+        if (r.data?.token != null) {
+          authRepository.saveToken(r.data!.token!);
+          emit(AuthState.success(response: null));
+        } else {
+          // return r.data?.data;
+          emit(AuthState.success(response: r.data?.data));
+        }
       });
     } catch (e) {
       emit(AuthState.failure(error: e.toString()));

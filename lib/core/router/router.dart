@@ -1,5 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/components/custom_scaffold_menu.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/global_variables.dart';
@@ -7,10 +12,6 @@ import 'package:fhcs/features/accounts/presentation/controllers/accounts.dart';
 import 'package:fhcs/features/accounts/presentation/controllers/statement.dart';
 import 'package:fhcs/features/auth/presentation/controllers/create_password.dart';
 import 'package:fhcs/features/auth/presentation/controllers/enter_otp.dart';
-import 'package:fhcs/features/home/presentation/controllers/add_money.dart';
-import 'package:fhcs/features/home/presentation/controllers/card_deposit.dart';
-import 'package:fhcs/features/home/presentation/controllers/deposit_fund.dart';
-import 'package:fhcs/features/home/presentation/controllers/home.dart';
 import 'package:fhcs/features/auth/presentation/controllers/kyc.dart';
 import 'package:fhcs/features/auth/presentation/controllers/login.dart';
 import 'package:fhcs/features/auth/presentation/controllers/membership_payment.dart';
@@ -19,19 +20,20 @@ import 'package:fhcs/features/auth/presentation/controllers/onboarding.dart';
 import 'package:fhcs/features/auth/presentation/controllers/set_transaction_pin.dart';
 import 'package:fhcs/features/auth/presentation/controllers/signup.dart';
 import 'package:fhcs/features/auth/presentation/controllers/withdrawal_bank.dart';
-import 'package:fhcs/features/loans/presentation/controllers/cash_injection.dart';
-import 'package:fhcs/features/loans/presentation/controllers/referee_request.dart';
-import 'package:fhcs/features/loans/presentation/controllers/repay_loan.dart';
+import 'package:fhcs/features/home/presentation/controllers/add_money.dart';
+import 'package:fhcs/features/home/presentation/controllers/card_deposit.dart';
+import 'package:fhcs/features/home/presentation/controllers/deposit_fund.dart';
+import 'package:fhcs/features/home/presentation/controllers/home.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_from.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_funds.dart';
 import 'package:fhcs/features/investments/presentation/controllers/investments.dart';
+import 'package:fhcs/features/loans/presentation/controllers/cash_injection.dart';
 import 'package:fhcs/features/loans/presentation/controllers/loan_application.dart';
 import 'package:fhcs/features/loans/presentation/controllers/loans.dart';
 import 'package:fhcs/features/loans/presentation/controllers/normal_loan.dart';
+import 'package:fhcs/features/loans/presentation/controllers/referee_request.dart';
+import 'package:fhcs/features/loans/presentation/controllers/repay_loan.dart';
 import 'package:fhcs/features/loans/presentation/controllers/select_referee.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
@@ -96,7 +98,9 @@ class AppRouter {
       GoRoute(
         path: RouteConstants.membershipPaymentRoute,
         name: RouteConstants.membershipPaymentRoute,
-        pageBuilder: (context, state) => _buildPage(MembershipPaymentScreen()),
+        pageBuilder: (context, state) => _buildPage(MembershipPaymentScreen(
+          data: state.extra as ({String? amount, String? ref}),
+        )),
       ),
       GoRoute(
         path: RouteConstants.createPasswordRoute,

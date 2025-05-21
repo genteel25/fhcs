@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:phone_form_field/phone_form_field.dart';
+
+import 'package:fhcs/core/data/auth_info.dart';
 
 abstract class SignUpControllerContract {
   late int currentIndex;
@@ -47,7 +50,7 @@ abstract class SignUpControllerContract {
   void emailControllerListener();
   void onPickEmploymentDate();
   void onPickDateOfBirth();
-  void onSecondContinue();
+  void onSecondContinue(AuthInfoData? data);
   void uploadPassport();
   void onClearPassport();
   void onContinue();

@@ -1,4 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
 import 'package:fhcs/core/components/custom_button.dart';
 import 'package:fhcs/core/components/custom_outlined_button.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -9,12 +17,6 @@ import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dar
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/widgets/linear_indicator.dart';
 import 'package:fhcs/features/auth/presentation/widgets/second_kyc_info.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import '../widgets/first_kyc_info.dart';
 
@@ -171,13 +173,13 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                                   loading: () => context.loaderOverlay.show(),
                                   success: (response) {
                                     context.loaderOverlay.hide();
-                                    controller.onSecondContinue();
+                                    controller.onSecondContinue(response);
                                   },
                                   failure: (error) {
                                     context.loaderOverlay.hide();
-                                    GetIt.I
-                                        .get<IWidgetHelper>()
-                                        .showErrorToast(context, message: error);
+                                    GetIt.I.get<IWidgetHelper>().showErrorToast(
+                                        context,
+                                        message: error);
                                   },
                                 );
                               },

@@ -1,6 +1,8 @@
-import 'package:fhcs/core/data/nok_info.dart';
-import 'package:fhcs/core/data/personal_info.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'package:fhcs/core/data/nok_info.dart';
+import 'package:fhcs/core/data/payment.dart';
+import 'package:fhcs/core/data/personal_info.dart';
 part 'basic_info.freezed.dart';
 part 'basic_info.g.dart';
 
@@ -8,6 +10,7 @@ typedef InfoData = ({
   BasicInfoData basicInfo,
   PersonalInfoData personalData,
   NokInfoData? nokInfoData,
+  PaymentInfoData? paymentInfoData,
 });
 
 @Freezed(unionValueCase: FreezedUnionCase.snake)

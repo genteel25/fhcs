@@ -20,13 +20,14 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -36,6 +37,7 @@ mixin _$AuthState {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -45,6 +47,7 @@ mixin _$AuthState {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -68,13 +71,14 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -84,6 +88,7 @@ mixin _$AuthState {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -93,6 +98,7 @@ mixin _$AuthState {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -116,13 +122,14 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -132,6 +139,7 @@ mixin _$AuthState {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -141,6 +149,7 @@ mixin _$AuthState {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -296,13 +305,14 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -312,6 +322,7 @@ class _$InitialImpl implements _Initial {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -321,6 +332,7 @@ class _$InitialImpl implements _Initial {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -347,13 +359,14 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -363,6 +376,7 @@ class _$InitialImpl implements _Initial {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -372,6 +386,7 @@ class _$InitialImpl implements _Initial {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -398,13 +413,14 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -414,6 +430,7 @@ class _$InitialImpl implements _Initial {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -423,6 +440,7 @@ class _$InitialImpl implements _Initial {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -578,13 +596,14 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -594,6 +613,7 @@ class _$LoadingImpl implements _Loading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -603,6 +623,7 @@ class _$LoadingImpl implements _Loading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -629,13 +650,14 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -645,6 +667,7 @@ class _$LoadingImpl implements _Loading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -654,6 +677,7 @@ class _$LoadingImpl implements _Loading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -680,13 +704,14 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -696,6 +721,7 @@ class _$LoadingImpl implements _Loading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -705,6 +731,7 @@ class _$LoadingImpl implements _Loading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -823,7 +850,9 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String response});
+  $Res call({AuthInfoData? response});
+
+  $AuthInfoDataCopyWith<$Res>? get response;
 }
 
 /// @nodoc
@@ -839,24 +868,38 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? response = null,
+    Object? response = freezed,
   }) {
     return _then(_$SuccessImpl(
-      response: null == response
+      response: freezed == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AuthInfoData?,
     ));
+  }
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AuthInfoDataCopyWith<$Res>? get response {
+    if (_value.response == null) {
+      return null;
+    }
+
+    return $AuthInfoDataCopyWith<$Res>(_value.response!, (value) {
+      return _then(_value.copyWith(response: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl({required this.response});
+  const _$SuccessImpl({this.response});
 
   @override
-  final String response;
+  final AuthInfoData? response;
 
   @override
   String toString() {
@@ -888,13 +931,14 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -904,6 +948,7 @@ class _$SuccessImpl implements _Success {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -913,6 +958,7 @@ class _$SuccessImpl implements _Success {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -939,13 +985,14 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -955,6 +1002,7 @@ class _$SuccessImpl implements _Success {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -964,6 +1012,7 @@ class _$SuccessImpl implements _Success {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -990,13 +1039,14 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1006,6 +1056,7 @@ class _$SuccessImpl implements _Success {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1015,6 +1066,7 @@ class _$SuccessImpl implements _Success {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -1124,9 +1176,9 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements AuthState {
-  const factory _Success({required final String response}) = _$SuccessImpl;
+  const factory _Success({final AuthInfoData? response}) = _$SuccessImpl;
 
-  String get response;
+  AuthInfoData? get response;
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1205,13 +1257,14 @@ class _$FailureImpl implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -1221,6 +1274,7 @@ class _$FailureImpl implements _Failure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -1230,6 +1284,7 @@ class _$FailureImpl implements _Failure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -1256,13 +1311,14 @@ class _$FailureImpl implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1272,6 +1328,7 @@ class _$FailureImpl implements _Failure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1281,6 +1338,7 @@ class _$FailureImpl implements _Failure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -1307,13 +1365,14 @@ class _$FailureImpl implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1323,6 +1382,7 @@ class _$FailureImpl implements _Failure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1332,6 +1392,7 @@ class _$FailureImpl implements _Failure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -1495,13 +1556,14 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -1511,6 +1573,7 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -1520,6 +1583,7 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -1546,13 +1610,14 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1562,6 +1627,7 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1571,6 +1637,7 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -1597,13 +1664,14 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1613,6 +1681,7 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1622,6 +1691,7 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -1744,6 +1814,7 @@ abstract class _$$VerifySuccessImplCopyWith<$Res> {
       {({
         BasicInfoData basicInfo,
         NokInfoData? nokInfoData,
+        PaymentInfoData? paymentInfoData,
         PersonalInfoData personalData
       }) response});
 }
@@ -1770,6 +1841,7 @@ class __$$VerifySuccessImplCopyWithImpl<$Res>
               as ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }),
     ));
@@ -1785,6 +1857,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
   final ({
     BasicInfoData basicInfo,
     NokInfoData? nokInfoData,
+    PaymentInfoData? paymentInfoData,
     PersonalInfoData personalData
   }) response;
 
@@ -1818,13 +1891,14 @@ class _$VerifySuccessImpl implements _VerifySuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -1834,6 +1908,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -1843,6 +1918,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -1869,13 +1945,14 @@ class _$VerifySuccessImpl implements _VerifySuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1885,6 +1962,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1894,6 +1972,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -1920,13 +1999,14 @@ class _$VerifySuccessImpl implements _VerifySuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -1936,6 +2016,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -1945,6 +2026,7 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2058,12 +2140,14 @@ abstract class _VerifySuccess implements AuthState {
       {required final ({
         BasicInfoData basicInfo,
         NokInfoData? nokInfoData,
+        PaymentInfoData? paymentInfoData,
         PersonalInfoData personalData
       }) response}) = _$VerifySuccessImpl;
 
   ({
     BasicInfoData basicInfo,
     NokInfoData? nokInfoData,
+    PaymentInfoData? paymentInfoData,
     PersonalInfoData personalData
   }) get response;
 
@@ -2144,13 +2228,14 @@ class _$VerifyFailureImpl implements _VerifyFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -2160,6 +2245,7 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -2169,6 +2255,7 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -2195,13 +2282,14 @@ class _$VerifyFailureImpl implements _VerifyFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -2211,6 +2299,7 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -2220,6 +2309,7 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2246,13 +2336,14 @@ class _$VerifyFailureImpl implements _VerifyFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -2262,6 +2353,7 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -2271,6 +2363,7 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2435,13 +2528,14 @@ class _$NokLoadingImpl implements _NokLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -2451,6 +2545,7 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -2460,6 +2555,7 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -2486,13 +2582,14 @@ class _$NokLoadingImpl implements _NokLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -2502,6 +2599,7 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -2511,6 +2609,7 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2537,13 +2636,14 @@ class _$NokLoadingImpl implements _NokLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -2553,6 +2653,7 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -2562,6 +2663,7 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2684,6 +2786,7 @@ abstract class _$$NokSuccessImplCopyWith<$Res> {
       {({
         BasicInfoData basicInfo,
         NokInfoData? nokInfoData,
+        PaymentInfoData? paymentInfoData,
         PersonalInfoData personalData
       }) response});
 }
@@ -2710,6 +2813,7 @@ class __$$NokSuccessImplCopyWithImpl<$Res>
               as ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }),
     ));
@@ -2725,6 +2829,7 @@ class _$NokSuccessImpl implements _NokSuccess {
   final ({
     BasicInfoData basicInfo,
     NokInfoData? nokInfoData,
+    PaymentInfoData? paymentInfoData,
     PersonalInfoData personalData
   }) response;
 
@@ -2758,13 +2863,14 @@ class _$NokSuccessImpl implements _NokSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -2774,6 +2880,7 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -2783,6 +2890,7 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -2809,13 +2917,14 @@ class _$NokSuccessImpl implements _NokSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -2825,6 +2934,7 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -2834,6 +2944,7 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2860,13 +2971,14 @@ class _$NokSuccessImpl implements _NokSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -2876,6 +2988,7 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -2885,6 +2998,7 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -2998,12 +3112,14 @@ abstract class _NokSuccess implements AuthState {
       {required final ({
         BasicInfoData basicInfo,
         NokInfoData? nokInfoData,
+        PaymentInfoData? paymentInfoData,
         PersonalInfoData personalData
       }) response}) = _$NokSuccessImpl;
 
   ({
     BasicInfoData basicInfo,
     NokInfoData? nokInfoData,
+    PaymentInfoData? paymentInfoData,
     PersonalInfoData personalData
   }) get response;
 
@@ -3084,13 +3200,14 @@ class _$NokFailureImpl implements _NokFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -3100,6 +3217,7 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -3109,6 +3227,7 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -3135,13 +3254,14 @@ class _$NokFailureImpl implements _NokFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -3151,6 +3271,7 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -3160,6 +3281,7 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -3186,13 +3308,14 @@ class _$NokFailureImpl implements _NokFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -3202,6 +3325,7 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -3211,6 +3335,7 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -3374,13 +3499,14 @@ class _$BankLoadingImpl implements _BankLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -3390,6 +3516,7 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -3399,6 +3526,7 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -3425,13 +3553,14 @@ class _$BankLoadingImpl implements _BankLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -3441,6 +3570,7 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -3450,6 +3580,7 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -3476,13 +3607,14 @@ class _$BankLoadingImpl implements _BankLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -3492,6 +3624,7 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -3501,6 +3634,7 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -3623,6 +3757,7 @@ abstract class _$$BankSuccessImplCopyWith<$Res> {
       {({
         BasicInfoData basicInfo,
         NokInfoData? nokInfoData,
+        PaymentInfoData? paymentInfoData,
         PersonalInfoData personalData
       }) response});
 }
@@ -3649,6 +3784,7 @@ class __$$BankSuccessImplCopyWithImpl<$Res>
               as ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }),
     ));
@@ -3664,6 +3800,7 @@ class _$BankSuccessImpl implements _BankSuccess {
   final ({
     BasicInfoData basicInfo,
     NokInfoData? nokInfoData,
+    PaymentInfoData? paymentInfoData,
     PersonalInfoData personalData
   }) response;
 
@@ -3697,13 +3834,14 @@ class _$BankSuccessImpl implements _BankSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -3713,6 +3851,7 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -3722,6 +3861,7 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -3748,13 +3888,14 @@ class _$BankSuccessImpl implements _BankSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -3764,6 +3905,7 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -3773,6 +3915,7 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -3799,13 +3942,14 @@ class _$BankSuccessImpl implements _BankSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -3815,6 +3959,7 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -3824,6 +3969,7 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -3937,12 +4083,14 @@ abstract class _BankSuccess implements AuthState {
       {required final ({
         BasicInfoData basicInfo,
         NokInfoData? nokInfoData,
+        PaymentInfoData? paymentInfoData,
         PersonalInfoData personalData
       }) response}) = _$BankSuccessImpl;
 
   ({
     BasicInfoData basicInfo,
     NokInfoData? nokInfoData,
+    PaymentInfoData? paymentInfoData,
     PersonalInfoData personalData
   }) get response;
 
@@ -4023,13 +4171,14 @@ class _$BankFailureImpl implements _BankFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -4039,6 +4188,7 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -4048,6 +4198,7 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -4074,13 +4225,14 @@ class _$BankFailureImpl implements _BankFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -4090,6 +4242,7 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -4099,6 +4252,7 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -4125,13 +4279,14 @@ class _$BankFailureImpl implements _BankFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -4141,6 +4296,7 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -4150,6 +4306,7 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -4313,13 +4470,14 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -4329,6 +4487,7 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -4338,6 +4497,7 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -4364,13 +4524,14 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -4380,6 +4541,7 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -4389,6 +4551,7 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -4415,13 +4578,14 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -4431,6 +4595,7 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -4440,6 +4605,7 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -4624,13 +4790,14 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -4640,6 +4807,7 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -4649,6 +4817,7 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -4675,13 +4844,14 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -4691,6 +4861,7 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -4700,6 +4871,7 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -4726,13 +4898,14 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -4742,6 +4915,7 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -4751,6 +4925,7 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -4943,13 +5118,14 @@ class _$PasswordFailureImpl implements _PasswordFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -4959,6 +5135,7 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -4968,6 +5145,7 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -4994,13 +5172,14 @@ class _$PasswordFailureImpl implements _PasswordFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5010,6 +5189,7 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5019,6 +5199,7 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5045,13 +5226,14 @@ class _$PasswordFailureImpl implements _PasswordFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5061,6 +5243,7 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5070,6 +5253,7 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5234,13 +5418,14 @@ class _$LoginLoadingImpl implements _LoginLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -5250,6 +5435,7 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -5259,6 +5445,7 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -5285,13 +5472,14 @@ class _$LoginLoadingImpl implements _LoginLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5301,6 +5489,7 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5310,6 +5499,7 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5336,13 +5526,14 @@ class _$LoginLoadingImpl implements _LoginLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5352,6 +5543,7 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5361,6 +5553,7 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5560,13 +5753,14 @@ class _$LoginSuccessImpl implements _LoginSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -5576,6 +5770,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -5585,6 +5780,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -5611,13 +5807,14 @@ class _$LoginSuccessImpl implements _LoginSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5627,6 +5824,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5636,6 +5834,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5662,13 +5861,14 @@ class _$LoginSuccessImpl implements _LoginSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5678,6 +5878,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5687,6 +5888,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5884,13 +6086,14 @@ class _$LoginFailureImpl implements _LoginFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String response) success,
+    required TResult Function(AuthInfoData? response) success,
     required TResult Function(String error) failure,
     required TResult Function() verifyLoading,
     required TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         verifySuccess,
@@ -5900,6 +6103,7 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         nokSuccess,
@@ -5909,6 +6113,7 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)
         bankSuccess,
@@ -5935,13 +6140,14 @@ class _$LoginFailureImpl implements _LoginFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String response)? success,
+    TResult? Function(AuthInfoData? response)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? verifyLoading,
     TResult? Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -5951,6 +6157,7 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -5960,6 +6167,7 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
@@ -5986,13 +6194,14 @@ class _$LoginFailureImpl implements _LoginFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String response)? success,
+    TResult Function(AuthInfoData? response)? success,
     TResult Function(String error)? failure,
     TResult Function()? verifyLoading,
     TResult Function(
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         verifySuccess,
@@ -6002,6 +6211,7 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         nokSuccess,
@@ -6011,6 +6221,7 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               BasicInfoData basicInfo,
               NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
               PersonalInfoData personalData
             }) response)?
         bankSuccess,
