@@ -50,7 +50,7 @@ class FhcsApp extends StatelessWidget {
                   textScaler: TextScaler.linear(
                       MediaQuery.of(context).size.width > 428 ? 1 : 1.2)),
               child: GlobalLoaderOverlay(
-                overlayColor: AppColors.primary700.withValues(alpha: 0.3),
+                overlayColor: AppColors.primary700.withValues(alpha: 0.2),
                 overlayWholeScreen: true,
                 overlayWidgetBuilder: (context) => BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),

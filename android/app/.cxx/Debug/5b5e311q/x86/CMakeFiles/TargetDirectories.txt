@@ -1,0 +1,2 @@
+/Users/ajagbequadri/fhcs/android/app/.cxx/Debug/5b5e311q/x86/CMakeFiles/edit_cache.dir
+/Users/ajagbequadri/fhcs/android/app/.cxx/Debug/5b5e311q/x86/CMakeFiles/rebuild_cache.dir

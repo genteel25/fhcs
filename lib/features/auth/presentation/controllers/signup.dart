@@ -1,5 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:phone_form_field/phone_form_field.dart';
+
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/extensions.dart';
@@ -8,12 +16,6 @@ import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dar
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/signup.dart';
 import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:phone_form_field/phone_form_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String route = 'forgot_password';
@@ -378,6 +380,7 @@ class SignUpController extends State<SignUpScreen>
       "salary_grade_step": selectedSalaryGrade,
       "employment_date": employmentDateController.text,
       "in_service": employmentStatus,
+      "stage": "Personal Info",
     };
     if (pickedImagePath != null) {
       context.read<AuthCubit>().register(payload, File("")

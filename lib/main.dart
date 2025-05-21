@@ -7,6 +7,7 @@ import 'package:fhcs/config/di/app_initializer.dart';
 import 'package:fhcs/config/flavor/app_flavor.dart';
 import 'package:fhcs/fhcs_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   BuildFlavor.init(
@@ -18,6 +19,13 @@ void main() async {
         const String.fromEnvironment('KJEFKREKFJSNKLJFSVC', defaultValue: ""),
   );
   await AppInitializer.initGetIt();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarContrastEnforced: false,
+      statusBarColor: Colors.transparent, // Optional: transparent status bar too
+      statusBarIconBrightness: Brightness.dark, // Optional: icon brightness
+    ),
+  );
   // if (kDebugMode) {}
   // await Firebase.initializeApp();
   // if (!kDebugMode) {

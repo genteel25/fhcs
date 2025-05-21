@@ -58,6 +58,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/tbd/
-    - assets/fonts/
+    # - assets/fonts/
     - assets/svgs/
     - assets/translations/

@@ -141,76 +141,79 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
           ],
         ).paddingSymmetric(horizontal: 20.w),
       ),
-      bottomNavigationBar: Padding(
-        padding: MediaQuery.viewInsetsOf(context),
-        child: controller.isFirstPercentComplete
-            ? Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  4.h.heightBox,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 44.h,
-                          child: CustomOutlinedButtonWidget(
-                            "Go back",
-                            onPressed: () => controller.onGoBack(),
-                          ),
-                        ),
-                      ),
-                      10.w.widthBox,
-                      Expanded(
-                        child: SizedBox(
-                          height: 44.h,
-                          child: BlocListener<AuthCubit, AuthState>(
-                            listener: (context, state) {
-                              state.whenOrNull(
-                                loading: () => context.loaderOverlay.show(),
-                                success: (response) {
-                                  context.loaderOverlay.hide();
-                                  controller.onSecondContinue();
-                                },
-                                failure: (error) {
-                                  context.loaderOverlay.hide();
-                                  GetIt.I
-                                      .get<IWidgetHelper>()
-                                      .showErrorToast(context, message: error);
-                                },
-                              );
-                            },
-                            child: CustomButtonWidget(
-                              "Continue",
-                              onPressed: controller.secondPercent.length > 10
-                                  ? () => controller.onSubmit()
-                                  : null,
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Padding(
+          padding: MediaQuery.viewInsetsOf(context),
+          child: controller.isFirstPercentComplete
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    4.h.heightBox,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 44.h,
+                            child: CustomOutlinedButtonWidget(
+                              "Go back",
+                              onPressed: () => controller.onGoBack(),
                             ),
                           ),
                         ),
+                        10.w.widthBox,
+                        Expanded(
+                          child: SizedBox(
+                            height: 44.h,
+                            child: BlocListener<AuthCubit, AuthState>(
+                              listener: (context, state) {
+                                state.whenOrNull(
+                                  loading: () => context.loaderOverlay.show(),
+                                  success: (response) {
+                                    context.loaderOverlay.hide();
+                                    controller.onSecondContinue();
+                                  },
+                                  failure: (error) {
+                                    context.loaderOverlay.hide();
+                                    GetIt.I
+                                        .get<IWidgetHelper>()
+                                        .showErrorToast(context, message: error);
+                                  },
+                                );
+                              },
+                              child: CustomButtonWidget(
+                                "Continue",
+                                onPressed: controller.secondPercent.length > 10
+                                    ? () => controller.onSubmit()
+                                    : null,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ).paddingSymmetric(horizontal: 20),
+                    // 16.h.heightBox,
+                  ],
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    4.h.heightBox,
+                    Container(
+                      height: 44.h,
+                      width: double.infinity,
+                      padding: REdgeInsets.symmetric(horizontal: 20),
+                      child: CustomButtonWidget(
+                        "Continue",
+                        onPressed: controller.firstPercent.length == 5
+                            ? () => controller.onContinue()
+                            : null,
                       ),
-                    ],
-                  ).paddingSymmetric(horizontal: 20),
-                  16.h.heightBox,
-                ],
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  4.h.heightBox,
-                  Container(
-                    height: 44.h,
-                    width: double.infinity,
-                    padding: REdgeInsets.symmetric(horizontal: 20),
-                    child: CustomButtonWidget(
-                      "Continue",
-                      onPressed: controller.firstPercent.length == 5
-                          ? () => controller.onContinue()
-                          : null,
                     ),
-                  ),
-                  16.h.heightBox,
-                ],
-              ),
+                    16.h.heightBox,
+                  ],
+                ),
+        ),
       ),
     );
   }
