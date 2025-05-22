@@ -1,4 +1,12 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+
 import 'package:fhcs/core/api/api_services.dart';
 import 'package:fhcs/core/api/api_services_impl.dart';
 import 'package:fhcs/core/api/network/network_info.dart';
@@ -14,14 +22,9 @@ import 'package:fhcs/core/storage/local_storage.dart';
 import 'package:fhcs/core/storage/storage.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/bloc/bank_list/bank_list_cubit.dart';
+import 'package:fhcs/features/auth/presentation/bloc/verify_membership/verify_membership_cubit.dart';
 import 'package:fhcs/features/auth/repository/auth_repository.dart';
 import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
 
 class AppInitializer {
   static late GetIt instanceLocator;
@@ -86,6 +89,10 @@ class AppInitializer {
     instanceLocator.registerLazySingleton<BankListCubit>(() => BankListCubit(
           authRepository: instanceLocator(),
         ));
+    instanceLocator.registerLazySingleton<VerifyMembershipCubit>(
+        () => VerifyMembershipCubit(
+              repository: instanceLocator(),
+            ));
   }
 
   static initRepos() {

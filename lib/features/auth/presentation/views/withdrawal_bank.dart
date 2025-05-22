@@ -117,7 +117,7 @@ class WithdrawalBankView extends StatelessWidget
               AppSheets.bankWithdrawalSuccessSheet(context, onPressed: () {
                 context
                     .pushNamed(RouteConstants.membershipPaymentRoute, extra: (
-                  amount: response.paymentInfoData?.amount ?? "0",
+                  amount: response.paymentInfoData?.amount?.toString() ?? "0",
                   ref: response.paymentInfoData?.refId ?? ""
                 ));
               });

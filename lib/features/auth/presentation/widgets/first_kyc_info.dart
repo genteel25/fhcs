@@ -1,14 +1,16 @@
 import 'dart:io';
 
-import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:fhcs/core/components/custom_image_picker_card.dart';
-import 'package:fhcs/core/components/custom_input_label.dart';
-import 'package:fhcs/core/components/custom_phone_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:phone_form_field/phone_form_field.dart';
+
+import 'package:fhcs/core/components/custom_image_picker_card.dart';
+import 'package:fhcs/core/components/custom_input_label.dart';
+import 'package:fhcs/core/components/custom_phone_field.dart';
 
 class ThreeWordInputFormatter extends TextInputFormatter {
   @override
@@ -58,7 +60,8 @@ class FirstKycInfoWidget extends StatelessWidget {
             controller: fullNameController,
             validator: ValidationBuilder()
                 .required()
-                .regExp(RegExp(r'^\s*\b(\w+\b\s*){1,3}$'), "Max of 3 words")
+                .regExp(RegExp(r'^\s*\b(\w+\b\s*){2,3}$'),
+                    "Min of 2 names and Max of 3 names")
                 .build(),
             formatter: [ThreeWordInputFormatter()],
             hintText: "Enter your full name",

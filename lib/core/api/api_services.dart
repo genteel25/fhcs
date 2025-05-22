@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
 import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
+import 'package:fhcs/core/data/payment.dart';
+
 import 'exceptions/contracts/failure.dart';
 
 typedef LoginData = ({
@@ -29,4 +32,6 @@ abstract class ApiServices {
       Map<String, dynamic> payload);
   Future<Either<Failure, ApiResponse<LoginData>>> login(
       Map<String, dynamic> payload);
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> verifyMembershipPayment(
+      String refNo);
 }

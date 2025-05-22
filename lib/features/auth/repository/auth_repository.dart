@@ -8,6 +8,7 @@ import 'package:fhcs/core/api/service/contracts/api_response.dart';
 import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
+import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/storage/contract/istorage.dart';
 import 'package:fhcs/core/storage/storage_constant.dart';
 import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
@@ -67,6 +68,11 @@ class AuthRepository implements IAuthRepository {
   Future<Either<Failure, ApiResponse<LoginData>>> login(
           Map<String, dynamic> payload) =>
       apiServices.login(payload);
+
+  @override
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> verifyMembershipPayment(
+          String refNo) =>
+      apiServices.verifyMembershipPayment(refNo);
 
   @override
   Future<void> saveAuthToken(

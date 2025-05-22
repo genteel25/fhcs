@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paystack_max/flutter_paystack_max.dart';
 import 'package:flutter_paystack_plus/flutter_paystack_plus.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
+import 'package:fhcs/features/auth/presentation/bloc/verify_membership/verify_membership_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/membership_payment.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/membership_payment.dart';
 import 'package:fhcs/features/auth/presentation/views/membership_payment.dart';
@@ -65,8 +67,13 @@ class MembershipPaymentController extends State<MembershipPaymentScreen>
         initializedTransaction.data?.reference ?? request.reference,
       );
     });
-
-    log("response: ${response}");
+    if (response.data.status == PaystackTransactionStatus.success) {
+      context
+          .read<VerifyMembershipCubit>()
+          .verifyMembershipPayment(response.data.reference);
+    }
+// PaystackTransactionVerified
+//     log("response: ${response}");
   }
 
   @override
