@@ -75,6 +75,11 @@ class AuthRepository implements IAuthRepository {
       apiServices.verifyMembershipPayment(refNo);
 
   @override
+  Future<Either<Failure, ApiResponse<String>>> setMonthlyContribution(
+          Map<String, dynamic> payload) =>
+      apiServices.setMonthlyContribution(payload);
+
+  @override
   Future<void> saveAuthToken(
       {required String accessToken, required String refreshToken}) async {
     await localStorage.saveString(StorageConstant.accessToken, accessToken);

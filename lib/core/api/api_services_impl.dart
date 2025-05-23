@@ -171,9 +171,24 @@ class ApiServicesImpl implements ApiServices {
   Future<Either<Failure, ApiResponse<PaymentInfoData>>> verifyMembershipPayment(
           String refNo) =>
       apiClient.request<PaymentInfoData>(
-        ApiEndpoint.verifyMembershipPayment(refNo),
+        ApiEndpoint.verifyMembershipPayment,
         MethodType.post,
         (data) => PaymentInfoData.fromJson(data),
-        null,
+        {
+          "ref_id": refNo,
+        },
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<String>>> setMonthlyContribution(
+          Map<String, dynamic> payload) =>
+      apiClient.request<String>(
+        ApiEndpoint.setMonthlyContribution,
+        MethodType.post,
+        (data) {
+          log("monthly contribution data: $data");
+          return "";
+        },
+        payload,
       );
 }

@@ -1,3 +1,4 @@
+import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -92,6 +93,10 @@ class AppInitializer {
     instanceLocator.registerLazySingleton<VerifyMembershipCubit>(
         () => VerifyMembershipCubit(
               repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<MonthlyContributionCubit>(
+        () => MonthlyContributionCubit(
+              authRepository: instanceLocator(),
             ));
   }
 

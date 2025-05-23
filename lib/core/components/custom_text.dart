@@ -15,6 +15,7 @@ class AppText extends StatelessWidget {
     this.textDecoration,
     this.color,
     this.maxLines,
+    this.isAmount = false,
   });
   final String text;
   final double? fontSize;
@@ -26,18 +27,27 @@ class AppText extends StatelessWidget {
   final TextAlign? textAlign;
   final Color? color;
   final int? maxLines;
+  final bool isAmount;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.onest(
-        fontSize: fontSize?.sp,
-        fontWeight: fontWeight,
-        decoration: textDecoration,
-        height: height,
-        color: color,
-      ),
+      style: isAmount
+          ? GoogleFonts.roboto(
+              fontSize: fontSize?.sp,
+              fontWeight: fontWeight,
+              decoration: textDecoration,
+              height: height,
+              color: color,
+            )
+          : GoogleFonts.onest(
+              fontSize: fontSize?.sp,
+              fontWeight: fontWeight,
+              decoration: textDecoration,
+              height: height,
+              color: color,
+            ),
       softWrap: softWrap,
       overflow: overflow,
       textAlign: textAlign,

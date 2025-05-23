@@ -6,5 +6,7 @@ class ApiEndpoint {
   static const bankList = 'data/banks';
   static const setPassword = 'auth/password/set';
   static const login = 'auth/login';
-  static verifyMembershipPayment(String refNo) => "payments/$refNo/verify";
+  // static verifyMembershipPayment(String refNo) => "payments/$refNo/verify";
+  static const verifyMembershipPayment = "auth/signup/payment/verify";
+  static const setMonthlyContribution = "monthly-contribution/requests";
 }

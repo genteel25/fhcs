@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -32,6 +33,9 @@ class FhcsApp extends StatelessWidget {
         ),
         BlocProvider<VerifyMembershipCubit>(
           create: (context) => GetIt.I.get<VerifyMembershipCubit>(),
+        ),
+        BlocProvider<MonthlyContributionCubit>(
+          create: (context) => GetIt.I.get<MonthlyContributionCubit>(),
         ),
       ],
       child: ScreenUtilInit(

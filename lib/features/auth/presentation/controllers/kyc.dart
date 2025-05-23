@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:fhcs/core/utils/extensions.dart';
+import 'package:fhcs/core/utils/global_variables.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/kyc.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/kyc.dart';
 import 'package:fhcs/features/auth/presentation/views/kyc.dart';
@@ -23,6 +26,14 @@ class KycController extends State<KycScreen> implements KycControllerContract {
   TextEditingController percentInvestmentController = TextEditingController();
 
   @override
+  CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter.currency(
+    symbol: GlobalVariables.nairaCurrencySymbol,
+    decimalDigits: 0,
+    minValue: 0,
+    enableNegative: false,
+  );
+
+  @override
   String initialSavingsPercent = "0";
 
   @override
@@ -37,41 +48,38 @@ class KycController extends State<KycScreen> implements KycControllerContract {
   }
 
   @override
-  void onChangeSavingPercent(String value) {
-    log("math value: ${double.parse(initialSavingsPercent) + double.parse(initialInvestmentPercent) > 100}");
-    setState(() {
-      initialSavingsPercent = ((int.parse(value) *
-                  int.parse(monthlyContributionController.text.isEmpty
-                      ? "0"
-                      : monthlyContributionController.text)) /
-              100)
-          .toString();
-      percentSavingsController.text = "$value%";
-    });
-    onChangeInvestmentPercent();
-  }
+  void allocateContribution({
+    required double savingPercent,
+    required double investmentPercent,
+  }) {
+    // Convert percentages to ratios
+    final savingsPct = (savingPercent / 100).clamp(0.01, 0.5);
+    final investmentPct = (investmentPercent / 100).clamp(0.0, 0.99);
 
-  @override
-  void onChangeInvestmentPercent({String? value}) {
-    if (value != null) {
-      setState(() {
-        initialInvestmentPercent = ((int.parse(value) *
-                    int.parse(monthlyContributionController.text.isEmpty
-                        ? "0"
-                        : monthlyContributionController.text)) /
-                100)
-            .toString();
-        percentInvestmentController.text = "$value%";
-      });
-    } else {
-      setState(() {
-        initialInvestmentPercent = (100 -
-                int.parse(percentInvestmentController.text.replaceAll("%", "")))
-            .toString();
-        percentInvestmentController.text =
-            "${100 - int.parse(percentSavingsController.text.replaceAll("%", ""))}%";
-      });
-    }
+    // Ensure total does not exceed 100%
+    final total = savingsPct + investmentPct;
+    final adjustedSavings = total > 1 ? savingsPct / total : savingsPct;
+    final adjustedInvestment =
+        total > 1 ? investmentPct / total : investmentPct;
+    percentInvestmentController.text =
+        "${(adjustedInvestment * 100).toStringAsFixed(0)}%";
+    percentSavingsController.text =
+        "${(adjustedSavings * 100).toStringAsFixed(0)}%";
+
+    // Calculate amounts (with rounding)
+    final savingsAmount =
+        (monthlyContributionController.text.cleanCheckEmptyCurrencyText *
+                adjustedSavings)
+            .toStringAsFixed(0);
+    final investmentAmount =
+        (monthlyContributionController.text.cleanCheckEmptyCurrencyText *
+                adjustedInvestment)
+            .toStringAsFixed(0);
+
+    // Update UI
+    initialSavingsPercent = savingsAmount;
+    initialInvestmentPercent = investmentAmount;
+    setState(() {});
   }
 
   @override

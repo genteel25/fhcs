@@ -34,4 +34,6 @@ abstract class ApiServices {
       Map<String, dynamic> payload);
   Future<Either<Failure, ApiResponse<PaymentInfoData>>> verifyMembershipPayment(
       String refNo);
+  Future<Either<Failure, ApiResponse<String>>> setMonthlyContribution(
+      Map<String, dynamic> payload);
 }

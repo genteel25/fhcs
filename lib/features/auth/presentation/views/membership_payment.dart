@@ -1,3 +1,4 @@
+import 'package:fhcs/core/router/route_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
@@ -5,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:fhcs/core/components/custom_text.dart';
@@ -77,6 +79,7 @@ class MembershipPaymentView extends StatelessWidget
                           context,
                           message: "Payment successful",
                         );
+                      context.pushNamed(RouteConstants.createPasswordRoute);
                   },
                 );
               },

@@ -30,6 +30,8 @@ abstract class IAuthRepository {
       Map<String, dynamic> payload);
   Future<Either<Failure, ApiResponse<PaymentInfoData>>> verifyMembershipPayment(
       String refNo);
+  Future<Either<Failure, ApiResponse<String>>> setMonthlyContribution(
+      Map<String, dynamic> payload);
   Future<void> saveAuthToken(
       {required String accessToken, required String refreshToken});
 }

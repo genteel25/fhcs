@@ -24,6 +24,7 @@ class CustomInputLabelWidget extends StatelessWidget {
     this.prefixAsset,
     this.minLines,
     this.maxLines,
+    this.isAmount = false,
   });
   final String labelText;
   final String hintText;
@@ -39,6 +40,7 @@ class CustomInputLabelWidget extends StatelessWidget {
   final String? prefixAsset;
   final int? minLines;
   final int? maxLines;
+  final bool isAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +63,19 @@ class CustomInputLabelWidget extends StatelessWidget {
             cursorHeight: 16.h,
             readOnly: isReadOnly ?? false,
             cursorWidth: 1.w,
-            style: GoogleFonts.onest(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w400,
-              color: AppColors.neutral800,
-              height: 1.h,
-            ),
+            style: isAmount
+                ? GoogleFonts.roboto(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.neutral800,
+                    height: 1.h,
+                  )
+                : GoogleFonts.onest(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.neutral800,
+                    height: 1.h,
+                  ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: keyboardType ?? TextInputType.text,
             textInputAction: textInputAction ?? TextInputAction.next,
