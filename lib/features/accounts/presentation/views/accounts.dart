@@ -98,12 +98,13 @@ class AccountsView extends StatelessWidget implements AccountsViewContract {
                             alignment: Alignment.topCenter,
                             child: AssetCardWidget(
                               title: "Savings Balance",
+                              balance: "0",
                             ),
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: AssetCardWidget(
-                              balance: "510,200.00 NGN",
+                              balance: "0",
                               title: "Investment Balance",
                               gradientColor: [
                                 Color(0xff1E1E31),

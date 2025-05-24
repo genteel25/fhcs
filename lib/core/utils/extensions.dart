@@ -69,4 +69,5 @@ extension DateFormatter on DateTime {
   String get postDateFormat => DateFormat.MMMd().format(this);
   String get pickerDate => DateFormat('yyyy-MM-dd').format(this);
   String get formattedDate => DateFormat('MMM dd, yyyy').format(this);
+  String get loanFormattedDate => DateFormat('dd-MMMM-yyyy').format(this);
 }

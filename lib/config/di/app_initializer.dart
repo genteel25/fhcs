@@ -10,6 +10,7 @@ import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_c
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
 import 'package:fhcs/features/home/repository/home_repository.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
 import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
@@ -147,6 +148,18 @@ class AppInitializer {
         ));
     instanceLocator
         .registerLazySingleton<LoanRequestCubit>(() => LoanRequestCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<LoanHistoryCubit>(() => LoanHistoryCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<LoanApplicationsCubit>(
+        () => LoanApplicationsCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<ActiveLoansCubit>(() => ActiveLoansCubit(
               loanRepository: instanceLocator(),
             ));
   }

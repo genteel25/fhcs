@@ -7,6 +7,7 @@ import 'package:fhcs/features/home/presentation/bloc/initiate_withdrawal/initiat
 import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,15 @@ class FhcsApp extends StatelessWidget {
         ),
         BlocProvider<LoanRequestCubit>(
           create: (context) => GetIt.I.get<LoanRequestCubit>(),
+        ),
+        BlocProvider<LoanHistoryCubit>(
+          create: (context) => GetIt.I.get<LoanHistoryCubit>(),
+        ),
+        BlocProvider<LoanApplicationsCubit>(
+          create: (context) => GetIt.I.get<LoanApplicationsCubit>(),
+        ),
+        BlocProvider<ActiveLoansCubit>(
+          create: (context) => GetIt.I.get<ActiveLoansCubit>(),
         ),
       ],
       child: ScreenUtilInit(

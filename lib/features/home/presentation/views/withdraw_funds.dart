@@ -89,7 +89,10 @@ class WithdrawFundView extends StatelessWidget
                             : response.totalInvestment?.toString() ?? "0",
                         isAmount: true,
                         hasPrefix: true,
-                        prefix: "Savings balance: ",
+                        prefix: controller.withdrawalAccount ==
+                                WithdrawalAccount.savings
+                            ? "Savings balance: "
+                            : "Investment balance: ",
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
                         color: AppColors.neutral800,

@@ -1,12 +1,15 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/data/loan.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LoanApplicationItemWidget extends StatelessWidget {
-  const LoanApplicationItemWidget({super.key});
+  const LoanApplicationItemWidget({super.key, required this.data});
+  final LoanData data;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +39,18 @@ class LoanApplicationItemWidget extends StatelessWidget {
                 padding: REdgeInsets.all(10),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.info700.withValues(alpha: 0.15),
+                  color: switch (data.isNormalLoan) {
+                    false => AppColors.violet800.withValues(alpha: 0.15),
+                    _ => AppColors.info700.withValues(alpha: 0.15),
+                  },
                 ),
                 child: SvgPicture.asset(
                   "assets/svgs/money_bag.svg",
                   colorFilter: ColorFilter.mode(
-                    AppColors.info700,
+                    switch (data.isNormalLoan) {
+                      false => AppColors.violet800,
+                      _ => AppColors.info700
+                    },
                     BlendMode.srcIn,
                   ),
                 ),
@@ -54,10 +63,11 @@ class LoanApplicationItemWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AppText(
-                        "N 19,000",
+                        data.amount?.toString() ?? "0",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.neutral800,
+                        isAmount: true,
                       ),
                       8.w.widthBox,
                       Container(
@@ -67,13 +77,26 @@ class LoanApplicationItemWidget extends StatelessWidget {
                           border: Border.all(color: AppColors.neutral100),
                           borderRadius: BorderRadius.circular(100.r),
                         ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("assets/svgs/profile_success.svg"),
-                            5.w.widthBox,
-                            SvgPicture.asset("assets/svgs/profile_error.svg"),
-                          ],
-                        ),
+                        child: switch (data.nextApprovalStep?.loanStatus) {
+                          LoanStatus.pending || LoanStatus.rejected => Row(
+                              children: [
+                                SvgPicture.asset(
+                                    "assets/svgs/profile_success.svg"),
+                                5.w.widthBox,
+                                SvgPicture.asset(
+                                    "assets/svgs/profile_error.svg"),
+                              ],
+                            ),
+                          _ => Row(
+                              children: [
+                                SvgPicture.asset(
+                                    "assets/svgs/profile_success.svg"),
+                                5.w.widthBox,
+                                SvgPicture.asset(
+                                    "assets/svgs/profile_success.svg"),
+                              ],
+                            ),
+                        },
                       ),
                     ],
                   ),
@@ -89,10 +112,16 @@ class LoanApplicationItemWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100.r),
                         ),
                         child: AppText(
-                          "Normal",
+                          switch (data.isNormalLoan) {
+                            false => "Emergency",
+                            _ => "Normal",
+                          },
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.info700,
+                          color: switch (data.isNormalLoan) {
+                            false => AppColors.violet800,
+                            _ => AppColors.info700,
+                          },
                         ),
                       ),
                       4.w.widthBox,
@@ -101,16 +130,24 @@ class LoanApplicationItemWidget extends StatelessWidget {
                       SvgPicture.asset("assets/svgs/clock.svg"),
                       4.w.widthBox,
                       AppText(
-                        "Pending",
+                        switch (data.nextApprovalStep?.loanStatus) {
+                          LoanStatus.approved => "Approved",
+                          LoanStatus.rejected => "Rejected",
+                          _ => "Pending",
+                        },
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.warning500,
+                        color: switch (data.nextApprovalStep?.loanStatus) {
+                          LoanStatus.approved => AppColors.primary700,
+                          LoanStatus.rejected => AppColors.secondary700,
+                          _ => AppColors.warning500,
+                        },
                       ),
                       4.w.widthBox,
                       SvgPicture.asset("assets/svgs/dot.svg"),
                       4.w.widthBox,
                       AppText(
-                        "Jan 18 2025",
+                        data.createdAt?.formattedDate ?? "",
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
                         color: AppColors.neutral500,
@@ -138,44 +175,36 @@ class LoanApplicationItemWidget extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    AppText(
-                      "Referee 1",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.neutral500,
-                    ),
-                    const Spacer(),
-                    AppText(
-                      "N 19,000",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.neutral800,
-                    ),
-                  ],
-                ),
-                Divider(
-                  height: 32.h,
-                  color: AppColors.neutral100,
-                  thickness: 1.h,
-                ),
-                Row(
-                  children: [
-                    AppText(
-                      "Referee 2",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.neutral500,
-                    ),
-                    const Spacer(),
-                    AppText(
-                      "N 19,000",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.neutral800,
-                    ),
-                  ],
+                ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        AppText(
+                          "Referee ${index + 1}",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.neutral500,
+                        ),
+                        const Spacer(),
+                        AppText(
+                          "${data.referees?[index]['referee']['first_name']} ${data.referees?[index]['referee']['last_name']}",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.neutral800,
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      height: 32.h,
+                      color: AppColors.neutral100,
+                      thickness: 1.h,
+                    );
+                  },
+                  itemCount: data.referees?.length ?? 0,
+                  shrinkWrap: true,
                 ),
                 Divider(
                   height: 32.h,
@@ -192,7 +221,7 @@ class LoanApplicationItemWidget extends StatelessWidget {
                     ),
                     const Spacer(),
                     AppText(
-                      "24-February-2025",
+                      data.createdAt?.loanFormattedDate ?? "",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutral800,
@@ -214,7 +243,7 @@ class LoanApplicationItemWidget extends StatelessWidget {
                     ),
                     const Spacer(),
                     AppText(
-                      "24-March-2025",
+                      data.updatedAt?.loanFormattedDate ?? "",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutral800,
@@ -236,10 +265,11 @@ class LoanApplicationItemWidget extends StatelessWidget {
                     ),
                     const Spacer(),
                     AppText(
-                      "N 1,200,000",
+                      data.annualSalary?.toString() ?? "0",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutral800,
+                      isAmount: true,
                     ),
                   ],
                 ),
@@ -260,13 +290,14 @@ class LoanApplicationItemWidget extends StatelessWidget {
                     32.w.widthBox,
                     Expanded(
                       child: AppText(
-                        "I want to do something with funds but from the look of things in this...",
+                        data.description ?? "",
                         softWrap: true,
                         maxLines: 2,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: AppColors.neutral800,
                         overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.end,
                       ),
                     ),
                   ],

@@ -13,6 +13,7 @@ import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/data/dashboard.dart';
+import 'package:fhcs/core/data/loan.dart';
 import 'package:fhcs/core/data/nok_info.dart';
 import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/data/personal_info.dart';
@@ -288,5 +289,44 @@ class ApiServicesImpl implements ApiServices {
           return PaymentInfoData.fromJson(data);
         },
         payload,
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<List<LoanData>>>> loanApplications() =>
+      apiClient.request<List<LoanData>>(
+        "${ApiEndpoint.loanRequest}?status=application",
+        MethodType.get,
+        (data) {
+          log("loan application data: $data");
+          return (data as List)
+              .map((transactionData) => LoanData.fromJson(transactionData))
+              .toList();
+        },
+        null,
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<List<LoanData>>>> activeLoans() =>
+      apiClient.request<List<LoanData>>(
+        "${ApiEndpoint.loanRequest}?status=active",
+        MethodType.get,
+        (data) {
+          return (data as List)
+              .map((transactionData) => LoanData.fromJson(transactionData))
+              .toList();
+        },
+        null,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<List<LoanData>>>> loanHistory() =>
+      apiClient.request<List<LoanData>>(
+        ApiEndpoint.loanRequest,
+        MethodType.get,
+        (data) {
+          return (data as List)
+              .map((transactionData) => LoanData.fromJson(transactionData))
+              .toList();
+        },
+        null,
       );
 }

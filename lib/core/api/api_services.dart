@@ -7,6 +7,7 @@ import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/data/dashboard.dart';
+import 'package:fhcs/core/data/loan.dart';
 import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/data/referee.dart';
 import 'package:fhcs/core/data/transaction.dart';
@@ -54,4 +55,7 @@ abstract class ApiServices {
   Future<Either<Failure, ApiResponse<List<RefereeData>>>> fetchReferees();
   Future<Either<Failure, ApiResponse<PaymentInfoData>>> loanRequest(
       Map<String, dynamic> payload);
+  Future<Either<Failure, ApiResponse<List<LoanData>>>> loanHistory();
+  Future<Either<Failure, ApiResponse<List<LoanData>>>> activeLoans();
+  Future<Either<Failure, ApiResponse<List<LoanData>>>> loanApplications();
 }

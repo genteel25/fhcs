@@ -2,8 +2,10 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
@@ -114,7 +116,16 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                       ],
                     ).paddingSymmetric(horizontal: 20.w),
                     24.h.heightBox,
-                    AssetCardWidget(),
+                    BlocBuilder<DashboardCubit, DashboardState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => AssetCardWidget(
+                                balance: response.totalLoanTaken?.toString(),
+                              ),
+                            ) ??
+                            AssetCardWidget(balance: "0");
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -189,32 +200,50 @@ class LoansView extends StatelessWidget implements LoansViewContract {
             ),
             16.h.heightBox,
             Expanded(
-              child: SingleChildScrollView(
-                primary: true,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: REdgeInsets.symmetric(vertical: 0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        // color: AppColors.lightest,
-                      ),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        primary: false,
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) {
-                          return LoanApplicationItemWidget();
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                              color: AppColors.neutral100, height: 0.h);
-                        },
-                        itemCount: 8,
-                      ),
-                    ).paddingSymmetric(horizontal: 20.w),
-                  ],
-                ),
+              child: TabBarView(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child: BlocBuilder<LoanApplicationsCubit,
+                              LoanApplicationsState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    success: (response) => ListView.separated(
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      padding: EdgeInsets.zero,
+                                      itemBuilder: (context, index) {
+                                        return LoanApplicationItemWidget(
+                                          data: response[index],
+                                        );
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return Divider(
+                                            color: AppColors.neutral100,
+                                            height: 0.h);
+                                      },
+                                      itemCount: response.length,
+                                    ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                  AppText(""),
+                  AppText(""),
+                ],
               ),
             ),
           ],

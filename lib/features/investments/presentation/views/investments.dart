@@ -95,6 +95,8 @@ class InvestmentsView extends StatelessWidget
                     ).paddingSymmetric(horizontal: 20.w),
                     24.h.heightBox,
                     AssetCardWidget(
+                      balance: "0",
+                      title: "Investment balance",
                       gradientColor: [
                         Color(0xff1E1E31),
                         Color(0xff070720),
@@ -173,35 +175,35 @@ class InvestmentsView extends StatelessWidget
               ),
             ),
             16.h.heightBox,
-            Expanded(
-              child: SingleChildScrollView(
-                primary: true,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: REdgeInsets.symmetric(vertical: 0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        // color: AppColors.lightest,
-                      ),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        primary: false,
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) {
-                          return LoanApplicationItemWidget();
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                              color: AppColors.neutral100, height: 0.h);
-                        },
-                        itemCount: 8,
-                      ),
-                    ).paddingSymmetric(horizontal: 20.w),
-                  ],
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: SingleChildScrollView(
+            //     primary: true,
+            //     child: Column(
+            //       children: [
+            //         Container(
+            //           padding: REdgeInsets.symmetric(vertical: 0),
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(8.r),
+            //             // color: AppColors.lightest,
+            //           ),
+            //           child: ListView.separated(
+            //             shrinkWrap: true,
+            //             primary: false,
+            //             padding: EdgeInsets.zero,
+            //             itemBuilder: (context, index) {
+            //               return LoanApplicationItemWidget();
+            //             },
+            //             separatorBuilder: (context, index) {
+            //               return Divider(
+            //                   color: AppColors.neutral100, height: 0.h);
+            //             },
+            //             itemCount: 8,
+            //           ),
+            //         ).paddingSymmetric(horizontal: 20.w),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -62,6 +62,7 @@ class AssetCardWidget extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
                 color: AppColors.lightest,
+                isAmount: true,
               ),
             ],
           ),
