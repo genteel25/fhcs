@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_animated_dropdown.dart';
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -96,6 +97,12 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
               "Annual salary",
               controller: controller.annualSalaryController,
               hintText: "Enter your annual salary",
+            ),
+            16.h.heightBox,
+            CustomAnimatedDropdownWidget(
+              controller.durations,
+              controller: controller.loanDuration,
+              labelText: "Loan duration",
             ),
             16.h.heightBox,
             AppText(

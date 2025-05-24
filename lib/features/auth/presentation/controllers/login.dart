@@ -17,9 +17,11 @@ class LoginController extends State<LoginScreen>
     implements LoginControllerContract {
   late LoginViewContract view;
   @override
-  TextEditingController emailController = TextEditingController();
+  TextEditingController emailController =
+      TextEditingController(text: "genteelajagbe16@gmail.com");
   @override
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordController =
+      TextEditingController(text: "Password@1");
 
   @override
   bool isObscure = false;
@@ -37,12 +39,12 @@ class LoginController extends State<LoginScreen>
     });
   }
 
+  @override
   void onLogin() {
     final payload = {
       "username": emailController.text,
       "password": passwordController.text,
     };
-    // TODO: implement onLogin
     context.read<AuthCubit>().login(payload);
   }
 

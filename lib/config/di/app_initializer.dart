@@ -1,4 +1,15 @@
+import 'dart:developer';
+
+import 'package:fhcs/core/storage/storage_constant.dart';
 import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_withdrawal/initiate_withdrawal_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
+import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
+import 'package:fhcs/features/home/repository/home_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +44,7 @@ class AppInitializer {
   static bool isLoggedIn = false;
   static late String? email;
   static late String? password;
+  static late String? accessToken;
   static late bool? isDarkMode, isRememberMe;
 
   AppInitializer._();
@@ -56,7 +68,12 @@ class AppInitializer {
 
   static dynamic initGetIt() async {
     instanceLocator = GetIt.I;
+    instanceLocator.allowReassignment = true;
     await create();
+    accessToken = await instanceLocator
+        .get<IAppStorage>()
+        .fetchString(StorageConstant.accessToken);
+    log("Access Token: $accessToken");
     // firstTime = await GetIt.I.get<LocalStorage>().getFirstTime();
     // // isLoggedIn = await GetIt.I.get<LocalStorage>().isLoggedIn();
     // email = await GetIt.I.get<LocalStorage>().getEmail();
@@ -98,11 +115,40 @@ class AppInitializer {
         () => MonthlyContributionCubit(
               authRepository: instanceLocator(),
             ));
+    instanceLocator
+        .registerLazySingleton<UserProfileCubit>(() => UserProfileCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<DashboardCubit>(() => DashboardCubit(
+          homeRepository: instanceLocator(),
+        ));
+    instanceLocator
+        .registerLazySingleton<InitiateFundingCubit>(() => InitiateFundingCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<VerifyFundingCubit>(() => VerifyFundingCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<TransactionsCubit>(() => TransactionsCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<InitiateWithdrawalCubit>(
+        () => InitiateWithdrawalCubit(
+              homeRepository: instanceLocator(),
+            ));
   }
 
   static initRepos() {
     instanceLocator.registerLazySingleton<IAuthRepository>(
       () => AuthRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<IHomeRepository>(
+      () => HomeRepository(
         localStorage: instanceLocator(),
         apiServices: instanceLocator(),
       ),
@@ -133,6 +179,16 @@ class AppInitializer {
         apiClient: instanceLocator(),
       ),
     );
+  }
+
+  static initGlobalVariable() {
+    // instanceLocator.registerSingleton<String>(null, instanceName: 'isLoggedIn');
+    // instanceLocator.pushNewScope(
+    //   init: (getIt) => getIt.registerLazySingleton<bool>(
+    //     () => false,
+    //   ),
+    //   scopeName: 'isLoggedIn',
+    // );
   }
 
   static initializeDi() {

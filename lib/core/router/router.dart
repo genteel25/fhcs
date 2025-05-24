@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:fhcs/config/di/app_initializer.dart';
+import 'package:fhcs/features/home/presentation/controllers/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +47,10 @@ class AppRouter {
   static GoRouter routeConfig = GoRouter(
     debugLogDiagnostics: false,
     navigatorKey: GlobalVariables.rootNavigatorKey,
-    initialLocation: "/",
+    initialLocation: AppInitializer.accessToken != null &&
+            AppInitializer.accessToken!.isNotEmpty
+        ? RouteConstants.homeRoute
+        : RouteConstants.initialRoute,
     routes: [
       GoRoute(
         path: RouteConstants.loginRoute,
@@ -126,7 +131,7 @@ class AppRouter {
         path: RouteConstants.addMoneyRoute,
         name: RouteConstants.addMoneyRoute,
         pageBuilder: (context, state) => _buildPage(AddMoneyScreen(
-          data: state.extra as ({FundingMode mode, bool? hasCreditCard}),
+          mode: state.extra as FundingMode,
         )),
       ),
       GoRoute(
@@ -144,12 +149,21 @@ class AppRouter {
       GoRoute(
         path: RouteConstants.withdrawFundRoute,
         name: RouteConstants.withdrawFundRoute,
-        pageBuilder: (context, state) => _buildPage(WithdrawFundScreen()),
+        pageBuilder: (context, state) => _buildPage(WithdrawFundScreen(
+          account: state.extra as WithdrawalAccount,
+        )),
       ),
       GoRoute(
         path: RouteConstants.loanApplicationRoute,
         name: RouteConstants.loanApplicationRoute,
         pageBuilder: (context, state) => _buildPage(LoanApplicationScreen()),
+      ),
+      GoRoute(
+        path: RouteConstants.profileRoute,
+        name: RouteConstants.profileRoute,
+        pageBuilder: (context, state) => _buildPage(ProfileScreen(
+          fullName: state.extra as String,
+        )),
       ),
       GoRoute(
         path: RouteConstants.normalLoanRoute,

@@ -163,12 +163,16 @@ class KycView extends StatelessWidget implements KycViewContract {
               GetIt.I
                   .get<IWidgetHelper>()
                   .showSuccessToast(context, message: "Success");
+              context.pushNamed(RouteConstants.homeRoute);
             },
           );
         },
         child: CustomBottomButtonWrapperWidget(
           "Continue",
-          onPressed: () => context.pushNamed(RouteConstants.homeRoute),
+          onPressed: controller.monthlyContributionController.text.isEmpty ||
+                  controller.percentInvestmentController.text.isEmpty
+              ? null
+              : () => controller.onContinue(),
         ),
       ),
     );

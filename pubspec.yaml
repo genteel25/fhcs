@@ -45,6 +45,7 @@ dependencies:
   flutter_paystack_plus: ^2.2.1
   flutter_paystack_max: ^1.0.6
   currency_formatter: ^2.2.3
+  flutter_spinkit: ^5.2.1
 
 dev_dependencies:
   flutter_test:

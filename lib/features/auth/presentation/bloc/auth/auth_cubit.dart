@@ -114,10 +114,25 @@ class AuthCubit extends Cubit<AuthState> {
         await authRepository.saveAuthToken(
             accessToken: (r.data as LoginData).accessToken,
             refreshToken: (r.data as LoginData).refreshToken);
+        await authRepository.saveBasicUserDetail(
+            fullName: (r.data as LoginData).fullName,
+            username: (r.data as LoginData).username);
         emit(AuthState.loginSuccess(response: r.data as LoginData));
       });
     } catch (e) {
       emit(AuthState.loginFailure(error: e.toString()));
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      emit(AuthState.logoutLoading());
+      await authRepository.clearToken();
+      await authRepository.saveBasicUserDetail(fullName: '', username: '');
+      emit(AuthState.logoutSuccess());
+    } catch (e) {
+      log('Logout Error: $e');
+      emit(AuthState.logoutFailure(error: e.toString()));
     }
   }
 }

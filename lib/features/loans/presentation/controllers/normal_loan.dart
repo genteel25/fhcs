@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:fhcs/core/utils/global_variables.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/normal_loan.dart';
@@ -36,16 +37,38 @@ class NormalLoanController extends State<NormalLoanScreen>
   );
 
   @override
+  late SingleSelectController loanDuration;
+
+  String selectedDuration = "";
+
+  @override
   File? selectedDocument;
 
   @override
   bool isNormalLoan = true;
 
   @override
+  List<String> durations = [
+    '1 month',
+    '3 months',
+    '4 months',
+    '6 months',
+    '1 year',
+    '2 years',
+    '3 years'
+  ];
+
+  @override
   void initState() {
     super.initState();
     view = NormalLoanView(controller: this);
     isNormalLoan = widget.isNormalLoan;
+    loanDuration = SingleSelectController(durations.first);
+  }
+
+  @override
+  void onSelectDuation(String value) {
+    selectedDuration = value;
   }
 
   @override

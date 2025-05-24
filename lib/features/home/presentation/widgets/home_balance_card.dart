@@ -51,6 +51,7 @@ class HomeBalanceCardWidget extends StatelessWidget {
                 AppText(
                   balance,
                   fontSize: 20,
+                  isAmount: true,
                   fontWeight: FontWeight.w500,
                   color: AppColors.lightest,
                 ),

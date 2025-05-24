@@ -12,9 +12,13 @@ import 'package:fhcs/core/api/service/endpoints.dart';
 import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
+import 'package:fhcs/core/data/dashboard.dart';
 import 'package:fhcs/core/data/nok_info.dart';
 import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/data/personal_info.dart';
+import 'package:fhcs/core/data/transaction.dart';
+import 'package:fhcs/core/data/user_info.dart';
+import 'package:fhcs/core/data/withdrawal.dart';
 
 import 'service/contracts/api_client.dart';
 
@@ -150,7 +154,8 @@ class ApiServicesImpl implements ApiServices {
             accessToken: data['access_token'],
             refreshToken: data['refresh_token'],
             fullName: data['full_name'],
-            username: data['username']
+            username: data['username'],
+            monthlyContribution: data['monthly_contribution']?.toDouble(),
           );
         },
         payload,
@@ -186,8 +191,76 @@ class ApiServicesImpl implements ApiServices {
         ApiEndpoint.setMonthlyContribution,
         MethodType.post,
         (data) {
-          log("monthly contribution data: $data");
           return "";
+        },
+        payload,
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<UserInfoData>>> userProfile() =>
+      apiClient.request<UserInfoData>(
+        ApiEndpoint.userProfile,
+        MethodType.get,
+        (data) {
+          return UserInfoData.fromJson(data);
+        },
+        null,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<DashboardData>>> fetchDashboardData() =>
+      apiClient.request<DashboardData>(
+        ApiEndpoint.dashboard,
+        MethodType.get,
+        (data) {
+          return DashboardData.fromJson(data);
+        },
+        null,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> initiateFunding(
+          Map<String, dynamic> payload) =>
+      apiClient.request<PaymentInfoData>(
+        ApiEndpoint.initiateFunding,
+        MethodType.post,
+        (data) {
+          return PaymentInfoData.fromJson(data);
+        },
+        payload,
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> verifyFunding(
+          String refId) =>
+      apiClient.request<PaymentInfoData>(
+        ApiEndpoint.verifyFunding(refId),
+        MethodType.post,
+        (data) {
+          return PaymentInfoData.fromJson(data);
+        },
+        null,
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<List<TransactionData>>>> transactions() =>
+      apiClient.request<List<TransactionData>>(
+        ApiEndpoint.transactions,
+        MethodType.get,
+        (data) {
+          return (data as List)
+              .map((transactionData) =>
+                  TransactionData.fromJson(transactionData))
+              .toList();
+        },
+        null,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<WithdrawalData>>> initiateWithdrawal(
+          Map<String, dynamic> payload) =>
+      apiClient.request<WithdrawalData>(
+        ApiEndpoint.initiateWithdrawal,
+        MethodType.post,
+        (data) {
+          return WithdrawalData.fromJson(data);
         },
         payload,
       );

@@ -34,92 +34,84 @@ class _CustomScaffoldMenuWidgetState extends State<CustomScaffoldMenuWidget> {
         ]),
         child: Row(
           children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                      'assets/svgs/${widget.navigationShell.currentIndex == 0 ? "home_filled" : "home"}.svg'),
-                  7.h.heightBox,
-                  AppText(
-                    'Home',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: widget.navigationShell.currentIndex == 0
-                        ? AppColors.primary700
-                        : AppColors.neutral400,
-                  )
-                ],
-              ).onTap(() {
-                widget.navigationShell.goBranch(0,
-                    initialLocation: 0 == widget.navigationShell.currentIndex);
-              }),
+            NavItemWidget(
+              activeAssetName: "home_filled",
+              inactiveAssetName: "home",
+              currentIndex: 0,
+              isCurrentIndex: widget.navigationShell.currentIndex == 0,
+              navigationShell: widget.navigationShell,
+              navLabel: "Home",
             ),
-            Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                    'assets/svgs/${widget.navigationShell.currentIndex == 1 ? "account_filled" : "account"}.svg'),
-                7.h.heightBox,
-                AppText(
-                  'Accounts',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: widget.navigationShell.currentIndex == 1
-                      ? AppColors.primary700
-                      : AppColors.neutral400,
-                )
-              ],
-            ).onTap(() {
-              widget.navigationShell.goBranch(1,
-                  initialLocation: 1 == widget.navigationShell.currentIndex);
-            })),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                      'assets/svgs/${widget.navigationShell.currentIndex == 2 ? "investment_filled" : "investment"}.svg'),
-                  7.h.heightBox,
-                  AppText(
-                    'Investments',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: widget.navigationShell.currentIndex == 2
-                        ? AppColors.primary700
-                        : AppColors.neutral400,
-                  )
-                ],
-              ).onTap(() {
-                widget.navigationShell.goBranch(2,
-                    initialLocation: 2 == widget.navigationShell.currentIndex);
-              }),
+            NavItemWidget(
+              activeAssetName: "account_filled",
+              inactiveAssetName: "account",
+              currentIndex: 1,
+              isCurrentIndex: widget.navigationShell.currentIndex == 1,
+              navigationShell: widget.navigationShell,
+              navLabel: "Accounts",
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                      'assets/svgs/${widget.navigationShell.currentIndex == 3 ? "loan_filled" : "loans"}.svg'),
-                  7.h.heightBox,
-                  AppText(
-                    'Loans',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: widget.navigationShell.currentIndex == 3
-                        ? AppColors.primary700
-                        : AppColors.neutral400,
-                  )
-                ],
-              ).onTap(() {
-                widget.navigationShell.goBranch(3,
-                    initialLocation: 3 == widget.navigationShell.currentIndex);
-              }),
+            NavItemWidget(
+              activeAssetName: "investment_filled",
+              inactiveAssetName: "investment",
+              currentIndex: 2,
+              isCurrentIndex: widget.navigationShell.currentIndex == 2,
+              navigationShell: widget.navigationShell,
+              navLabel: "Investments",
+            ),
+            NavItemWidget(
+              activeAssetName: "loan_filled",
+              inactiveAssetName: "loans",
+              currentIndex: 3,
+              isCurrentIndex: widget.navigationShell.currentIndex == 3,
+              navigationShell: widget.navigationShell,
+              navLabel: "Loans",
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class NavItemWidget extends StatelessWidget {
+  const NavItemWidget({
+    super.key,
+    required this.isCurrentIndex,
+    required this.navigationShell,
+    required this.activeAssetName,
+    required this.inactiveAssetName,
+    required this.currentIndex,
+    required this.navLabel,
+  });
+  final bool isCurrentIndex;
+  final int currentIndex;
+  final StatefulNavigationShell navigationShell;
+  final String activeAssetName;
+  final String inactiveAssetName;
+  final String navLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/svgs/${isCurrentIndex ? activeAssetName : inactiveAssetName}.svg',
+            height: 16.sp,
+          ),
+          7.h.heightBox,
+          AppText(
+            navLabel,
+            fontSize: 12,
+            fontWeight: isCurrentIndex ? FontWeight.w700 : FontWeight.w400,
+            color: isCurrentIndex ? AppColors.primary700 : AppColors.neutral400,
+          )
+        ],
+      ).onTap(() {
+        navigationShell.goBranch(currentIndex,
+            initialLocation: currentIndex == navigationShell.currentIndex);
+      }),
     );
   }
 }

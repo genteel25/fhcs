@@ -25,6 +25,8 @@ class CustomInputLabelWidget extends StatelessWidget {
     this.minLines,
     this.maxLines,
     this.isAmount = false,
+    this.fillColor,
+    this.isEnabled,
   });
   final String labelText;
   final String hintText;
@@ -41,6 +43,8 @@ class CustomInputLabelWidget extends StatelessWidget {
   final int? minLines;
   final int? maxLines;
   final bool isAmount;
+  final Color? fillColor;
+  final bool? isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,7 @@ class CustomInputLabelWidget extends StatelessWidget {
           child: TextFormField(
             cursorColor: AppColors.neutral400,
             obscureText: obscureText,
+            enabled: isEnabled ?? true,
             cursorHeight: 16.h,
             readOnly: isReadOnly ?? false,
             cursorWidth: 1.w,
@@ -88,6 +93,7 @@ class CustomInputLabelWidget extends StatelessWidget {
               isCollapsed: true,
               isDense: true,
               hintText: hintText,
+              fillColor: fillColor,
               // prefixIconConstraints: BoxConstraints(
               //     maxHeight: 16.h, minHeight: 16.w, maxWidth: 26.w),
               prefixIcon: prefixAsset != null

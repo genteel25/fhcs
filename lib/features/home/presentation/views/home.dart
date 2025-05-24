@@ -2,13 +2,18 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/controllers/contracts/home.dart';
 import 'package:fhcs/features/home/presentation/views/contracts/home.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_balance_card.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_transaction_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,39 +46,60 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                     16.h.heightBox,
                     Row(
                       children: [
-                        Container(
-                          width: 43.w,
-                          height: 43.h,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1.w, color: AppColors.neutral600),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            "assets/images/tbd/avatar.png",
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        12.w.widthBox,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            AppText(
-                              "Hi Ajangbadi",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.neutral800,
-                              height: 1,
+                            Container(
+                              width: 43.w,
+                              height: 43.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.neutral300,
+                                border: Border.all(
+                                    width: 3.w, color: AppColors.neutral600),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.person,
+                                size: 30.sp,
+                                color: AppColors.neutral600,
+                              ),
                             ),
-                            AppText(
-                              "Click to view profile >>",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.neutral500,
-                              textDecoration: TextDecoration.underline,
+                            12.w.widthBox,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BlocBuilder<UserProfileCubit, UserProfileState>(
+                                  builder: (context, state) {
+                                    return state.whenOrNull(
+                                          success: (response) => AppText(
+                                            "Hi ${response.user?.firstName ?? ""} ${response.user?.lastName ?? ""}",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.neutral800,
+                                            height: 1,
+                                          ),
+                                        ) ??
+                                        AppText(
+                                          "Hi ${controller.fullName ?? ""}",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.neutral800,
+                                          height: 1,
+                                        );
+                                  },
+                                ),
+                                AppText(
+                                  "Click to view profile >>",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.neutral500,
+                                  textDecoration: TextDecoration.underline,
+                                ),
+                              ],
                             ),
                           ],
-                        ),
+                        ).onTap(() => context.pushNamed(
+                            RouteConstants.profileRoute,
+                            extra: controller.fullName)),
                         const Spacer(),
                         Container(
                           padding: REdgeInsets.all(14),
@@ -96,11 +122,27 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                       color: AppColors.neutral500,
                     ).paddingSymmetric(horizontal: 20.w),
                     4.h.heightBox,
-                    AppText(
-                      "N1,716,090.00",
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.neutral800,
+                    BlocBuilder<DashboardCubit, DashboardState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => AppText(
+                                ((response.totalInvestment ?? 0) +
+                                        (response.totalSavings ?? 0))
+                                    .toString(),
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.neutral800,
+                                isAmount: true,
+                              ),
+                            ) ??
+                            AppText(
+                              "0",
+                              isAmount: true,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.neutral800,
+                            );
+                      },
                     ).paddingSymmetric(horizontal: 20.w),
                     15.h.heightBox,
                     SizedBox(
@@ -109,22 +151,54 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                         padding: REdgeInsets.symmetric(horizontal: 20),
                         scrollDirection: Axis.horizontal,
                         children: [
-                          HomeBalanceCardWidget(
-                            balance: "N1,205,890.00",
-                            balanceTypeLabel: "Savings Balance",
-                            gradientColors: [
-                              Color(0xff30A46C),
-                              Color(0xff193B2D),
-                            ],
+                          BlocBuilder<DashboardCubit, DashboardState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    success: (response) =>
+                                        HomeBalanceCardWidget(
+                                      balance: (response.totalSavings ?? 0)
+                                          .toString(),
+                                      balanceTypeLabel: "Savings Balance",
+                                      gradientColors: [
+                                        Color(0xff30A46C),
+                                        Color(0xff193B2D),
+                                      ],
+                                    ),
+                                  ) ??
+                                  HomeBalanceCardWidget(
+                                    balance: "0",
+                                    balanceTypeLabel: "Savings Balance",
+                                    gradientColors: [
+                                      Color(0xff30A46C),
+                                      Color(0xff193B2D),
+                                    ],
+                                  );
+                            },
                           ),
                           8.w.widthBox,
-                          HomeBalanceCardWidget(
-                            balance: "510,200.00 NGN",
-                            balanceTypeLabel: "Investment Balance",
-                            gradientColors: [
-                              Color(0xff1E1E31),
-                              Color(0xff070720),
-                            ],
+                          BlocBuilder<DashboardCubit, DashboardState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    success: (response) =>
+                                        HomeBalanceCardWidget(
+                                      balance: (response.totalInvestment ?? 0)
+                                          .toString(),
+                                      balanceTypeLabel: "Investment Balance",
+                                      gradientColors: [
+                                        Color(0xff1E1E31),
+                                        Color(0xff070720),
+                                      ],
+                                    ),
+                                  ) ??
+                                  HomeBalanceCardWidget(
+                                    balance: "0",
+                                    balanceTypeLabel: "Investment Balance",
+                                    gradientColors: [
+                                      Color(0xff1E1E31),
+                                      Color(0xff070720),
+                                    ],
+                                  );
+                            },
                           ),
                         ],
                       ),
@@ -138,24 +212,39 @@ class HomeView extends StatelessWidget implements HomeViewContract {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  19.h.heightBox,
-                  Container(
-                    padding: REdgeInsets.all(8),
-                    margin: REdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: AppColors.gold600,
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: AppText(
-                      "You have an outstanding balance on your loan financing, which prevents withdrawals until repayment is made",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.gold800,
-                    ),
+                  BlocBuilder<DashboardCubit, DashboardState>(
+                    builder: (context, state) {
+                      return state.whenOrNull(
+                            success: (response) =>
+                                (response.loanBalance ?? 0) > 0
+                                    ? Column(
+                                        children: [
+                                          19.h.heightBox,
+                                          Container(
+                                            padding: REdgeInsets.all(8),
+                                            margin: REdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.gold600,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
+                                            ),
+                                            child: AppText(
+                                              "You have an outstanding balance on your loan financing, which prevents withdrawals until repayment is made",
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.gold800,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : const SizedBox.shrink(),
+                          ) ??
+                          const SizedBox.shrink();
+                    },
                   ),
                   22.h.heightBox,
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       HomeActionWidget(
                         isFilled: false,
@@ -190,17 +279,33 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                     color: AppColors.neutral500,
                   ).paddingSymmetric(horizontal: 20.w),
                   8.h.heightBox,
-                  ListView.separated(
-                    padding: REdgeInsets.symmetric(horizontal: 20),
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (context, index) {
-                      return HomeTransactionCardWidget();
+                  BlocBuilder<TransactionsCubit, TransactionsState>(
+                    builder: (context, state) {
+                      return state.whenOrNull(
+                            loading: () => Center(
+                              child: SpinKitThreeBounce(
+                                size: 24.sp,
+                                color: AppColors.primary700,
+                              ).paddingOnly(top: 100.h),
+                            ),
+                            success: (response) => ListView.separated(
+                              padding: REdgeInsets.symmetric(horizontal: 20),
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (context, index) {
+                                return HomeTransactionCardWidget(
+                                  data: response[index],
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return Divider(
+                                    color: AppColors.neutral100, height: 1.h);
+                              },
+                              itemCount: response.take(4).length,
+                            ),
+                          ) ??
+                          const SizedBox.shrink();
                     },
-                    separatorBuilder: (context, index) {
-                      return Divider(color: AppColors.neutral100, height: 1.h);
-                    },
-                    itemCount: 3,
                   ),
                   24.h.heightBox,
                 ],

@@ -1,10 +1,12 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_back_button.dart';
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_radio.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/home/presentation/controllers/contracts/withdraw_from.dart';
+import 'package:fhcs/features/home/presentation/controllers/withdraw_funds.dart';
 import 'package:fhcs/features/home/presentation/views/contracts/withdraw_from.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,21 +30,7 @@ class WithdrawFromView extends StatelessWidget
           mainAxisSize: MainAxisSize.min,
           children: [
             20.w.widthBox,
-            Container(
-              width: 36.w,
-              height: 36.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.neutral200,
-                  width: 1.w,
-                ),
-              ),
-              child: SvgPicture.asset(
-                "assets/svgs/back.svg",
-                fit: BoxFit.scaleDown,
-              ),
-            ),
+            CustomBackButtonWidget(borderColor: AppColors.neutral200)
           ],
         ),
         centerTitle: false,
@@ -126,7 +114,10 @@ class WithdrawFromView extends StatelessWidget
       bottomNavigationBar: CustomBottomButtonWrapperWidget(
         "Continue",
         onPressed: controller.isSavingAccount != null
-            ? () => context.pushNamed(RouteConstants.withdrawFundRoute)
+            ? () => context.pushNamed(RouteConstants.withdrawFundRoute,
+                extra: (controller.isSavingAccount ?? false)
+                    ? WithdrawalAccount.savings
+                    : WithdrawalAccount.investment)
             : null,
       ),
     );

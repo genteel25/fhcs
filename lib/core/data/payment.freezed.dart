@@ -22,6 +22,10 @@ PaymentInfoData _$PaymentInfoDataFromJson(Map<String, dynamic> json) {
 mixin _$PaymentInfoData {
   @JsonKey(name: "ref_id")
   String? get refId => throw _privateConstructorUsedError;
+  @JsonKey(name: "amount_paid")
+  num? get amountPaid => throw _privateConstructorUsedError;
+  @JsonKey(name: "payment_type")
+  String? get paymentType => throw _privateConstructorUsedError;
   num? get amount => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
@@ -46,6 +50,8 @@ abstract class $PaymentInfoDataCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "ref_id") String? refId,
+      @JsonKey(name: "amount_paid") num? amountPaid,
+      @JsonKey(name: "payment_type") String? paymentType,
       num? amount,
       String? currency,
       String? email,
@@ -69,6 +75,8 @@ class _$PaymentInfoDataCopyWithImpl<$Res, $Val extends PaymentInfoData>
   @override
   $Res call({
     Object? refId = freezed,
+    Object? amountPaid = freezed,
+    Object? paymentType = freezed,
     Object? amount = freezed,
     Object? currency = freezed,
     Object? email = freezed,
@@ -79,6 +87,14 @@ class _$PaymentInfoDataCopyWithImpl<$Res, $Val extends PaymentInfoData>
       refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amountPaid: freezed == amountPaid
+          ? _value.amountPaid
+          : amountPaid // ignore: cast_nullable_to_non_nullable
+              as num?,
+      paymentType: freezed == paymentType
+          ? _value.paymentType
+          : paymentType // ignore: cast_nullable_to_non_nullable
               as String?,
       amount: freezed == amount
           ? _value.amount
@@ -114,6 +130,8 @@ abstract class _$$PaymentInfoDataImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "ref_id") String? refId,
+      @JsonKey(name: "amount_paid") num? amountPaid,
+      @JsonKey(name: "payment_type") String? paymentType,
       num? amount,
       String? currency,
       String? email,
@@ -135,6 +153,8 @@ class __$$PaymentInfoDataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? refId = freezed,
+    Object? amountPaid = freezed,
+    Object? paymentType = freezed,
     Object? amount = freezed,
     Object? currency = freezed,
     Object? email = freezed,
@@ -145,6 +165,14 @@ class __$$PaymentInfoDataImplCopyWithImpl<$Res>
       refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amountPaid: freezed == amountPaid
+          ? _value.amountPaid
+          : amountPaid // ignore: cast_nullable_to_non_nullable
+              as num?,
+      paymentType: freezed == paymentType
+          ? _value.paymentType
+          : paymentType // ignore: cast_nullable_to_non_nullable
               as String?,
       amount: freezed == amount
           ? _value.amount
@@ -175,6 +203,8 @@ class __$$PaymentInfoDataImplCopyWithImpl<$Res>
 class _$PaymentInfoDataImpl extends _PaymentInfoData {
   const _$PaymentInfoDataImpl(
       {@JsonKey(name: "ref_id") this.refId,
+      @JsonKey(name: "amount_paid") this.amountPaid,
+      @JsonKey(name: "payment_type") this.paymentType,
       this.amount,
       this.currency,
       this.email,
@@ -189,6 +219,12 @@ class _$PaymentInfoDataImpl extends _PaymentInfoData {
   @JsonKey(name: "ref_id")
   final String? refId;
   @override
+  @JsonKey(name: "amount_paid")
+  final num? amountPaid;
+  @override
+  @JsonKey(name: "payment_type")
+  final String? paymentType;
+  @override
   final num? amount;
   @override
   final String? currency;
@@ -201,7 +237,7 @@ class _$PaymentInfoDataImpl extends _PaymentInfoData {
 
   @override
   String toString() {
-    return 'PaymentInfoData(refId: $refId, amount: $amount, currency: $currency, email: $email, description: $description, status: $status)';
+    return 'PaymentInfoData(refId: $refId, amountPaid: $amountPaid, paymentType: $paymentType, amount: $amount, currency: $currency, email: $email, description: $description, status: $status)';
   }
 
   @override
@@ -210,6 +246,10 @@ class _$PaymentInfoDataImpl extends _PaymentInfoData {
         (other.runtimeType == runtimeType &&
             other is _$PaymentInfoDataImpl &&
             (identical(other.refId, refId) || other.refId == refId) &&
+            (identical(other.amountPaid, amountPaid) ||
+                other.amountPaid == amountPaid) &&
+            (identical(other.paymentType, paymentType) ||
+                other.paymentType == paymentType) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.currency, currency) ||
                 other.currency == currency) &&
@@ -221,8 +261,8 @@ class _$PaymentInfoDataImpl extends _PaymentInfoData {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, refId, amount, currency, email, description, status);
+  int get hashCode => Object.hash(runtimeType, refId, amountPaid, paymentType,
+      amount, currency, email, description, status);
 
   /// Create a copy of PaymentInfoData
   /// with the given fields replaced by the non-null parameter values.
@@ -244,6 +284,8 @@ class _$PaymentInfoDataImpl extends _PaymentInfoData {
 abstract class _PaymentInfoData extends PaymentInfoData {
   const factory _PaymentInfoData(
       {@JsonKey(name: "ref_id") final String? refId,
+      @JsonKey(name: "amount_paid") final num? amountPaid,
+      @JsonKey(name: "payment_type") final String? paymentType,
       final num? amount,
       final String? currency,
       final String? email,
@@ -257,6 +299,12 @@ abstract class _PaymentInfoData extends PaymentInfoData {
   @override
   @JsonKey(name: "ref_id")
   String? get refId;
+  @override
+  @JsonKey(name: "amount_paid")
+  num? get amountPaid;
+  @override
+  @JsonKey(name: "payment_type")
+  String? get paymentType;
   @override
   num? get amount;
   @override

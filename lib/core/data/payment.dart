@@ -7,6 +7,8 @@ class PaymentInfoData with _$PaymentInfoData {
   const PaymentInfoData._();
   const factory PaymentInfoData({
     @JsonKey(name: "ref_id") String? refId,
+    @JsonKey(name: "amount_paid") num? amountPaid,
+    @JsonKey(name: "payment_type") String? paymentType,
     num? amount,
     String? currency,
     String? email,

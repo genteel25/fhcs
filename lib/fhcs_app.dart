@@ -1,6 +1,12 @@
 import 'dart:ui';
 
 import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_withdrawal/initiate_withdrawal_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -36,6 +42,27 @@ class FhcsApp extends StatelessWidget {
         ),
         BlocProvider<MonthlyContributionCubit>(
           create: (context) => GetIt.I.get<MonthlyContributionCubit>(),
+        ),
+        BlocProvider<UserProfileCubit>(
+          create: (context) => GetIt.I.get<UserProfileCubit>(),
+        ),
+        BlocProvider<DashboardCubit>(
+          create: (context) => GetIt.I.get<DashboardCubit>(),
+        ),
+        BlocProvider<UserProfileCubit>(
+          create: (context) => GetIt.I.get<UserProfileCubit>(),
+        ),
+        BlocProvider<InitiateFundingCubit>(
+          create: (context) => GetIt.I.get<InitiateFundingCubit>(),
+        ),
+        BlocProvider<VerifyFundingCubit>(
+          create: (context) => GetIt.I.get<VerifyFundingCubit>(),
+        ),
+        BlocProvider<TransactionsCubit>(
+          create: (context) => GetIt.I.get<TransactionsCubit>(),
+        ),
+        BlocProvider<InitiateWithdrawalCubit>(
+          create: (context) => GetIt.I.get<InitiateWithdrawalCubit>(),
         ),
       ],
       child: ScreenUtilInit(

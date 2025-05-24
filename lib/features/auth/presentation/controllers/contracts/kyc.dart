@@ -14,4 +14,6 @@ abstract class KycControllerContract {
     required double savingPercent, // From savings slider (1-50)
     required double investmentPercent, // From investment slider (1-100)
   });
+
+  void onContinue();
 }

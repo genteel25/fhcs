@@ -49,9 +49,24 @@ extension StringToText on String {
         CurrencyFormatter.format(this, nairaSettings, decimal: 0);
     return currencyText;
   }
+
+  String get formatInputCurrency {
+    CurrencyFormat nairaSettings = CurrencyFormat(
+      code: 'NGN',
+      symbol: GlobalVariables.nairaCurrencySymbol,
+      symbolSide: SymbolSide.left,
+      thousandSeparator: ',',
+      decimalSeparator: '.',
+      symbolSeparator: '',
+    );
+    String currencyText =
+        CurrencyFormatter.format(this, nairaSettings, decimal: 0);
+    return currencyText;
+  }
 }
 
 extension DateFormatter on DateTime {
   String get postDateFormat => DateFormat.MMMd().format(this);
   String get pickerDate => DateFormat('yyyy-MM-dd').format(this);
+  String get formattedDate => DateFormat('MMM dd, yyyy').format(this);
 }

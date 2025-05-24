@@ -102,7 +102,11 @@ class LoginView extends StatelessWidget implements LoginViewContract {
                   loginLoading: () => context.loaderOverlay.show(),
                   loginSuccess: (token) {
                     context.loaderOverlay.hide();
-                    context.pushNamed(RouteConstants.kycRoute);
+                    if (token.monthlyContribution == null) {
+                      context.pushNamed(RouteConstants.kycRoute);
+                    } else {
+                      context.pushNamed(RouteConstants.homeRoute);
+                    }
                   },
                   loginFailure: (failure) {
                     context.loaderOverlay.hide();
