@@ -10,6 +10,10 @@ import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_c
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
 import 'package:fhcs/features/home/repository/home_repository.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
+import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
+import 'package:fhcs/features/loans/repository/loan_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -138,6 +142,13 @@ class AppInitializer {
         () => InitiateWithdrawalCubit(
               homeRepository: instanceLocator(),
             ));
+    instanceLocator.registerLazySingleton<RefereesCubit>(() => RefereesCubit(
+          loanRepository: instanceLocator(),
+        ));
+    instanceLocator
+        .registerLazySingleton<LoanRequestCubit>(() => LoanRequestCubit(
+              loanRepository: instanceLocator(),
+            ));
   }
 
   static initRepos() {
@@ -149,6 +160,12 @@ class AppInitializer {
     );
     instanceLocator.registerLazySingleton<IHomeRepository>(
       () => HomeRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<ILoanRepository>(
+      () => LoanRepository(
         localStorage: instanceLocator(),
         apiServices: instanceLocator(),
       ),

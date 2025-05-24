@@ -167,7 +167,7 @@ class AppSheets {
   static Future<void> filePickerSheet(
     BuildContext context, {
     required File? selectedFile,
-    required Function(File? doc) onPickFile,
+    required Function(File? doc, String? url) onPickFile,
   }) async {
     return await showModalBottomSheet(
       isScrollControlled: true,
@@ -188,6 +188,7 @@ class AppSheets {
     BuildContext context, {
     required bool isNormalLoan,
     required Map<String, dynamic> loanInfo,
+    required Function applyForLoan,
   }) async {
     return await showModalBottomSheet(
       isScrollControlled: true,
@@ -199,6 +200,7 @@ class AppSheets {
           child: LoanConfirmationSheetWidget(
             isNormaLoan: isNormalLoan,
             loanInfo: loanInfo,
+            applyForLoan: applyForLoan,
           ),
         );
       },

@@ -11,13 +11,16 @@ abstract class NormalLoanControllerContract {
   TextEditingController loanPurposeController = TextEditingController();
   TextEditingController annualSalaryController = TextEditingController();
   TextEditingController loanTypeController = TextEditingController();
-  late SingleSelectController loanDuration;
+  late SingleSelectController<String> loanDuration;
   CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter.currency();
+  CurrencyTextInputFormatter annualSalaryFormatter =
+      CurrencyTextInputFormatter.currency();
   File? selectedDocument;
   late bool isNormalLoan;
   late List<String> durations;
+  late String selectedDuration;
 
   //Methods
-  void onPickDocument(File? selectedDocs);
-  void onSelectDuation(String value);
+  void onPickDocument(File? selectedDocs, String? url);
+  void onSelectDuation(String? value);
 }

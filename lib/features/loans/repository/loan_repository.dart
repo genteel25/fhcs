@@ -1,0 +1,24 @@
+import 'package:dartz/dartz.dart';
+import 'package:fhcs/core/api/api_services.dart';
+import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
+import 'package:fhcs/core/api/service/contracts/api_response.dart';
+import 'package:fhcs/core/data/payment.dart';
+import 'package:fhcs/core/data/referee.dart';
+import 'package:fhcs/core/storage/contract/istorage.dart';
+import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
+
+class LoanRepository implements ILoanRepository {
+  final IAppStorage localStorage;
+  final ApiServices apiServices;
+
+  LoanRepository({required this.localStorage, required this.apiServices});
+
+  @override
+  Future<Either<Failure, ApiResponse<List<RefereeData>>>> fetchReferees() =>
+      apiServices.fetchReferees();
+
+  @override
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> loanRequest(
+          Map<String, dynamic> payload) =>
+      apiServices.loanRequest(payload);
+}

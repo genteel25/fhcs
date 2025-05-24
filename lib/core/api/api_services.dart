@@ -8,6 +8,7 @@ import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/data/dashboard.dart';
 import 'package:fhcs/core/data/payment.dart';
+import 'package:fhcs/core/data/referee.dart';
 import 'package:fhcs/core/data/transaction.dart';
 import 'package:fhcs/core/data/user_info.dart';
 import 'package:fhcs/core/data/withdrawal.dart';
@@ -49,5 +50,8 @@ abstract class ApiServices {
       String refId);
   Future<Either<Failure, ApiResponse<List<TransactionData>>>> transactions();
   Future<Either<Failure, ApiResponse<WithdrawalData>>> initiateWithdrawal(
+      Map<String, dynamic> payload);
+  Future<Either<Failure, ApiResponse<List<RefereeData>>>> fetchReferees();
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> loanRequest(
       Map<String, dynamic> payload);
 }

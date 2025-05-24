@@ -14,4 +14,6 @@ class ApiEndpoint {
   static const initiateFunding = "payments/initiate";
   static const transactions = "transactions";
   static const initiateWithdrawal = "withdrawal-requests";
+  static const referees = "data/cooperators";
+  static const loanRequest = "loans";
 }

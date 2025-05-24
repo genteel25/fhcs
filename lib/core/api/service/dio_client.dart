@@ -209,10 +209,18 @@ class DioClient implements IApiClient {
       {Map<String, dynamic>? queryParameters}) async {
     try {
       Response response;
-      response = await _dio.post(
-        url,
-        data: params,
-      );
+      String token = await GetIt.I
+          .get<IAppStorage>()
+          .fetchString(StorageConstant.accessToken);
+      log("accessToken: $token");
+      String regToken = await GetIt.I
+          .get<IAppStorage>()
+          .fetchString(StorageConstant.regToken);
+      Options options = Options(headers: {
+        if (token.isNotEmpty) "Authorization": "Bearer $token",
+        if (regToken.isNotEmpty) "X-Token": regToken,
+      });
+      response = await _dio.post(url, data: params, options: options);
       var requestResponse = ApiResponseImpl<T>(
         fromJson(response.data['data']),
         response.data['errors'],

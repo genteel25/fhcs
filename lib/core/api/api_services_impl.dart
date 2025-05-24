@@ -16,6 +16,7 @@ import 'package:fhcs/core/data/dashboard.dart';
 import 'package:fhcs/core/data/nok_info.dart';
 import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/data/personal_info.dart';
+import 'package:fhcs/core/data/referee.dart';
 import 'package:fhcs/core/data/transaction.dart';
 import 'package:fhcs/core/data/user_info.dart';
 import 'package:fhcs/core/data/withdrawal.dart';
@@ -261,6 +262,30 @@ class ApiServicesImpl implements ApiServices {
         MethodType.post,
         (data) {
           return WithdrawalData.fromJson(data);
+        },
+        payload,
+      );
+
+  @override
+  Future<Either<Failure, ApiResponse<List<RefereeData>>>> fetchReferees() =>
+      apiClient.request<List<RefereeData>>(
+        ApiEndpoint.referees,
+        MethodType.get,
+        (data) {
+          return (data as List)
+              .map((transactionData) => RefereeData.fromJson(transactionData))
+              .toList();
+        },
+        null,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<PaymentInfoData>>> loanRequest(
+          Map<String, dynamic> payload) =>
+      apiClient.request<PaymentInfoData>(
+        ApiEndpoint.loanRequest,
+        MethodType.post,
+        (data) {
+          return PaymentInfoData.fromJson(data);
         },
         payload,
       );

@@ -11,9 +11,11 @@ class LoanConfirmationSheetWidget extends StatelessWidget {
     super.key,
     required this.isNormaLoan,
     required this.loanInfo,
+    required this.applyForLoan,
   });
   final bool isNormaLoan;
   final Map<String, dynamic> loanInfo;
+  final Function applyForLoan;
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +152,7 @@ class LoanConfirmationSheetWidget extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           color: AppColors.neutral800,
+                          isAmount: true,
                         ),
                       _ => Row(
                           children: [
@@ -185,7 +188,7 @@ class LoanConfirmationSheetWidget extends StatelessWidget {
           width: double.infinity,
           child: CustomButtonWidget(
             "Confirm loan application",
-            onPressed: () {},
+            onPressed: () => applyForLoan(),
           ),
         ),
         32.h.heightBox,

@@ -178,7 +178,7 @@ class AppRouter {
         pageBuilder: (context, state) => _buildPage(
           SelectRefereeScreen(
             isNormalLoan: state.extra as bool,
-            amount: state.uri.queryParameters['amount'] as String,
+            amount: state.uri.queryParameters as Map<String, dynamic>,
           ),
         ),
       ),
