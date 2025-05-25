@@ -81,7 +81,7 @@ class KycView extends StatelessWidget implements KycViewContract {
               if (controller.initialSavingsPercent != "0") 8.h.heightBox,
               if (controller.initialSavingsPercent != "0")
                 AppText(
-                  controller.initialSavingsPercent.formateCurrency,
+                  controller.initialSavingsPercent,
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   color: AppColors.neutral500,
@@ -117,7 +117,7 @@ class KycView extends StatelessWidget implements KycViewContract {
               if (controller.initialInvestmentPercent != "0") 8.h.heightBox,
               if (controller.initialInvestmentPercent != "0")
                 AppText(
-                  controller.initialInvestmentPercent.formateCurrency,
+                  controller.initialInvestmentPercent,
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   color: AppColors.neutral500,
@@ -150,15 +150,15 @@ class KycView extends StatelessWidget implements KycViewContract {
           BlocListener<MonthlyContributionCubit, MonthlyContributionState>(
         listener: (context, state) {
           state.whenOrNull(
-            loading: () => context.loaderOverlay.show(),
+            loading: () => AppDialog.showAppProgressDialog(context),
             failure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);
             },
             success: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               // controller.onSuccess(response);
               GetIt.I
                   .get<IWidgetHelper>()

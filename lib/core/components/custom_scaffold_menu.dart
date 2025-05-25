@@ -93,25 +93,27 @@ class NavItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            'assets/svgs/${isCurrentIndex ? activeAssetName : inactiveAssetName}.svg',
-            height: 16.sp,
-          ),
-          7.h.heightBox,
-          AppText(
-            navLabel,
-            fontSize: 12,
-            fontWeight: isCurrentIndex ? FontWeight.w700 : FontWeight.w400,
-            color: isCurrentIndex ? AppColors.primary700 : AppColors.neutral400,
-          )
-        ],
-      ).onTap(() {
-        navigationShell.goBranch(currentIndex,
-            initialLocation: currentIndex == navigationShell.currentIndex);
-      }),
+      child: GestureDetector(
+        onTap: () => navigationShell.goBranch(currentIndex,
+            initialLocation: currentIndex == navigationShell.currentIndex),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/svgs/${isCurrentIndex ? activeAssetName : inactiveAssetName}.svg',
+              height: 16.sp,
+            ),
+            7.h.heightBox,
+            AppText(
+              navLabel,
+              fontSize: 12,
+              fontWeight: isCurrentIndex ? FontWeight.w700 : FontWeight.w400,
+              color:
+                  isCurrentIndex ? AppColors.primary700 : AppColors.neutral400,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

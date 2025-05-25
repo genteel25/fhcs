@@ -27,4 +27,5 @@ class RouteConstants {
   static const String refereeRequestRoute = '/referee_request';
   static const String statementRoute = '/statement';
   static const String profileRoute = '/profile';
+  static const String activeLoanRoute = '/active_loan';
 }

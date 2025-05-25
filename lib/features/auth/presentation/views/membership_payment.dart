@@ -66,20 +66,20 @@ class MembershipPaymentView extends StatelessWidget
             BlocListener<VerifyMembershipCubit, VerifyMembershipState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  loading: () => context.loaderOverlay.show(),
+                  loading: () => AppDialog.showAppProgressDialog(context),
                   failure: (error) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I
                         .get<IWidgetHelper>()
                         .showErrorToast(context, message: error);
                   },
                   success: (response) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I.get<IWidgetHelper>().showSuccessToast(
                           context,
                           message: "Payment successful",
                         );
-                      context.pushNamed(RouteConstants.createPasswordRoute);
+                    context.pushNamed(RouteConstants.createPasswordRoute);
                   },
                 );
               },

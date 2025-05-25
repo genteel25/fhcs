@@ -35,16 +35,16 @@ class _CustomFilePickerSheetState extends State<CustomFilePickerSheet> {
         // widget.onSelectFile(documentFile);
       });
       widget.onSelectFile(documentFile, "");
-      // context.loaderOverlay.show();
+      // AppDialog.showAppProgressDialog(context);
       // final response =
       //     await GetIt.I.get<IAuthRepository>().uploadFile(documentFile!);
       // response.fold((l) {
-      //   context.loaderOverlay.hide();
+      //   context.pop();
       //   GetIt.I
       //       .get<IWidgetHelper>()
       //       .showErrorToast(context, message: l.failureMessage());
       // }, (r) {
-      //   context.loaderOverlay.hide();
+      //   context.pop();
       //   GetIt.I
       //       .get<IWidgetHelper>()
       //       .showSuccessToast(context, message: "Image uploaded successfully");

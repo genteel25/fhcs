@@ -183,9 +183,9 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
               BlocListener<InitiateFundingCubit, InitiateFundingState>(
                 listener: (context, state) {
                   state.whenOrNull(
-                    loading: () => context.loaderOverlay.show(),
+                    loading: () => AppDialog.showAppProgressDialog(context),
                     success: (response) {
-                      context.loaderOverlay.hide();
+                      context.pop();
                       controller.payViaCard(
                           refId: response.refId ?? "",
                           amount: (response.amount ?? 0).toString());
@@ -195,7 +195,7 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
                           );
                     },
                     failure: (error) {
-                      context.loaderOverlay.hide();
+                      context.pop();
                       GetIt.I
                           .get<IWidgetHelper>()
                           .showErrorToast(context, message: error);
@@ -206,9 +206,9 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
               BlocListener<VerifyFundingCubit, VerifyFundingState>(
                 listener: (context, state) {
                   state.whenOrNull(
-                    loading: () => context.loaderOverlay.show(),
+                    loading: () => AppDialog.showAppProgressDialog(context),
                     success: (response) {
-                      context.loaderOverlay.hide();
+                      context.pop();
                       controller.onVerifyFunding();
                       GetIt.I.get<IWidgetHelper>().showSuccessToast(
                             context,
@@ -216,7 +216,7 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
                           );
                     },
                     failure: (error) {
-                      context.loaderOverlay.hide();
+                      context.pop();
                       GetIt.I
                           .get<IWidgetHelper>()
                           .showErrorToast(context, message: error);

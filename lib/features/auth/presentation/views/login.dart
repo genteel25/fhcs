@@ -5,6 +5,7 @@ import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/login.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/login.dart';
@@ -99,9 +100,9 @@ class LoginView extends StatelessWidget implements LoginViewContract {
             child: BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  loginLoading: () => context.loaderOverlay.show(),
+                  loginLoading: () => AppDialog.showAppProgressDialog(context),
                   loginSuccess: (token) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     if (token.monthlyContribution == null) {
                       context.pushNamed(RouteConstants.kycRoute);
                     } else {
@@ -109,7 +110,7 @@ class LoginView extends StatelessWidget implements LoginViewContract {
                     }
                   },
                   loginFailure: (failure) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I
                         .get<IWidgetHelper>()
                         .showErrorToast(context, message: failure);

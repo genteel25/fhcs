@@ -1,12 +1,14 @@
-import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_line_range.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/data/loan.dart';
+import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class ActiveLoanWidget extends StatelessWidget {
   const ActiveLoanWidget({super.key, required this.data, this.isActive = true});
@@ -247,7 +249,7 @@ class ActiveLoanWidget extends StatelessWidget {
                   FittedBox(
                     child: AppText(
                       (data.updatedAt ?? DateTime.now())
-                          .add(const Duration(days: 30))
+                          .add(Duration(days: (data.duration ?? 0) * 30))
                           .loanFormattedDate,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -316,6 +318,8 @@ class ActiveLoanWidget extends StatelessWidget {
           ).paddingSymmetric(horizontal: 16.w),
         ],
       ),
+    ).onTap(
+      () => context.pushNamed(RouteConstants.activeLoanRoute, extra: data),
     );
   }
 }

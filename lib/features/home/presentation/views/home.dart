@@ -1,4 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_error.dart';
+import 'package:fhcs/core/components/custom_loader.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
@@ -16,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeView extends StatelessWidget implements HomeViewContract {
   const HomeView({super.key, required this.controller});
@@ -282,27 +285,28 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                   BlocBuilder<TransactionsCubit, TransactionsState>(
                     builder: (context, state) {
                       return state.whenOrNull(
-                            loading: () => Center(
-                              child: SpinKitThreeBounce(
-                                size: 24.sp,
-                                color: AppColors.primary700,
-                              ).paddingOnly(top: 100.h),
-                            ),
-                            success: (response) => ListView.separated(
-                              padding: REdgeInsets.symmetric(horizontal: 20),
-                              shrinkWrap: true,
-                              primary: false,
-                              itemBuilder: (context, index) {
-                                return HomeTransactionCardWidget(
-                                  data: response[index],
-                                );
-                              },
-                              separatorBuilder: (context, index) {
-                                return Divider(
-                                    color: AppColors.neutral100, height: 1.h);
-                              },
-                              itemCount: response.take(4).length,
-                            ),
+                            loading: () => CustomLoaderWidget(),
+                            success: (response) => response.isEmpty
+                                ? CustomErrorWidget(
+                                    assetPath: "assets/images/empty_box.json",
+                                  ).paddingSymmetric(horizontal: 20.w)
+                                : ListView.separated(
+                                    padding:
+                                        REdgeInsets.symmetric(horizontal: 20),
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemBuilder: (context, index) {
+                                      return HomeTransactionCardWidget(
+                                        data: response[index],
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return Divider(
+                                          color: AppColors.neutral100,
+                                          height: 1.h);
+                                    },
+                                    itemCount: response.take(4).length,
+                                  ),
                           ) ??
                           const SizedBox.shrink();
                     },
@@ -315,5 +319,12 @@ class HomeView extends StatelessWidget implements HomeViewContract {
         ],
       ),
     );
+  }
+
+  Future<LottieComposition?> customDecoder(List<int> bytes) {
+    return LottieComposition.decodeZip(bytes, filePicker: (files) {
+      return files.firstWhere(
+          (f) => f.name.startsWith('animations/') && f.name.endsWith('.json'));
+    });
   }
 }

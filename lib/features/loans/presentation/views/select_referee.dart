@@ -4,6 +4,7 @@ import 'package:fhcs/core/components/custom_checkbox.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
@@ -227,15 +228,15 @@ class SelectRefereeView extends StatelessWidget
             BlocListener<LoanRequestCubit, LoanRequestState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  loading: () => context.loaderOverlay.show(),
+                  loading: () => AppDialog.showAppProgressDialog(context),
                   success: (response) {
                     controller.payViaCard(
                         refId: response.refId ?? "",
                         amount: response.amount?.toString() ?? "0");
-                    context.loaderOverlay.hide();
+                    context.pop();
                   },
                   failure: (error) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I
                         .get<IWidgetHelper>()
                         .showErrorToast(context, message: error);
@@ -246,13 +247,13 @@ class SelectRefereeView extends StatelessWidget
             BlocListener<VerifyFundingCubit, VerifyFundingState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  loading: () => context.loaderOverlay.show(),
+                  loading: () => AppDialog.showAppProgressDialog(context),
                   success: (response) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     controller.onVerifyFunding();
                   },
                   failure: (error) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I
                         .get<IWidgetHelper>()
                         .showErrorToast(context, message: error);

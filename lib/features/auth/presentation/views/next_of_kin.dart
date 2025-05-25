@@ -124,13 +124,13 @@ class NextOfKinView extends StatelessWidget implements NextOfKinViewContract {
       bottomNavigationBar: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            nokLoading: () => context.loaderOverlay.show(),
+            nokLoading: () => AppDialog.showAppProgressDialog(context),
             nokSuccess: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               context.pushNamed(RouteConstants.withdrawalBankRoute);
             },
             nokFailure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);

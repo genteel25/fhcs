@@ -6,6 +6,7 @@ import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/helpers/validator_helper.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/create_password.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/create_password.dart';
@@ -134,9 +135,9 @@ class CreatePasswordView extends StatelessWidget
       bottomNavigationBar: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            passwordLoading: () => context.loaderOverlay.show(),
+            passwordLoading: () => AppDialog.showAppProgressDialog(context),
             passwordSuccess: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -156,7 +157,7 @@ class CreatePasswordView extends StatelessWidget
               );
             },
             passwordFailure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);

@@ -1,4 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_error.dart';
+import 'package:fhcs/core/components/custom_loader.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
@@ -203,6 +205,7 @@ class LoansView extends StatelessWidget implements LoansViewContract {
             16.h.heightBox,
             Expanded(
               child: TabBarView(
+                // physics: const NeverScrollableScrollPhysics(),
                 children: [
                   SingleChildScrollView(
                     child: Column(
@@ -218,41 +221,14 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                               LoanApplicationsState>(
                             builder: (context, state) {
                               return state.whenOrNull(
+                                    loading: () => CustomLoaderWidget(
+                                      hasPadding: false,
+                                    ),
                                     success: (response) => response.isEmpty
-                                        ? Column(
-                                            children: [
-                                              Container(
-                                                // color: Colors.black,
-                                                height: 180.h,
-                                                //   height: 200.h,
-                                                //   child: Image.asset(
-                                                //     "assets/images/empty_loan.gif",
-                                                //     fit: BoxFit.cover,
-                                                //   ),
-                                                // ),
-                                                child: Lottie.asset(
-                                                  "assets/images/empty_loan.lottie",
-                                                  decoder: customDecoder,
-                                                  // fit: BoxFit.fill,
-                                                  height: 500.h,
-                                                ),
-                                              ),
-                                              AppText(
-                                                "No Loans On Record",
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                              4.h.heightBox,
-                                              AppText(
+                                        ? CustomErrorWidget(
+                                            errorTitle: "No Loans On Record",
+                                            errorSubtitle:
                                                 "You haven't submitted any loan applications. Let's get yours started!",
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                softWrap: true,
-                                                textAlign: TextAlign.center,
-                                                color: AppColors.neutral600,
-                                              ).paddingSymmetric(
-                                                  horizontal: 24.w),
-                                            ],
                                           )
                                         : ListView.separated(
                                             shrinkWrap: true,
@@ -293,41 +269,13 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                               BlocBuilder<ActiveLoansCubit, ActiveLoansState>(
                             builder: (context, state) {
                               return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
                                     success: (response) => response.isEmpty
-                                        ? Column(
-                                            children: [
-                                              Container(
-                                                // color: Colors.black,
-                                                height: 180.h,
-                                                //   height: 200.h,
-                                                //   child: Image.asset(
-                                                //     "assets/images/empty_loan.gif",
-                                                //     fit: BoxFit.cover,
-                                                //   ),
-                                                // ),
-                                                child: Lottie.asset(
-                                                  "assets/images/empty_loan.lottie",
-                                                  decoder: customDecoder,
-                                                  // fit: BoxFit.fill,
-                                                  height: 500.h,
-                                                ),
-                                              ),
-                                              AppText(
-                                                "No Active Loans",
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                              4.h.heightBox,
-                                              AppText(
+                                        ? CustomErrorWidget(
+                                            errorTitle: "No Active Loans",
+                                            errorSubtitle:
                                                 "It looks like you don't have any loans currently in progress. Apply for a new loan to get started!",
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                softWrap: true,
-                                                textAlign: TextAlign.center,
-                                                color: AppColors.neutral600,
-                                              ).paddingSymmetric(
-                                                  horizontal: 24.w),
-                                            ],
                                           )
                                         : ListView.separated(
                                             shrinkWrap: true,
@@ -367,41 +315,13 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                               BlocBuilder<LoanHistoryCubit, LoanHistoryState>(
                             builder: (context, state) {
                               return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
                                     success: (response) => response.isEmpty
-                                        ? Column(
-                                            children: [
-                                              Container(
-                                                // color: Colors.black,
-                                                height: 180.h,
-                                                //   height: 200.h,
-                                                //   child: Image.asset(
-                                                //     "assets/images/empty_loan.gif",
-                                                //     fit: BoxFit.cover,
-                                                //   ),
-                                                // ),
-                                                child: Lottie.asset(
-                                                  "assets/images/empty_loan.lottie",
-                                                  decoder: customDecoder,
-                                                  // fit: BoxFit.fill,
-                                                  height: 500.h,
-                                                ),
-                                              ),
-                                              AppText(
-                                                "No Past Loans Found",
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                              4.h.heightBox,
-                                              AppText(
+                                        ? CustomErrorWidget(
+                                            errorTitle: "No Past Loans Found",
+                                            errorSubtitle:
                                                 "This section is dedicated to your completed or past loan activities. Apply for a loan to begin your history.",
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                softWrap: true,
-                                                textAlign: TextAlign.center,
-                                                color: AppColors.neutral600,
-                                              ).paddingSymmetric(
-                                                  horizontal: 24.w),
-                                            ],
                                           )
                                         : ListView.separated(
                                             shrinkWrap: true,

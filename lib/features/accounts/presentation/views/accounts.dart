@@ -168,7 +168,10 @@ class AccountsView extends StatelessWidget implements AccountsViewContract {
                             border: Border.all(color: AppColors.neutral800),
                             shape: BoxShape.circle,
                           ),
-                          child: SvgPicture.asset("assets/svgs/add.svg"),
+                          child: SvgPicture.asset(
+                            "assets/svgs/add.svg",
+                            height: 15.sp,
+                          ),
                         ),
                         8.h.heightBox,
                         AppText(
@@ -199,6 +202,7 @@ class AccountsView extends StatelessWidget implements AccountsViewContract {
                           ),
                           child: SvgPicture.asset(
                             "assets/svgs/arrow_right_up.svg",
+                            height: 15.sp,
                             colorFilter: ColorFilter.mode(
                               AppColors.neutral800,
                               BlendMode.srcIn,
@@ -234,6 +238,7 @@ class AccountsView extends StatelessWidget implements AccountsViewContract {
                           ),
                           child: SvgPicture.asset(
                             "assets/svgs/document.svg",
+                            height: 15.sp,
                             colorFilter: ColorFilter.mode(
                               AppColors.neutral800,
                               BlendMode.srcIn,

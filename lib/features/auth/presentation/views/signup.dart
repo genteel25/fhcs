@@ -170,13 +170,14 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                             child: BlocListener<AuthCubit, AuthState>(
                               listener: (context, state) {
                                 state.whenOrNull(
-                                  loading: () => context.loaderOverlay.show(),
+                                  loading: () =>
+                                      AppDialog.showAppProgressDialog(context),
                                   success: (response) {
-                                    context.loaderOverlay.hide();
+                                    context.pop();
                                     controller.onSecondContinue(response);
                                   },
                                   failure: (error) {
-                                    context.loaderOverlay.hide();
+                                    context.pop();
                                     GetIt.I.get<IWidgetHelper>().showErrorToast(
                                         context,
                                         message: error);
@@ -194,7 +195,7 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                         ),
                       ],
                     ).paddingSymmetric(horizontal: 20),
-                    // 16.h.heightBox,
+                    16.h.heightBox,
                   ],
                 )
               : Column(

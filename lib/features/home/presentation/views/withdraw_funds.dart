@@ -165,9 +165,9 @@ class WithdrawFundView extends StatelessWidget
           BlocListener<InitiateWithdrawalCubit, InitiateWithdrawalState>(
         listener: (context, state) {
           state.whenOrNull(
-            loading: () => context.loaderOverlay.show(),
+            loading: () => AppDialog.showAppProgressDialog(context),
             success: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               AppSheets.depositSuccessfulSheet(
                 context,
                 onPressed: () {
@@ -181,7 +181,7 @@ class WithdrawFundView extends StatelessWidget
               );
             },
             failure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);

@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:fhcs/config/di/app_initializer.dart';
+import 'package:fhcs/core/data/loan.dart';
 import 'package:fhcs/features/home/presentation/controllers/profile.dart';
+import 'package:fhcs/features/loans/presentation/controllers/active_loan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -263,6 +265,14 @@ class AppRouter {
                     parentNavigatorKey: GlobalVariables.rootNavigatorKey,
                     pageBuilder: (context, state) => _buildPage(
                       CashInjectionScreen(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.activeLoanRoute,
+                    name: RouteConstants.activeLoanRoute,
+                    parentNavigatorKey: GlobalVariables.rootNavigatorKey,
+                    pageBuilder: (context, state) => _buildPage(
+                      ActiveLoanScreen(loanInfo: state.extra as LoanData),
                     ),
                   ),
                 ],

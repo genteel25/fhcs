@@ -110,9 +110,9 @@ class WithdrawalBankView extends StatelessWidget
       bottomNavigationBar: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            bankLoading: () => context.loaderOverlay.show(),
+            bankLoading: () => AppDialog.showAppProgressDialog(context),
             bankSuccess: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               // context.pushNamed(RouteConstants.createPasswordRoute);
               AppSheets.bankWithdrawalSuccessSheet(context, onPressed: () {
                 context
@@ -123,7 +123,7 @@ class WithdrawalBankView extends StatelessWidget
               });
             },
             bankFailure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);
