@@ -11,9 +11,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class ActiveLoanWidget extends StatelessWidget {
-  const ActiveLoanWidget({super.key, required this.data, this.isActive = true});
+  const ActiveLoanWidget({
+    super.key,
+    required this.data,
+    this.isActive = true,
+    this.hasGesture = true,
+  });
   final LoanData data;
   final bool isActive;
+  final bool hasGesture;
 
   @override
   Widget build(BuildContext context) {
@@ -319,7 +325,10 @@ class ActiveLoanWidget extends StatelessWidget {
         ],
       ),
     ).onTap(
-      () => context.pushNamed(RouteConstants.activeLoanRoute, extra: data),
+      !hasGesture
+          ? () {}
+          : () =>
+              context.pushNamed(RouteConstants.activeLoanRoute, extra: data),
     );
   }
 }

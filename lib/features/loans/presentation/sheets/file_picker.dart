@@ -11,7 +11,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 class CustomFilePickerSheet extends StatefulWidget {
   const CustomFilePickerSheet(

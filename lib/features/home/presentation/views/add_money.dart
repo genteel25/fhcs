@@ -6,6 +6,7 @@ import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
 import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
@@ -18,7 +19,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import 'contracts/add_money.dart';
 

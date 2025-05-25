@@ -5,6 +5,7 @@ import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ import 'package:form_validator/form_validator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import '../controllers/contracts/enter_otp.dart';
 import 'contracts/enter_otp.dart';
@@ -99,9 +99,10 @@ class EnterOtpView extends StatelessWidget implements EnterOtpViewContract {
                     child: BlocListener<AuthCubit, AuthState>(
                       listener: (context, state) {
                         state.whenOrNull(
-                          verifyLoading: () => context.loaderOverlay.show(),
+                          verifyLoading: () =>
+                              AppDialog.showAppProgressDialog(context),
                           verifySuccess: (response) {
-                            context.loaderOverlay.hide();
+                            context.pop();
                             AppSheets.otpVerificationSuccessSheet(
                               context,
                               onPressed: () {
@@ -112,7 +113,7 @@ class EnterOtpView extends StatelessWidget implements EnterOtpViewContract {
                             );
                           },
                           verifyFailure: (error) {
-                            context.loaderOverlay.hide();
+                            context.pop();
                             GetIt.I
                                 .get<IWidgetHelper>()
                                 .showErrorToast(context, message: error);

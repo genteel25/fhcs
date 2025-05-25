@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,6 +74,18 @@ class SignUpController extends State<SignUpScreen>
   TextEditingController employmentDateController = TextEditingController();
 
   @override
+  late SingleSelectController<String> maritalStatusCustomController;
+
+  @override
+  late SingleSelectController<String> stateOfOriginCustomController;
+
+  @override
+  late SingleSelectController<String> salaryStepCustomController;
+
+  @override
+  late SingleSelectController<String> salaryGradeCustomController;
+
+  @override
   File? pickedImagePath;
 
   @override
@@ -95,6 +108,47 @@ class SignUpController extends State<SignUpScreen>
   bool employmentStatus = false;
 
   @override
+  List<String> states = [
+    'Abia',
+    'Adamawa',
+    'Akwa Ibom',
+    'Anambra',
+    'Bauchi',
+    'Bayelsa',
+    'Benue',
+    'Borno',
+    'Cross River',
+    'Delta',
+    'Ebonyi',
+    'Edo',
+    'Ekiti',
+    'Enugu',
+    'Federal Capital Territory (FCT) - Abuja', // Including FCT
+    'Gombe',
+    'Imo',
+    'Jigawa',
+    'Kaduna',
+    'Kano',
+    'Katsina',
+    'Kebbi',
+    'Kogi',
+    'Kwara',
+    'Lagos',
+    'Nasarawa',
+    'Niger',
+    'Ogun',
+    'Ondo',
+    'Osun',
+    'Oyo',
+    'Plateau',
+    'Rivers',
+    'Sokoto',
+    'Taraba',
+    'Yobe',
+    'Zamfara',
+  ];
+
+  @override
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   GlobalKey<FormState> secondFormKey = GlobalKey<FormState>();
@@ -111,6 +165,14 @@ class SignUpController extends State<SignUpScreen>
     permanentAddressControllerListener();
     deploymentOfficeControllerListener();
     officeAddressControllerListener();
+    maritalStatusCustomController = SingleSelectController("Single");
+    selectedMaritalStatus = "Single";
+    stateOfOriginCustomController = SingleSelectController("Abia");
+    selectedStateOfOrigin = "Abia";
+    salaryStepCustomController = SingleSelectController("1");
+    selectedSalaryStep = "1";
+    salaryGradeCustomController = SingleSelectController("1");
+    selectedSalaryGrade = "1";
   }
 
   @override
@@ -183,6 +245,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectMaritalStatus(String? value) {
+    if (mounted) {
+      maritalStatusCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -195,6 +260,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectStateOfOrigin(String? value) {
+    if (mounted) {
+      stateOfOriginCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -207,6 +275,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectSalaryGrade(String? value) {
+    if (mounted) {
+      salaryGradeCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -219,6 +290,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectSalaryStep(String? value) {
+    if (mounted) {
+      salaryStepCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -444,6 +518,7 @@ class SignUpController extends State<SignUpScreen>
     officeAddressController
       ..removeListener(officeAddressControllerListener)
       ..dispose();
+
     super.dispose();
   }
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 
 import 'package:phone_form_field/phone_form_field.dart';
@@ -18,6 +19,7 @@ abstract class SignUpControllerContract {
   late String selectedSalaryGrade;
   late bool employmentStatus;
   late String selectedSalaryStep;
+  late List<String> states;
   File? pickedImagePath;
 
   //TextControllers
@@ -33,6 +35,10 @@ abstract class SignUpControllerContract {
   TextEditingController deploymentOfficeController = TextEditingController();
   TextEditingController officeAddressController = TextEditingController();
   TextEditingController employmentDateController = TextEditingController();
+  late SingleSelectController<String> maritalStatusCustomController;
+  late SingleSelectController<String> stateOfOriginCustomController;
+  late SingleSelectController<String> salaryStepCustomController;
+  late SingleSelectController<String> salaryGradeCustomController;
 
   //Methods
   void residentialAddressControllerListener();

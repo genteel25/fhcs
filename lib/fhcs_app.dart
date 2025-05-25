@@ -16,7 +16,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:fhcs/config/flavor/app_flavor.dart';
 import 'package:fhcs/core/components/custom_loader_overlay.dart';
@@ -104,20 +103,7 @@ class FhcsApp extends StatelessWidget {
               data: MediaQuery.of(context).copyWith(
                   textScaler: TextScaler.linear(
                       MediaQuery.of(context).size.width > 428 ? 1 : 1.2)),
-              child: GlobalLoaderOverlay(
-                overlayColor: AppColors.primary700.withValues(alpha: 0.15),
-                overlayWholeScreen: true,
-                overlayWidgetBuilder: (context) => BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-                  child: Center(
-                    child: SizedBox(
-                      width: 60.w,
-                      child: const LoadingWidget(),
-                    ),
-                  ),
-                ),
-                child: child!,
-              ),
+              child: child!,
             );
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:fhcs/core/components/custom_button.dart';
 import 'package:fhcs/core/components/custom_outlined_button.dart';
@@ -111,6 +111,15 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                           onSelectEmploymentStatus:
                               controller.onSelectEmploymentStatus,
                           onSelectSalaryStep: controller.onSelectSalaryStep,
+                          states: controller.states,
+                          maritalStatusCustomController:
+                              controller.maritalStatusCustomController,
+                          salaryGradeCustomController:
+                              controller.salaryGradeCustomController,
+                          salaryStepCustomController:
+                              controller.salaryStepCustomController,
+                          stateOfOriginCustomController:
+                              controller.stateOfOriginCustomController,
                         )
                           .animate()
                           .fade(duration: const Duration(milliseconds: 300))
@@ -207,7 +216,7 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                       width: double.infinity,
                       padding: REdgeInsets.symmetric(horizontal: 20),
                       child: CustomButtonWidget(
-                        "Continue",
+                        "Proceed",
                         onPressed: controller.firstPercent.length == 5
                             ? () => controller.onContinue()
                             : null,

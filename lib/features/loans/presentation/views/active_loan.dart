@@ -48,7 +48,10 @@ class ActiveLoanView extends StatelessWidget implements ActiveLoanViewContract {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             16.h.heightBox,
-            ActiveLoanWidget(data: controller.loanData),
+            ActiveLoanWidget(
+              data: controller.loanData,
+              hasGesture: false,
+            ),
             24.h.heightBox,
             SizedBox(
               height: 36.h,
