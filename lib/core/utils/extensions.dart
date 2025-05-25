@@ -36,6 +36,12 @@ extension StringToText on String {
     return double.tryParse(replaceAll("%", "").trim()) ?? 0.0;
   }
 
+  String calculateOutstandingAmount(String amountDisbursed) {
+    final outstandingAmount =
+        double.parse(amountDisbursed) - double.parse(this);
+    return outstandingAmount.toString();
+  }
+
   String get formateCurrency {
     CurrencyFormat nairaSettings = CurrencyFormat(
       code: 'NGN',
