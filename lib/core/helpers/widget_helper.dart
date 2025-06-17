@@ -39,16 +39,16 @@ class WidgetHelper extends IWidgetHelper {
       forwardAnimationCurve: Curves.easeOut,
       titleText: Text("Error",
           style: GoogleFonts.onest(
-            fontSize: 20.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.neutral600,
           )),
       messageText: Text(
         toBeginningOfSentenceCase(message) ?? '',
         style: GoogleFonts.onest(
-          fontSize: 14.sp,
+          fontSize: 10.sp,
           fontWeight: FontWeight.w400,
-          color: AppColors.neutral600,
+          color: AppColors.neutral500,
         ),
       ),
     ).show(context);
@@ -88,16 +88,16 @@ class WidgetHelper extends IWidgetHelper {
       forwardAnimationCurve: Curves.easeOut,
       titleText: Text("Success",
           style: GoogleFonts.onest(
-            fontSize: 20.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.neutral600,
           )),
       messageText: Text(
         toBeginningOfSentenceCase(message) ?? '',
         style: GoogleFonts.onest(
-          fontSize: 14.sp,
+          fontSize: 10.sp,
           fontWeight: FontWeight.w400,
-          color: AppColors.neutral600,
+          color: AppColors.neutral500,
         ),
       ),
     ).show(context);

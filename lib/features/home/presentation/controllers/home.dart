@@ -6,6 +6,8 @@ import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_c
 import 'package:fhcs/features/home/presentation/controllers/contracts/home.dart';
 import 'package:fhcs/features/home/presentation/views/contracts/home.dart';
 import 'package:fhcs/features/home/presentation/views/home.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -32,9 +34,6 @@ class HomeController extends State<HomeScreen>
     super.initState();
     view = HomeView(controller: this);
     getBasicUserDetailFromStorage();
-    context.read<UserProfileCubit>().fetchUserProfile();
-    context.read<DashboardCubit>().fetchDashboardData();
-    context.read<TransactionsCubit>().fetchTransactions();
   }
 
   void getBasicUserDetailFromStorage() async {

@@ -27,8 +27,9 @@ enum FundingMode {
 
 class AddMoneyScreen extends StatefulWidget {
   static const String route = 'forgot_password';
-  const AddMoneyScreen({super.key, required this.mode});
+  const AddMoneyScreen({super.key, required this.mode, this.amount});
   final FundingMode mode;
+  final String? amount;
 
   @override
   State<AddMoneyScreen> createState() => AddMoneyController();
@@ -76,6 +77,9 @@ class AddMoneyController extends State<AddMoneyScreen>
   void initState() {
     super.initState();
     view = AddMoneyView(controller: this);
+    if (widget.amount != null) {
+      amountController.text = widget.amount!;
+    }
     mode = widget.mode;
     amountControllerListener();
     savingControllerListener();
@@ -172,7 +176,11 @@ class AddMoneyController extends State<AddMoneyScreen>
     });
     if (response.data.status == PaystackTransactionStatus.success) {
       log("Payment successful: ${response}");
-      context.read<VerifyFundingCubit>().verifyFunding(response.data.reference);
+      if (mounted) {
+        context
+            .read<VerifyFundingCubit>()
+            .verifyFunding(response.data.reference);
+      }
     }
 // PaystackTransactionVerified
 //     log("response: ${response}");
@@ -188,10 +196,17 @@ class AddMoneyController extends State<AddMoneyScreen>
   }
 
   @override
-  void onVerifyFunding() {
-    context.goNamed(RouteConstants.homeRoute);
-    context.read<TransactionsCubit>().fetchTransactions();
-    context.read<DashboardCubit>().fetchDashboardData();
+  void onVerifyFunding() async {
+    GetIt.I.get<IWidgetHelper>().showSuccessToast(
+          context,
+          message: "Deposit successful",
+        );
+    await Future.delayed(const Duration(seconds: 4));
+    if (mounted) {
+      context.goNamed(RouteConstants.homeRoute);
+      context.read<TransactionsCubit>().fetchTransactions();
+      context.read<DashboardCubit>().fetchDashboardData();
+    }
   }
 
   @override

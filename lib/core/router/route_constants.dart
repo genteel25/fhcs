@@ -1,5 +1,5 @@
 class RouteConstants {
-  static const String initialRoute = '/';
+  static const String initialRoute = '/onboarding';
   static const String welcomeRoute = '/welcome';
   static const String loginRoute = '/login';
   static const String signUpRoute = '/sign_up';
@@ -28,4 +28,10 @@ class RouteConstants {
   static const String statementRoute = '/statement';
   static const String profileRoute = '/profile';
   static const String activeLoanRoute = '/active_loan';
+  static const String splashRoute = '/splash';
+  static const String membershipBreakdownRoute = '/membership_breakdown';
+  static const String applyForInvestmentsRoute = '/apply_for_investments';
+  static const String investmentDetailRoute = '/investment_detail';
+  static const String selectVendorRoute = '/select_vendor';
+  static const String selectWitnessRoute = '/select_witness';
 }

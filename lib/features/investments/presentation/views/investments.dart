@@ -2,12 +2,15 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
 import 'package:fhcs/features/investments/presentation/controllers/contracts/investments.dart';
 import 'package:fhcs/features/investments/presentation/views/contracts/investments.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
 import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -44,41 +47,60 @@ class InvestmentsView extends StatelessWidget
                     16.h.heightBox,
                     Row(
                       children: [
-                        Container(
-                          width: 43.sp,
-                          height: 43.sp,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.w,
-                              color: AppColors.neutral600,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            "assets/images/tbd/avatar.png",
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        12.w.widthBox,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            AppText(
-                              "Hi Ajangbadi",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.neutral800,
-                              height: 1,
+                            Container(
+                              width: 43.w,
+                              height: 43.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.neutral300,
+                                border: Border.all(
+                                    width: 3.w, color: AppColors.neutral600),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.person,
+                                size: 30.sp,
+                                color: AppColors.neutral600,
+                              ),
                             ),
-                            AppText(
-                              "Click to view profile >>",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.neutral500,
-                              textDecoration: TextDecoration.underline,
+                            12.w.widthBox,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BlocBuilder<UserProfileCubit, UserProfileState>(
+                                  builder: (context, state) {
+                                    return state.whenOrNull(
+                                          success: (response) => AppText(
+                                            "Hi ${response.user?.firstName ?? ""} ${response.user?.lastName ?? ""}",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.neutral800,
+                                            height: 1,
+                                          ),
+                                        ) ??
+                                        AppText(
+                                          "Hi ${controller.fullName ?? ""}",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.neutral800,
+                                          height: 1,
+                                        );
+                                  },
+                                ),
+                                AppText(
+                                  "Click to view profile >>",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.neutral500,
+                                  textDecoration: TextDecoration.underline,
+                                ),
+                              ],
                             ),
                           ],
-                        ),
+                        ).onTap(() => context.pushNamed(
+                            RouteConstants.profileRoute,
+                            extra: controller.fullName)),
                         const Spacer(),
                         Container(
                           padding: REdgeInsets.all(14),
@@ -94,13 +116,28 @@ class InvestmentsView extends StatelessWidget
                       ],
                     ).paddingSymmetric(horizontal: 20.w),
                     24.h.heightBox,
-                    AssetCardWidget(
-                      balance: "0",
-                      title: "Investment balance",
-                      gradientColor: [
-                        Color(0xff1E1E31),
-                        Color(0xff070720),
-                      ],
+                    BlocBuilder<DashboardCubit, DashboardState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => AssetCardWidget(
+                                balance:
+                                    response.totalInvestment?.toString() ?? "0",
+                                title: "Investment balance",
+                                gradientColor: [
+                                  Color(0xff1E1E31),
+                                  Color(0xff070720),
+                                ],
+                              ),
+                            ) ??
+                            AssetCardWidget(
+                              balance: "0",
+                              title: "Investment balance",
+                              gradientColor: [
+                                Color(0xff1E1E31),
+                                Color(0xff070720),
+                              ],
+                            );
+                      },
                     ),
                   ],
                 ),
@@ -113,17 +150,21 @@ class InvestmentsView extends StatelessWidget
                   isFilled: true,
                   actionLabel: "Apply",
                   actionAsset: "money_bag",
-                  onTap: () =>
-                      context.pushNamed(RouteConstants.loanApplicationRoute),
+                  onTap: () => context
+                      .pushNamed(RouteConstants.applyForInvestmentsRoute),
                 ),
                 HomeActionWidget(
                   actionLabel: "Repay",
                   actionAsset: "curve",
+                  assetColor: AppColors.neutral800,
+                  boldBorder: true,
                   onTap: () => context.pushNamed(RouteConstants.repayLoanRoute),
                 ),
                 HomeActionWidget(
                   actionLabel: "Request",
                   actionAsset: "person_group",
+                  boldBorder: true,
+                  assetColor: AppColors.neutral800,
                   iconSize: 18.sp,
                   onTap: () =>
                       context.pushNamed(RouteConstants.refereeRequestRoute),

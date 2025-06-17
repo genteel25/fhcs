@@ -12,6 +12,7 @@ _$RefereeDataImpl _$$RefereeDataImplFromJson(Map<String, dynamic> json) =>
       irNumber: json['ir_number'] as String?,
       firstName: json['first_name'] as String?,
       lastName: json['last_name'] as String?,
+      imageUrl: json['image_url'] as String?,
     );
 
 Map<String, dynamic> _$$RefereeDataImplToJson(_$RefereeDataImpl instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$RefereeDataImplToJson(_$RefereeDataImpl instance) =>
       'ir_number': instance.irNumber,
       'first_name': instance.firstName,
       'last_name': instance.lastName,
+      'image_url': instance.imageUrl,
     };

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -9,15 +10,21 @@ import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
 import 'package:fhcs/core/api/service/dio_client.dart';
 import 'package:fhcs/core/api/service/endpoints.dart';
+import 'package:fhcs/core/data/account_info.dart';
 import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/data/basic_info.dart';
 import 'package:fhcs/core/data/dashboard.dart';
+import 'package:fhcs/core/data/investment.dart';
+import 'package:fhcs/core/data/investment_tenure.dart';
+import 'package:fhcs/core/data/investment_type.dart';
 import 'package:fhcs/core/data/loan.dart';
+import 'package:fhcs/core/data/loan_repayment.dart';
 import 'package:fhcs/core/data/nok_info.dart';
 import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/data/personal_info.dart';
 import 'package:fhcs/core/data/referee.dart';
+import 'package:fhcs/core/data/referee_request.dart';
 import 'package:fhcs/core/data/transaction.dart';
 import 'package:fhcs/core/data/user_info.dart';
 import 'package:fhcs/core/data/withdrawal.dart';
@@ -329,4 +336,118 @@ class ApiServicesImpl implements ApiServices {
         },
         null,
       );
+  @override
+  Future<Either<Failure, ApiResponse<List<InvestmentTypeData>>>>
+      investmentType() => apiClient.request<List<InvestmentTypeData>>(
+            ApiEndpoint.investmentType,
+            MethodType.get,
+            (data) {
+              return (data['data'] as List)
+                  .map((transactionData) =>
+                      InvestmentTypeData.fromJson(transactionData))
+                  .toList();
+            },
+            null,
+          );
+  @override
+  Future<Either<Failure, ApiResponse<List<InvestmentTenureData>>>>
+      investmentTenure() => apiClient.request<List<InvestmentTenureData>>(
+            ApiEndpoint.investmentTenure,
+            MethodType.get,
+            (data) {
+              return (data as List)
+                  .map((transactionData) =>
+                      InvestmentTenureData.fromJson(transactionData))
+                  .toList();
+            },
+            null,
+          );
+  @override
+  Future<Either<Failure, ApiResponse<List<RefereeRequestData>>>>
+      loanRefereeRequest() => apiClient.request<List<RefereeRequestData>>(
+            ApiEndpoint.refereeRequest,
+            MethodType.get,
+            (data) {
+              return (data as List)
+                  .map((transactionData) =>
+                      RefereeRequestData.fromJson(transactionData))
+                  .toList();
+            },
+            null,
+            queryParameters: {"type": "loan"},
+          );
+  @override
+  Future<Either<Failure, ApiResponse<List<RefereeRequestData>>>>
+      investmentRefereeRequest() => apiClient.request<List<RefereeRequestData>>(
+            ApiEndpoint.refereeRequest,
+            MethodType.get,
+            (data) {
+              return (data as List)
+                  .map((transactionData) =>
+                      RefereeRequestData.fromJson(transactionData))
+                  .toList();
+            },
+            null,
+            queryParameters: {"type": "investment"},
+          );
+  @override
+  Future<Either<Failure, ApiResponse<List<RefereeRequestData>>>>
+      refereeRequest() => apiClient.request<List<RefereeRequestData>>(
+            ApiEndpoint.refereeRequest,
+            MethodType.get,
+            (data) {
+              return (data as List)
+                  .map((transactionData) =>
+                      RefereeRequestData.fromJson(transactionData))
+                  .toList();
+            },
+            null,
+            queryParameters: {"type": "history"},
+          );
+
+  @override
+  Future<Either<Failure, ApiResponse<LoanRepaymentData>>> initiateLoanRepayment(
+          Map<String, dynamic> payload) =>
+      apiClient.request<LoanRepaymentData>(
+        ApiEndpoint.loanRepayment,
+        MethodType.post,
+        (data) {
+          return LoanRepaymentData.fromJson(data);
+        },
+        payload,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<AccountInfoData>>> accountDetails() =>
+      apiClient.request<AccountInfoData>(
+        ApiEndpoint.accountInfo,
+        MethodType.get,
+        (data) {
+          return AccountInfoData.fromJson(data);
+        },
+        null,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<InvestmentData>>> createInvestment(
+          {required Map<String, dynamic> payload}) =>
+      apiClient.request<InvestmentData>(
+        ApiEndpoint.createInvestment,
+        MethodType.post,
+        (data) {
+          return InvestmentData.fromJson(data);
+        },
+        payload,
+      );
+  @override
+  Future<Either<Failure, ApiResponse<List<InvestmentData>>>>
+      fetchInvestment() => apiClient.request<List<InvestmentData>>(
+            ApiEndpoint.createInvestment,
+            MethodType.post,
+            (data) {
+              return (data as List)
+                  .map((transactionData) =>
+                      InvestmentData.fromJson(transactionData))
+                  .toList();
+            },
+            null,
+          );
 }

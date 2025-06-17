@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:fhcs/core/storage/storage_constant.dart';
+import 'package:fhcs/features/accounts/presentation/bloc/account_details/account_details_cubit.dart';
+import 'package:fhcs/features/accounts/repository/account_repository.dart';
+import 'package:fhcs/features/accounts/repository/contracts/iaccount_repository.dart';
 import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
@@ -10,8 +13,15 @@ import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_c
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
 import 'package:fhcs/features/home/repository/home_repository.dart';
+import 'package:fhcs/features/investments/presentation/bloc/create_investment/create_investment_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/investment_tenure_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/investments/repository/contract/iinvestment_repository.dart';
+import 'package:fhcs/features/investments/repository/investment_repository.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repayment_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
 import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
 import 'package:fhcs/features/loans/repository/loan_repository.dart';
@@ -162,6 +172,42 @@ class AppInitializer {
         .registerLazySingleton<ActiveLoansCubit>(() => ActiveLoansCubit(
               loanRepository: instanceLocator(),
             ));
+    instanceLocator
+        .registerLazySingleton<InvestmentTypeCubit>(() => InvestmentTypeCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<LoanRepaymentCubit>(() => LoanRepaymentCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<InvestmentTypeCubit>(() => InvestmentTypeCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<RefereeRequestCubit>(() => RefereeRequestCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<LoanRefereeRequestCubit>(
+        () => LoanRefereeRequestCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<InvestmentRefereeRequestCubit>(
+        () => InvestmentRefereeRequestCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<InvestmentTenureCubit>(
+        () => InvestmentTenureCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<AccountDetailsCubit>(() => AccountDetailsCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<CreateInvestmentCubit>(
+        () => CreateInvestmentCubit(
+              repository: instanceLocator(),
+            ));
   }
 
   static initRepos() {
@@ -179,6 +225,18 @@ class AppInitializer {
     );
     instanceLocator.registerLazySingleton<ILoanRepository>(
       () => LoanRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<IInvestmentRepository>(
+      () => InvestmentRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<IAccountRepository>(
+      () => AccountRepository(
         localStorage: instanceLocator(),
         apiServices: instanceLocator(),
       ),

@@ -115,11 +115,10 @@ class WithdrawalBankView extends StatelessWidget
               context.pop();
               // context.pushNamed(RouteConstants.createPasswordRoute);
               AppSheets.bankWithdrawalSuccessSheet(context, onPressed: () {
-                context
-                    .pushNamed(RouteConstants.membershipPaymentRoute, extra: (
-                  amount: response.paymentInfoData?.amount?.toString() ?? "0",
-                  ref: response.paymentInfoData?.refId ?? ""
-                ));
+                context.pushNamed(
+                  RouteConstants.membershipBreakdownRoute,
+                  extra: response.paymentInfoData,
+                );
               });
             },
             bankFailure: (error) {

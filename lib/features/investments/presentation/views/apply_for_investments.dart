@@ -2,206 +2,125 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/global_variables.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
-import 'package:fhcs/features/investments/presentation/controllers/contracts/investments.dart';
-import 'package:fhcs/features/investments/presentation/views/contracts/investments.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/investments/presentation/controllers/contracts/apply_for_investments.dart';
+import 'package:fhcs/features/investments/presentation/views/contracts/apply_for_investments.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
-import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-class InvestmentsView extends StatelessWidget
-    implements InvestmentsViewContract {
-  const InvestmentsView({super.key, required this.controller});
-  final InvestmentsControllerContract controller;
+class ApplyForInvestmentsView extends StatelessWidget
+    implements ApplyForInvestmentsViewContract {
+  const ApplyForInvestmentsView({super.key, required this.controller});
+  final ApplyForInvestmentsControllerContract controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 36.h,
+        leadingWidth: 58.w,
+        backgroundColor: Color(0xffF8F8F9),
+        surfaceTintColor: Color(0xffF8F8F9),
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            20.sp.widthBox,
+            InkWell(
+              borderRadius: BorderRadius.circular(100.r),
+              onTap: () => context.pop(),
+              child: Container(
+                width: 36.w,
+                height: 36.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.neutral200,
+                    width: 1.w,
+                  ),
+                ),
+                child: SvgPicture.asset(
+                  "assets/svgs/back.svg",
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
+            ),
+          ],
+        ),
+        centerTitle: false,
+        title: AppText(
+          "Apply for Investment",
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: AppColors.neutral800,
+        ),
+      ),
       backgroundColor: Color(0xffF8F8F9),
       body: DefaultTabController(
         length: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xffFFFFFF),
-                    Color(0xffADD9C6),
-                  ],
-                ),
-              ),
-              child: SafeArea(
-                bottom: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    16.h.heightBox,
-                    Row(
-                      children: [
-                        Container(
-                          width: 43.sp,
-                          height: 43.sp,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.w,
-                              color: AppColors.neutral600,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            "assets/images/tbd/avatar.png",
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        12.w.widthBox,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              "Hi Ajangbadi",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.neutral800,
-                              height: 1,
-                            ),
-                            AppText(
-                              "Click to view profile >>",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.neutral500,
-                              textDecoration: TextDecoration.underline,
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Container(
-                          padding: REdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.primary100,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/svgs/bell.svg",
-                            height: 12,
-                          ),
-                        )
-                      ],
-                    ).paddingSymmetric(horizontal: 20.w),
-                    24.h.heightBox,
-                    AssetCardWidget(
-                      gradientColor: [
-                        Color(0xff1E1E31),
-                        Color(0xff070720),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            24.h.heightBox,
-            Row(
-              children: [
-                HomeActionWidget(
-                  isFilled: true,
-                  actionLabel: "Apply",
-                  actionAsset: "money_bag",
-                  onTap: () =>
-                      context.pushNamed(RouteConstants.loanApplicationRoute),
-                ),
-                HomeActionWidget(
-                  actionLabel: "Repay",
-                  actionAsset: "curve",
-                  onTap: () => context.pushNamed(RouteConstants.repayLoanRoute),
-                ),
-                HomeActionWidget(
-                  actionLabel: "Request",
-                  actionAsset: "person_group",
-                  iconSize: 18.sp,
-                  onTap: () =>
-                      context.pushNamed(RouteConstants.refereeRequestRoute),
-                ),
-              ],
-            ).paddingSymmetric(horizontal: 20.w),
-            32.h.heightBox,
-            SizedBox(
-              height: 36.h,
-              child: TabBar(
-                labelPadding: REdgeInsets.symmetric(horizontal: 6),
-                padding: REdgeInsets.symmetric(horizontal: 16),
-                indicatorPadding: REdgeInsets.only(top: 8),
-                tabAlignment: TabAlignment.start,
-                labelColor: AppColors.neutral800,
-                unselectedLabelColor: AppColors.neutral500,
-                isScrollable: true,
-                labelStyle: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.neutral800,
-                ),
-                unselectedLabelStyle: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.neutral500,
-                ),
-                dividerColor: Colors.transparent,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorWeight: 2.h,
-                indicatorColor: AppColors.primary100,
-                splashFactory: InkRipple.splashFactory,
-                indicator: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 2.w, color: AppColors.neutral800),
-                  ),
-                ),
-                tabs: [
-                  Tab(
-                    text: "Applications",
-                  ),
-                  Tab(
-                    text: "Active Investments",
-                  ),
-                  Tab(
-                    text: "History",
-                  ),
-                ],
-              ),
-            ),
             16.h.heightBox,
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     primary: true,
-            //     child: Column(
-            //       children: [
-            //         Container(
-            //           padding: REdgeInsets.symmetric(vertical: 0),
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(8.r),
-            //             // color: AppColors.lightest,
-            //           ),
-            //           child: ListView.separated(
-            //             shrinkWrap: true,
-            //             primary: false,
-            //             padding: EdgeInsets.zero,
-            //             itemBuilder: (context, index) {
-            //               return LoanApplicationItemWidget();
-            //             },
-            //             separatorBuilder: (context, index) {
-            //               return Divider(
-            //                   color: AppColors.neutral100, height: 0.h);
-            //             },
-            //             itemCount: 8,
-            //           ),
-            //         ).paddingSymmetric(horizontal: 20.w),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            BlocBuilder<InvestmentTypeCubit, InvestmentTypeState>(
+              builder: (context, state) {
+                return state.whenOrNull(
+                      success: (response) => ListView.builder(
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () => context.pushNamed(
+                              RouteConstants.investmentDetailRoute,
+                              extra: response[index]),
+                          child: Container(
+                            padding: REdgeInsets.symmetric(
+                                horizontal: 20, vertical: 16),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: REdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                        GlobalVariables.generateColorFromText(
+                                                response[index].name ?? "")
+                                            .withValues(alpha: 0.1),
+                                  ),
+                                  child: SvgPicture.asset(
+                                    "assets/svgs/database.svg",
+                                    width: 16.sp,
+                                    height: 16.sp,
+                                    colorFilter: ColorFilter.mode(
+                                        GlobalVariables.generateColorFromText(
+                                            response[index].name ?? ""),
+                                        BlendMode.srcIn),
+                                  ),
+                                ),
+                                12.w.widthBox,
+                                AppText(
+                                  response[index].name ?? "",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.neutral800,
+                                ),
+                                const Spacer(),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12.sp,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        shrinkWrap: true,
+                        itemCount: response.length,
+                      ),
+                    ) ??
+                    const SizedBox.shrink();
+              },
+            )
           ],
         ),
       ),

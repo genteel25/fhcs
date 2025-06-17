@@ -23,13 +23,13 @@ class WithdrawFromView extends StatelessWidget
       backgroundColor: Color(0xffF8F8F9),
       appBar: AppBar(
         toolbarHeight: 36.h,
-        leadingWidth: 56.w,
+        leadingWidth: 58.w,
         backgroundColor: Color(0xffF8F8F9),
         surfaceTintColor: Color(0xffF8F8F9),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            20.w.widthBox,
+            20.sp.widthBox,
             CustomBackButtonWidget(borderColor: AppColors.neutral200)
           ],
         ),

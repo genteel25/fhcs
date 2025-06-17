@@ -35,7 +35,7 @@ mixin _$LoanData {
   String? get approvalStatus => throw _privateConstructorUsedError;
   LoanUser? get user =>
       throw _privateConstructorUsedError; // Nested user details for the loan
-  List<dynamic>? get referees =>
+  List<LoanReferee>? get referees =>
       throw _privateConstructorUsedError; // Assuming referees is a list of dynamic items (can be List<String>? if it's names)
   @JsonKey(name: "payslip_url")
   String? get payslipUrl => throw _privateConstructorUsedError;
@@ -88,7 +88,7 @@ abstract class $LoanDataCopyWith<$Res> {
       String? status,
       @JsonKey(name: "approval_status") String? approvalStatus,
       LoanUser? user,
-      List<dynamic>? referees,
+      List<LoanReferee>? referees,
       @JsonKey(name: "payslip_url") String? payslipUrl,
       @JsonKey(name: "annual_salary") double? annualSalary,
       @JsonKey(name: "created_at") DateTime? createdAt,
@@ -191,7 +191,7 @@ class _$LoanDataCopyWithImpl<$Res, $Val extends LoanData>
       referees: freezed == referees
           ? _value.referees
           : referees // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<LoanReferee>?,
       payslipUrl: freezed == payslipUrl
           ? _value.payslipUrl
           : payslipUrl // ignore: cast_nullable_to_non_nullable
@@ -305,7 +305,7 @@ abstract class _$$LoanDataImplCopyWith<$Res>
       String? status,
       @JsonKey(name: "approval_status") String? approvalStatus,
       LoanUser? user,
-      List<dynamic>? referees,
+      List<LoanReferee>? referees,
       @JsonKey(name: "payslip_url") String? payslipUrl,
       @JsonKey(name: "annual_salary") double? annualSalary,
       @JsonKey(name: "created_at") DateTime? createdAt,
@@ -409,7 +409,7 @@ class __$$LoanDataImplCopyWithImpl<$Res>
       referees: freezed == referees
           ? _value._referees
           : referees // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<LoanReferee>?,
       payslipUrl: freezed == payslipUrl
           ? _value.payslipUrl
           : payslipUrl // ignore: cast_nullable_to_non_nullable
@@ -476,7 +476,7 @@ class _$LoanDataImpl extends _LoanData with DiagnosticableTreeMixin {
       this.status,
       @JsonKey(name: "approval_status") this.approvalStatus,
       this.user,
-      final List<dynamic>? referees,
+      final List<LoanReferee>? referees,
       @JsonKey(name: "payslip_url") this.payslipUrl,
       @JsonKey(name: "annual_salary") this.annualSalary,
       @JsonKey(name: "created_at") this.createdAt,
@@ -520,10 +520,10 @@ class _$LoanDataImpl extends _LoanData with DiagnosticableTreeMixin {
   @override
   final LoanUser? user;
 // Nested user details for the loan
-  final List<dynamic>? _referees;
+  final List<LoanReferee>? _referees;
 // Nested user details for the loan
   @override
-  List<dynamic>? get referees {
+  List<LoanReferee>? get referees {
     final value = _referees;
     if (value == null) return null;
     if (_referees is EqualUnmodifiableListView) return _referees;
@@ -708,7 +708,7 @@ abstract class _LoanData extends LoanData {
       final String? status,
       @JsonKey(name: "approval_status") final String? approvalStatus,
       final LoanUser? user,
-      final List<dynamic>? referees,
+      final List<LoanReferee>? referees,
       @JsonKey(name: "payslip_url") final String? payslipUrl,
       @JsonKey(name: "annual_salary") final double? annualSalary,
       @JsonKey(name: "created_at") final DateTime? createdAt,
@@ -752,7 +752,7 @@ abstract class _LoanData extends LoanData {
   @override
   LoanUser? get user; // Nested user details for the loan
   @override
-  List<dynamic>?
+  List<LoanReferee>?
       get referees; // Assuming referees is a list of dynamic items (can be List<String>? if it's names)
   @override
   @JsonKey(name: "payslip_url")
@@ -796,6 +796,201 @@ abstract class _LoanData extends LoanData {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoanDataImplCopyWith<_$LoanDataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+LoanReferee _$LoanRefereeFromJson(Map<String, dynamic> json) {
+  return _LoanReferee.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LoanReferee {
+  int? get id => throw _privateConstructorUsedError;
+  LoanUser? get user => throw _privateConstructorUsedError;
+
+  /// Serializes this LoanReferee to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of LoanReferee
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LoanRefereeCopyWith<LoanReferee> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LoanRefereeCopyWith<$Res> {
+  factory $LoanRefereeCopyWith(
+          LoanReferee value, $Res Function(LoanReferee) then) =
+      _$LoanRefereeCopyWithImpl<$Res, LoanReferee>;
+  @useResult
+  $Res call({int? id, LoanUser? user});
+
+  $LoanUserCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class _$LoanRefereeCopyWithImpl<$Res, $Val extends LoanReferee>
+    implements $LoanRefereeCopyWith<$Res> {
+  _$LoanRefereeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of LoanReferee
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? user = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as LoanUser?,
+    ) as $Val);
+  }
+
+  /// Create a copy of LoanReferee
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LoanUserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $LoanUserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$LoanRefereeImplCopyWith<$Res>
+    implements $LoanRefereeCopyWith<$Res> {
+  factory _$$LoanRefereeImplCopyWith(
+          _$LoanRefereeImpl value, $Res Function(_$LoanRefereeImpl) then) =
+      __$$LoanRefereeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int? id, LoanUser? user});
+
+  @override
+  $LoanUserCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class __$$LoanRefereeImplCopyWithImpl<$Res>
+    extends _$LoanRefereeCopyWithImpl<$Res, _$LoanRefereeImpl>
+    implements _$$LoanRefereeImplCopyWith<$Res> {
+  __$$LoanRefereeImplCopyWithImpl(
+      _$LoanRefereeImpl _value, $Res Function(_$LoanRefereeImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of LoanReferee
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? user = freezed,
+  }) {
+    return _then(_$LoanRefereeImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as LoanUser?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LoanRefereeImpl extends _LoanReferee with DiagnosticableTreeMixin {
+  const _$LoanRefereeImpl({this.id, this.user}) : super._();
+
+  factory _$LoanRefereeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LoanRefereeImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final LoanUser? user;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'LoanReferee(id: $id, user: $user)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoanReferee'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('user', user));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoanRefereeImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, user);
+
+  /// Create a copy of LoanReferee
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoanRefereeImplCopyWith<_$LoanRefereeImpl> get copyWith =>
+      __$$LoanRefereeImplCopyWithImpl<_$LoanRefereeImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LoanRefereeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _LoanReferee extends LoanReferee {
+  const factory _LoanReferee({final int? id, final LoanUser? user}) =
+      _$LoanRefereeImpl;
+  const _LoanReferee._() : super._();
+
+  factory _LoanReferee.fromJson(Map<String, dynamic> json) =
+      _$LoanRefereeImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  LoanUser? get user;
+
+  /// Create a copy of LoanReferee
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoanRefereeImplCopyWith<_$LoanRefereeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -31,13 +31,13 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
         backgroundColor: Color(0xffF8F8F9),
         appBar: AppBar(
           toolbarHeight: 36.h,
-          leadingWidth: 56.w,
+          leadingWidth: 58.w,
           backgroundColor: Color(0xffF8F8F9),
           surfaceTintColor: Color(0xffF8F8F9),
           leading: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              20.w.widthBox,
+              20.sp.widthBox,
               CustomBackButtonWidget(borderColor: AppColors.neutral200),
             ],
           ),
@@ -54,7 +54,7 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
           children: [
             16.h.heightBox,
             CustomInputLabelWidget(
-              "How much do want to deposit?",
+              "How much do you want to deposit?",
               controller: controller.amountController,
               hintText: "N 2,000",
               isAmount: true,
@@ -189,10 +189,6 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
                       controller.payViaCard(
                           refId: response.refId ?? "",
                           amount: (response.amount ?? 0).toString());
-                      GetIt.I.get<IWidgetHelper>().showSuccessToast(
-                            context,
-                            message: "Deposit initiated successfully",
-                          );
                     },
                     failure: (error) {
                       context.pop();
@@ -209,11 +205,8 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
                     loading: () => AppDialog.showAppProgressDialog(context),
                     success: (response) {
                       context.pop();
+
                       controller.onVerifyFunding();
-                      GetIt.I.get<IWidgetHelper>().showSuccessToast(
-                            context,
-                            message: "Deposit successful",
-                          );
                     },
                     failure: (error) {
                       context.pop();

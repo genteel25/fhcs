@@ -9,9 +9,15 @@ import 'package:go_router/go_router.dart';
 
 class OtpSuccessWidget extends StatelessWidget {
   const OtpSuccessWidget(
-      {super.key, required this.onContinue, required this.nextStepsData});
+      {super.key,
+      required this.onContinue,
+      required this.nextStepsData,
+      this.subtitle,
+      this.title});
   final Function onContinue;
   final List<String> nextStepsData;
+  final String? title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +49,14 @@ class OtpSuccessWidget extends StatelessWidget {
         ),
         16.h.heightBox,
         AppText(
-          "OTP Verified",
+          title ?? "OTP Verified",
           fontSize: 18,
           fontWeight: FontWeight.w500,
           color: AppColors.neutral800,
         ),
         8.h.heightBox,
         AppText(
-          "Your email address was verified successfully",
+          subtitle ?? "Your email address was verified successfully",
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.neutral500,

@@ -2,6 +2,13 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:fhcs/core/data/payment.dart';
+import 'package:fhcs/core/utils/global_variables.dart';
+import 'package:fhcs/features/accounts/presentation/bloc/account_details/account_details_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -118,6 +125,30 @@ class AuthCubit extends Cubit<AuthState> {
             fullName: (r.data as LoginData).fullName,
             username: (r.data as LoginData).username);
         emit(AuthState.loginSuccess(response: r.data as LoginData));
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<UserProfileCubit>()
+            .fetchUserProfile();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<DashboardCubit>()
+            .fetchDashboardData();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<TransactionsCubit>()
+            .fetchTransactions();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<InvestmentTypeCubit>()
+            .fetchInvestmentType();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<RefereeRequestCubit>()
+            .fetchRefereeRequest();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<LoanRefereeRequestCubit>()
+            .fetchRefereeRequest();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<InvestmentRefereeRequestCubit>()
+            .fetchRefereeRequest();
+        GlobalVariables.rootNavigatorKey.currentContext!
+            .read<AccountDetailsCubit>()
+            .fetchAccountDetail();
       });
     } catch (e) {
       emit(AuthState.loginFailure(error: e.toString()));

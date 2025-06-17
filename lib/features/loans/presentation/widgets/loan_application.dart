@@ -145,11 +145,12 @@ class _LoanApplicationItemWidgetState extends State<LoanApplicationItemWidget> {
                       SvgPicture.asset("assets/svgs/clock.svg"),
                       4.w.widthBox,
                       AppText(
-                        switch (widget.data.nextApprovalStep?.loanStatus) {
-                          LoanStatus.approved => "Approved",
-                          LoanStatus.rejected => "Rejected",
-                          _ => "Pending",
-                        },
+                        widget.data.status ?? "",
+                        // switch (widget.data.nextApprovalStep?.loanStatus) {
+                        //   LoanStatus.approved => "Approved",
+                        //   LoanStatus.rejected => "Rejected",
+                        //   _ => "Pending",
+                        // },
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
                         color: switch (
@@ -173,14 +174,38 @@ class _LoanApplicationItemWidgetState extends State<LoanApplicationItemWidget> {
                 ],
               ),
               const Spacer(),
-              RotatedBox(
-                quarterTurns: isExpanded ? 2 : 0,
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 16.sp,
-                  color: AppColors.neutral800,
-                ),
-              ),
+              Column(
+                children: [
+                  RotatedBox(
+                    quarterTurns: isExpanded ? 2 : 0,
+                    child: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 16.sp,
+                      color: AppColors.neutral800,
+                    ),
+                  ),
+                  // 8.h.heightBox,
+                  // Container(
+                  //   padding: REdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(4.r),
+                  //       border: Border.all(
+                  //           color: AppColors.primary700, width: 1.w)),
+                  //   child: Row(
+                  //     children: [
+                  //       AppText(
+                  //         "Edit",
+                  //         fontSize: 8.sp,
+                  //         fontWeight: FontWeight.w300,
+                  //         color: AppColors.primary700,
+                  //       ),
+                  //       2.w.widthBox,
+                  //       Icon(Icons.edit, size: 8.sp),
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              )
             ],
           ),
         ),

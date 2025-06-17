@@ -71,6 +71,7 @@ class LoginView extends StatelessWidget implements LoginViewContract {
                       controller: controller.passwordController,
                       hintText: "Enter your password",
                       showSuffix: true,
+                      keyboardType: TextInputType.visiblePassword,
                       obscureText: controller.isObscure,
                       textInputAction: TextInputAction.done,
                       onTap: () => controller.onToggleObscure(),

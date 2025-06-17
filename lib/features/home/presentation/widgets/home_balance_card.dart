@@ -35,6 +35,7 @@ class HomeBalanceCardWidget extends StatelessWidget {
           Image.asset(
             "assets/images/home_card_pattern.png",
             fit: BoxFit.cover,
+            width: double.infinity,
           ),
           Container(
             padding: REdgeInsets.symmetric(horizontal: 20, vertical: 16),

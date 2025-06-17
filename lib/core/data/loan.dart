@@ -23,7 +23,7 @@ class LoanData with _$LoanData {
     String? status,
     @JsonKey(name: "approval_status") String? approvalStatus,
     LoanUser? user, // Nested user details for the loan
-    List<dynamic>?
+    List<LoanReferee>?
         referees, // Assuming referees is a list of dynamic items (can be List<String>? if it's names)
     @JsonKey(name: "payslip_url") String? payslipUrl,
     @JsonKey(name: "annual_salary") double? annualSalary,
@@ -50,6 +50,24 @@ class LoanData with _$LoanData {
       _ => true,
     };
   }
+}
+
+@Freezed(unionValueCase: FreezedUnionCase.snake)
+class LoanReferee with _$LoanReferee {
+  const LoanReferee._();
+  const factory LoanReferee({
+    int? id,
+    LoanUser? user,
+  }) = _LoanReferee;
+
+  // Factory constructor for creating a new User instance from a map.
+  // This delegates to the generated _$UserFromJson function.
+  factory LoanReferee.fromJson(Map<String, dynamic> json) =>
+      _$LoanRefereeFromJson(json);
+
+  // // Method for converting a User instance to a map.
+  // // This delegates to the generated _$UserToJson function.
+  // Map<String, dynamic> toJson() => _$LoanRefereeToJson(this);
 }
 
 // --- Nested User Model for Loan (different from AuthUser/TransactionUser if fields differ) ---

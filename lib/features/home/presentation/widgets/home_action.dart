@@ -14,6 +14,7 @@ class HomeActionWidget extends StatelessWidget {
     this.boldBorder = false,
     this.iconSize,
     required this.actionLabel,
+    this.assetColor,
   });
   final bool? isFilled;
   final String? actionAsset;
@@ -21,6 +22,7 @@ class HomeActionWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final bool boldBorder;
   final double? iconSize;
+  final Color? assetColor;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +66,8 @@ class HomeActionWidget extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       colorFilter: isFilled == true
                           ? null
-                          : ColorFilter.mode(
-                              AppColors.primary700, BlendMode.srcIn),
+                          : ColorFilter.mode(assetColor ?? AppColors.primary700,
+                              BlendMode.srcIn),
                     ),
             ),
             8.h.heightBox,

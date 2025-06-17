@@ -6,7 +6,8 @@ import 'contracts/deposit_fund.dart';
 
 class DepositFundScreen extends StatefulWidget {
   static const String route = 'forgot_password';
-  const DepositFundScreen({super.key});
+  const DepositFundScreen({super.key, this.amount});
+  final String? amount;
 
   @override
   State<DepositFundScreen> createState() => DepositFundController();
@@ -17,9 +18,15 @@ class DepositFundController extends State<DepositFundScreen>
   late DepositFundViewContract view;
 
   @override
+  String? amount;
+
+  @override
   void initState() {
     super.initState();
     view = DepositFundView(controller: this);
+    if (widget.amount != null) {
+      amount = widget.amount!;
+    }
   }
 
   @override

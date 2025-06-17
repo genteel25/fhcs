@@ -20,13 +20,13 @@ class CashInjectionView extends StatelessWidget
       backgroundColor: Color(0xffF8F8F9),
       appBar: AppBar(
         toolbarHeight: 36.h,
-        leadingWidth: 56.w,
+        leadingWidth: 58.w,
         backgroundColor: Color(0xffF8F8F9),
         surfaceTintColor: Color(0xffF8F8F9),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            20.w.widthBox,
+            20.sp.widthBox,
             Container(
               width: 36.w,
               height: 36.h,
@@ -55,7 +55,7 @@ class CashInjectionView extends StatelessWidget
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          44.h.heightBox,
+          16.h.heightBox,
           ListTile(
             contentPadding: REdgeInsets.symmetric(horizontal: 20, vertical: 16),
             visualDensity: const VisualDensity(vertical: -4),
@@ -76,7 +76,8 @@ class CashInjectionView extends StatelessWidget
               fontWeight: FontWeight.w400,
               color: AppColors.neutral500,
             ),
-            onTap: () => context.pushNamed(RouteConstants.addMoneyRoute),
+            onTap: () => context.pushNamed(RouteConstants.addMoneyRoute,
+                extra: FundingMode.bankTransfer),
             trailing: Icon(
               Icons.arrow_forward_ios,
               size: 12.sp,
@@ -106,7 +107,7 @@ class CashInjectionView extends StatelessWidget
             ),
             onTap: () => context.pushNamed(
               RouteConstants.addMoneyRoute,
-              extra: (mode: FundingMode.card, hasCreditCard: true),
+              extra: FundingMode.card,
             ),
             trailing: Icon(
               Icons.arrow_forward_ios,

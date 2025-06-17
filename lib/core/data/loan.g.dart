@@ -20,7 +20,9 @@ _$LoanDataImpl _$$LoanDataImplFromJson(Map<String, dynamic> json) =>
       user: json['user'] == null
           ? null
           : LoanUser.fromJson(json['user'] as Map<String, dynamic>),
-      referees: json['referees'] as List<dynamic>?,
+      referees: (json['referees'] as List<dynamic>?)
+          ?.map((e) => LoanReferee.fromJson(e as Map<String, dynamic>))
+          .toList(),
       payslipUrl: json['payslip_url'] as String?,
       annualSalary: (json['annual_salary'] as num?)?.toDouble(),
       createdAt: json['created_at'] == null
@@ -70,6 +72,20 @@ Map<String, dynamic> _$$LoanDataImplToJson(_$LoanDataImpl instance) =>
       'loan_limit': instance.loanLimit,
       'next_approval_step': instance.nextApprovalStep,
       'current_approval_step': instance.currentApprovalStep,
+    };
+
+_$LoanRefereeImpl _$$LoanRefereeImplFromJson(Map<String, dynamic> json) =>
+    _$LoanRefereeImpl(
+      id: (json['id'] as num?)?.toInt(),
+      user: json['user'] == null
+          ? null
+          : LoanUser.fromJson(json['user'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$LoanRefereeImplToJson(_$LoanRefereeImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'user': instance.user,
     };
 
 _$LoanUserImpl _$$LoanUserImplFromJson(Map<String, dynamic> json) =>

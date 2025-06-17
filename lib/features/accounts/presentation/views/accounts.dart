@@ -2,9 +2,12 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/accounts/presentation/bloc/account_details/account_details_cubit.dart';
 import 'package:fhcs/features/accounts/presentation/controllers/contracts/accounts.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -96,20 +99,48 @@ class AccountsView extends StatelessWidget implements AccountsViewContract {
                         children: [
                           Align(
                             alignment: Alignment.topCenter,
-                            child: AssetCardWidget(
-                              title: "Savings Balance",
-                              balance: "0",
+                            child: BlocBuilder<DashboardCubit, DashboardState>(
+                              builder: (context, state) {
+                                return state.whenOrNull(
+                                      success: (response) => AssetCardWidget(
+                                        title: "Savings Balance",
+                                        balance:
+                                            response.totalSavings?.toString() ??
+                                                "0",
+                                      ),
+                                    ) ??
+                                    AssetCardWidget(
+                                      title: "Savings Balance",
+                                      balance: "0",
+                                    );
+                              },
                             ),
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: AssetCardWidget(
-                              balance: "0",
-                              title: "Investment Balance",
-                              gradientColor: [
-                                Color(0xff1E1E31),
-                                Color(0xff070720),
-                              ],
+                            child: BlocBuilder<DashboardCubit, DashboardState>(
+                              builder: (context, state) {
+                                return state.whenOrNull(
+                                      success: (response) => AssetCardWidget(
+                                        balance: response.totalInvestment
+                                                ?.toString() ??
+                                            "0",
+                                        title: "Investment Balance",
+                                        gradientColor: [
+                                          Color(0xff1E1E31),
+                                          Color(0xff070720),
+                                        ],
+                                      ),
+                                    ) ??
+                                    AssetCardWidget(
+                                      balance: "0",
+                                      title: "Investment Balance",
+                                      gradientColor: [
+                                        Color(0xff1E1E31),
+                                        Color(0xff070720),
+                                      ],
+                                    );
+                              },
                             ),
                           ),
                         ],
@@ -140,11 +171,24 @@ class AccountsView extends StatelessWidget implements AccountsViewContract {
                     color: Colors.black,
                   ),
                   const Spacer(),
-                  AppText(
-                    "N 1,205,890.00",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
+                  BlocBuilder<AccountDetailsCubit, AccountDetailsState>(
+                    builder: (context, state) {
+                      return state.whenOrNull(
+                            success: (response) => AppText(
+                              response.pendingDebit?.toString() ?? "0",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              isAmount: true,
+                              color: Colors.black,
+                            ),
+                          ) ??
+                          AppText(
+                            "0",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          );
+                    },
                   ),
                 ],
               ),

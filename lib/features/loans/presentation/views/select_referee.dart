@@ -26,13 +26,13 @@ class SelectRefereeView extends StatelessWidget
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 36.h,
-          leadingWidth: 56.w,
+          leadingWidth: 58.w,
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
           leading: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              20.w.widthBox,
+              20.sp.widthBox,
               InkWell(
                 borderRadius: BorderRadius.circular(100.r),
                 onTap: () => context.pop(),
@@ -265,18 +265,20 @@ class SelectRefereeView extends StatelessWidget
             "Continue",
             onPressed: controller.selectedReferees.isEmpty
                 ? null
-                : () => AppSheets.loanConfirmationSheet(context,
-                        isNormalLoan: controller.isNormalLoan,
-                        applyForLoan: () => controller.onRequestLoan(),
-                        loanInfo: {
-                          "Loan type": controller.isNormalLoan,
-                          "Requested amount": controller.loanAmount,
-                          for (var referee = 0;
-                              referee < controller.selectedReferees.length;
-                              referee++)
-                            "Referee ${referee + 1}":
-                                "${controller.selectedReferees[referee].firstName} ${controller.selectedReferees[referee].lastName}",
-                        }),
+                : controller.investmentData != null
+                    ? () => controller.onSelectWitness()
+                    : () => AppSheets.loanConfirmationSheet(context,
+                            isNormalLoan: controller.isNormalLoan,
+                            applyForLoan: () => controller.onRequestLoan(),
+                            loanInfo: {
+                              "Loan type": controller.isNormalLoan,
+                              "Requested amount": controller.loanAmount,
+                              for (var referee = 0;
+                                  referee < controller.selectedReferees.length;
+                                  referee++)
+                                "Referee ${referee + 1}":
+                                    "${controller.selectedReferees[referee].firstName} ${controller.selectedReferees[referee].lastName}",
+                            }),
           ),
         ));
   }

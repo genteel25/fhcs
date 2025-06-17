@@ -1,9 +1,17 @@
 import 'dart:io';
 
 import 'package:fhcs/config/di/app_initializer.dart';
+import 'package:fhcs/core/data/investment_type.dart';
 import 'package:fhcs/core/data/loan.dart';
+import 'package:fhcs/core/data/payment.dart';
+import 'package:fhcs/features/auth/presentation/controllers/membership_breakdown.dart';
+import 'package:fhcs/features/auth/presentation/controllers/splash.dart';
 import 'package:fhcs/features/home/presentation/controllers/profile.dart';
+import 'package:fhcs/features/investments/presentation/controllers/apply_for_investments.dart';
+import 'package:fhcs/features/investments/presentation/controllers/investment_detail.dart';
+import 'package:fhcs/features/investments/presentation/controllers/select_vendor.dart';
 import 'package:fhcs/features/loans/presentation/controllers/active_loan.dart';
+import 'package:fhcs/features/loans/presentation/controllers/select_witness.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,11 +57,22 @@ class AppRouter {
   static GoRouter routeConfig = GoRouter(
     debugLogDiagnostics: false,
     navigatorKey: GlobalVariables.rootNavigatorKey,
-    initialLocation: AppInitializer.accessToken != null &&
-            AppInitializer.accessToken!.isNotEmpty
-        ? RouteConstants.homeRoute
-        : RouteConstants.initialRoute,
+    initialLocation: RouteConstants.splashRoute,
     routes: [
+      GoRoute(
+        path: RouteConstants.splashRoute,
+        name: RouteConstants.splashRoute,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: SplashScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        ),
+      ),
       GoRoute(
         path: RouteConstants.loginRoute,
         name: RouteConstants.loginRoute,
@@ -84,6 +103,7 @@ class AppRouter {
       ),
       GoRoute(
         path: RouteConstants.initialRoute,
+        name: RouteConstants.initialRoute,
         pageBuilder: (context, state) => _buildPage(OnboardingScreen()),
       ),
       GoRoute(
@@ -127,13 +147,16 @@ class AppRouter {
       GoRoute(
         path: RouteConstants.depositFundRoute,
         name: RouteConstants.depositFundRoute,
-        pageBuilder: (context, state) => _buildPage(DepositFundScreen()),
+        pageBuilder: (context, state) => _buildPage(DepositFundScreen(
+          amount: state.extra as String?,
+        )),
       ),
       GoRoute(
         path: RouteConstants.addMoneyRoute,
         name: RouteConstants.addMoneyRoute,
         pageBuilder: (context, state) => _buildPage(AddMoneyScreen(
           mode: state.extra as FundingMode,
+          amount: state.uri.queryParameters['amount'],
         )),
       ),
       GoRoute(
@@ -185,15 +208,46 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: RouteConstants.selectWitnessRoute,
+        name: RouteConstants.selectWitnessRoute,
+        pageBuilder: (context, state) => _buildPage(
+          SelectWitnessScreen(
+            data: {},
+          ),
+        ),
+      ),
+      GoRoute(
         path: RouteConstants.refereeRequestRoute,
         name: RouteConstants.refereeRequestRoute,
         pageBuilder: (context, state) => _buildPage(RefereeRequestScreen()),
       ),
+      GoRoute(
+        path: RouteConstants.applyForInvestmentsRoute,
+        name: RouteConstants.applyForInvestmentsRoute,
+        pageBuilder: (context, state) =>
+            _buildPage(ApplyForInvestmentsScreen()),
+      ),
+      GoRoute(
+        path: RouteConstants.investmentDetailRoute,
+        name: RouteConstants.investmentDetailRoute,
+        pageBuilder: (context, state) => _buildPage(
+          InvestmentDetailScreen(
+            investmentType: state.extra as InvestmentTypeData?,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: RouteConstants.membershipBreakdownRoute,
+        name: RouteConstants.membershipBreakdownRoute,
+        pageBuilder: (context, state) => _buildPage(
+          MembershipBreakdownScreen(
+            paymentInfo: state.extra as PaymentInfoData,
+          ),
+        ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          return CustomScaffoldMenuWidget(
-            navigationShell: navigationShell,
-          );
+          return CustomScaffoldMenuWidget(navigationShell: navigationShell);
         },
         branches: [
           StatefulShellBranch(
@@ -233,12 +287,21 @@ class AppRouter {
             navigatorKey: investmentsNavigatorKey,
             routes: [
               GoRoute(
-                path: RouteConstants.investmentRoute,
-                name: RouteConstants.investmentRoute,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: InvestmentsScreen(),
-                ),
-              ),
+                  path: RouteConstants.investmentRoute,
+                  name: RouteConstants.investmentRoute,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                        child: InvestmentsScreen(),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: RouteConstants.selectVendorRoute,
+                      name: RouteConstants.selectVendorRoute,
+                      parentNavigatorKey: GlobalVariables.rootNavigatorKey,
+                      pageBuilder: (context, state) => _buildPage(
+                        SelectVendorScreen(data: {}),
+                      ),
+                    ),
+                  ]),
             ],
           ),
           StatefulShellBranch(

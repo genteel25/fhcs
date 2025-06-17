@@ -27,6 +27,8 @@ mixin _$RefereeData {
   String? get firstName => throw _privateConstructorUsedError;
   @JsonKey(name: "last_name")
   String? get lastName => throw _privateConstructorUsedError;
+  @JsonKey(name: "image_url")
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this RefereeData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +50,8 @@ abstract class $RefereeDataCopyWith<$Res> {
       {int? id,
       @JsonKey(name: "ir_number") String? irNumber,
       @JsonKey(name: "first_name") String? firstName,
-      @JsonKey(name: "last_name") String? lastName});
+      @JsonKey(name: "last_name") String? lastName,
+      @JsonKey(name: "image_url") String? imageUrl});
 }
 
 /// @nodoc
@@ -70,6 +73,7 @@ class _$RefereeDataCopyWithImpl<$Res, $Val extends RefereeData>
     Object? irNumber = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -88,6 +92,10 @@ class _$RefereeDataCopyWithImpl<$Res, $Val extends RefereeData>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -104,7 +112,8 @@ abstract class _$$RefereeDataImplCopyWith<$Res>
       {int? id,
       @JsonKey(name: "ir_number") String? irNumber,
       @JsonKey(name: "first_name") String? firstName,
-      @JsonKey(name: "last_name") String? lastName});
+      @JsonKey(name: "last_name") String? lastName,
+      @JsonKey(name: "image_url") String? imageUrl});
 }
 
 /// @nodoc
@@ -124,6 +133,7 @@ class __$$RefereeDataImplCopyWithImpl<$Res>
     Object? irNumber = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_$RefereeDataImpl(
       id: freezed == id
@@ -142,6 +152,10 @@ class __$$RefereeDataImplCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -153,7 +167,8 @@ class _$RefereeDataImpl extends _RefereeData with DiagnosticableTreeMixin {
       {this.id,
       @JsonKey(name: "ir_number") this.irNumber,
       @JsonKey(name: "first_name") this.firstName,
-      @JsonKey(name: "last_name") this.lastName})
+      @JsonKey(name: "last_name") this.lastName,
+      @JsonKey(name: "image_url") this.imageUrl})
       : super._();
 
   factory _$RefereeDataImpl.fromJson(Map<String, dynamic> json) =>
@@ -170,10 +185,13 @@ class _$RefereeDataImpl extends _RefereeData with DiagnosticableTreeMixin {
   @override
   @JsonKey(name: "last_name")
   final String? lastName;
+  @override
+  @JsonKey(name: "image_url")
+  final String? imageUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RefereeData(id: $id, irNumber: $irNumber, firstName: $firstName, lastName: $lastName)';
+    return 'RefereeData(id: $id, irNumber: $irNumber, firstName: $firstName, lastName: $lastName, imageUrl: $imageUrl)';
   }
 
   @override
@@ -184,7 +202,8 @@ class _$RefereeDataImpl extends _RefereeData with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('irNumber', irNumber))
       ..add(DiagnosticsProperty('firstName', firstName))
-      ..add(DiagnosticsProperty('lastName', lastName));
+      ..add(DiagnosticsProperty('lastName', lastName))
+      ..add(DiagnosticsProperty('imageUrl', imageUrl));
   }
 
   @override
@@ -198,13 +217,15 @@ class _$RefereeDataImpl extends _RefereeData with DiagnosticableTreeMixin {
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
-                other.lastName == lastName));
+                other.lastName == lastName) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, irNumber, firstName, lastName);
+      Object.hash(runtimeType, id, irNumber, firstName, lastName, imageUrl);
 
   /// Create a copy of RefereeData
   /// with the given fields replaced by the non-null parameter values.
@@ -227,7 +248,8 @@ abstract class _RefereeData extends RefereeData {
       {final int? id,
       @JsonKey(name: "ir_number") final String? irNumber,
       @JsonKey(name: "first_name") final String? firstName,
-      @JsonKey(name: "last_name") final String? lastName}) = _$RefereeDataImpl;
+      @JsonKey(name: "last_name") final String? lastName,
+      @JsonKey(name: "image_url") final String? imageUrl}) = _$RefereeDataImpl;
   const _RefereeData._() : super._();
 
   factory _RefereeData.fromJson(Map<String, dynamic> json) =
@@ -244,6 +266,9 @@ abstract class _RefereeData extends RefereeData {
   @override
   @JsonKey(name: "last_name")
   String? get lastName;
+  @override
+  @JsonKey(name: "image_url")
+  String? get imageUrl;
 
   /// Create a copy of RefereeData
   /// with the given fields replaced by the non-null parameter values.

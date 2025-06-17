@@ -13,6 +13,7 @@ class RefereeData with _$RefereeData {
     @JsonKey(name: "ir_number") String? irNumber,
     @JsonKey(name: "first_name") String? firstName,
     @JsonKey(name: "last_name") String? lastName,
+    @JsonKey(name: "image_url") String? imageUrl,
   }) = _RefereeData;
 
   factory RefereeData.fromJson(Map<String, dynamic> json) =>

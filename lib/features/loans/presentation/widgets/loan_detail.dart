@@ -35,7 +35,7 @@ class LoanDetailWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   AppText(
-                    "${data.referees?[index]['referee']['first_name']} ${data.referees?[index]['referee']['last_name']}",
+                    "${data.referees?[index].user?.firstName} ${data.referees?[index].user?.lastName}",
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: AppColors.neutral800,

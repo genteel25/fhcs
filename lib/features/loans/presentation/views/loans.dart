@@ -221,9 +221,8 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                               LoanApplicationsState>(
                             builder: (context, state) {
                               return state.whenOrNull(
-                                    loading: () => CustomLoaderWidget(
-                                      hasPadding: false,
-                                    ),
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
                                     success: (response) => response.isEmpty
                                         ? CustomErrorWidget(
                                             errorTitle: "No Loans On Record",

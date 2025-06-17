@@ -18,13 +18,13 @@ class LoanApplicationView extends StatelessWidget
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 36.h,
-        leadingWidth: 56.w,
+        leadingWidth: 58.w,
         backgroundColor: Color(0xffF8F8F9),
         surfaceTintColor: Color(0xffF8F8F9),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            20.w.widthBox,
+            20.sp.widthBox,
             InkWell(
               borderRadius: BorderRadius.circular(100.r),
               onTap: () => context.pop(),
@@ -77,7 +77,7 @@ class LoanApplicationView extends StatelessWidget
             visualDensity: const VisualDensity(vertical: -4),
             contentPadding: REdgeInsets.symmetric(horizontal: 20, vertical: 16),
             title: AppText(
-              "Normal loan",
+              "Conventional loan",
               fontSize: 14,
               fontWeight: FontWeight.w500,
               color: AppColors.neutral800,

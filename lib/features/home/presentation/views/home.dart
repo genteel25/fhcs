@@ -116,7 +116,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                           ),
                         )
                       ],
-                    ).paddingSymmetric(horizontal: 20.w),
+                    ).paddingSymmetric(horizontal: 20.r),
                     29.h.heightBox,
                     AppText(
                       "Total balance",

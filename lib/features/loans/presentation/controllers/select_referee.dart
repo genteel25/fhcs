@@ -9,6 +9,7 @@ import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_c
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/select_referee.dart';
+import 'package:fhcs/features/loans/presentation/controllers/select_witness.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/select_referee.dart';
 import 'package:fhcs/features/loans/presentation/views/select_referee.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,15 @@ import 'package:go_router/go_router.dart';
 
 class SelectRefereeScreen extends StatefulWidget {
   static const String route = 'forgot_password';
-  const SelectRefereeScreen(
-      {super.key, this.isNormalLoan = true, required this.amount});
+  const SelectRefereeScreen({
+    super.key,
+    this.isNormalLoan = true,
+    required this.amount,
+    this.data,
+  });
   final bool isNormalLoan;
   final Map<String, dynamic> amount;
+  final Map<String, dynamic>? data;
 
   @override
   State<SelectRefereeScreen> createState() => SelectRefereeController();
@@ -39,78 +45,7 @@ class SelectRefereeController extends State<SelectRefereeScreen>
   String? loanAmount;
 
   @override
-  List<Map<String, dynamic>> referees = [
-    {
-      "id": "1",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "2",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "3",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "4",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "5",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "6",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "7",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "8",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "9",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "10",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "11",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "12",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "13",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-    {
-      "id": "14",
-      "name": "Ajagbe Quadri",
-      "ir_number": "223-4253",
-    },
-  ];
+  Map<String, dynamic>? investmentData = {};
 
   @override
   List<RefereeData> selectedReferees = [];
@@ -121,6 +56,7 @@ class SelectRefereeController extends State<SelectRefereeScreen>
     view = SelectRefereeView(controller: this);
     isNormalLoan = widget.isNormalLoan;
     loanAmount = widget.amount['amount'];
+    investmentData = widget.data;
   }
 
   @override
@@ -204,6 +140,18 @@ class SelectRefereeController extends State<SelectRefereeScreen>
     };
 
     context.read<LoanRequestCubit>().requestLoan(payload);
+  }
+
+  @override
+  void onSelectWitness() {
+    final payload = {
+      ...?widget.data,
+      "referee_ids": selectedReferees,
+    };
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return SelectWitnessScreen(data: payload);
+    }));
   }
 
   @override
