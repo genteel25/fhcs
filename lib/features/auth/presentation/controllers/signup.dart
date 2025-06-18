@@ -299,10 +299,19 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onPickDateOfBirth() async {
+    final now = DateTime.now();
+
+    // Calculate the latest allowed date (18 years ago from today)
+    final latestAllowed = DateTime(now.year - 18, now.month, now.day);
+
+    // Optional: oldest selectable date (e.g., 100 years ago)
+    final earliestAllowed = DateTime(now.year - 100);
     DateTime? result = await showDatePicker(
       context: context,
-      firstDate: DateTime(1960),
-      lastDate: DateTime.now().subtract(const Duration(days: 18 * 365)),
+      firstDate: earliestAllowed,
+      initialDate: latestAllowed,
+
+      lastDate: latestAllowed,
       // currentDate: DateTime.now().subtract(
       //   const Duration(days: 18 * 365),
       // ),

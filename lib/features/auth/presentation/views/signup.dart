@@ -1,4 +1,3 @@
-import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
@@ -12,6 +11,7 @@ import 'package:fhcs/core/components/custom_outlined_button.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
