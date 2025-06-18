@@ -1,14 +1,16 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/components/custom_animated_dropdown.dart';
 import 'package:fhcs/core/components/custom_date_picker.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
+import 'package:fhcs/core/components/custom_search_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/components/custom_text.dart';
 import '../../../../core/ui/colors.dart';
 
-class SecondKycInfoWidget extends StatelessWidget {
+class SecondKycInfoWidget extends StatefulWidget {
   const SecondKycInfoWidget({
     super.key,
     required this.formKey,
@@ -26,6 +28,11 @@ class SecondKycInfoWidget extends StatelessWidget {
     required this.employmentStatus,
     required this.onSelectEmploymentStatus,
     required this.onSelectSalaryStep,
+    required this.states,
+    required this.maritalStatusCustomController,
+    required this.salaryGradeCustomController,
+    required this.salaryStepCustomController,
+    required this.stateOfOriginCustomController,
   });
   final GlobalKey<FormState> formKey;
   final Function(String? value)? onSelectMaritalStatus;
@@ -42,11 +49,22 @@ class SecondKycInfoWidget extends StatelessWidget {
   final Function onPickEmploymentDate;
   final bool employmentStatus;
   final Function onSelectEmploymentStatus;
+  final List<String> states;
+  final SingleSelectController<String> maritalStatusCustomController;
+  final SingleSelectController<String> stateOfOriginCustomController;
+  final SingleSelectController<String> salaryStepCustomController;
+  final SingleSelectController<String> salaryGradeCustomController;
 
+  @override
+  State<SecondKycInfoWidget> createState() => _SecondKycInfoWidgetState();
+}
+
+class _SecondKycInfoWidgetState extends State<SecondKycInfoWidget>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: formKey,
+        key: widget.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -54,66 +72,70 @@ class SecondKycInfoWidget extends StatelessWidget {
               hintLabel: "Enter your marital status",
               ['Single', 'Married', 'Divorce'],
               labelText: "Marital Status",
-              onChanged: onSelectMaritalStatus,
+              onChanged: widget.onSelectMaritalStatus,
+              controller: widget.maritalStatusCustomController,
             ),
             16.h.heightBox,
             CustomDatePickerWidget(
               "Date of Birth *",
               hintText: "Enter your date of birth",
-              controller: dobController,
-              onSelectDate: onPickDate,
+              controller: widget.dobController,
+              onSelectDate: widget.onPickDate,
             ),
             16.h.heightBox,
             CustomInputLabelWidget(
               "Residential Address",
               hintText: "Enter your address",
-              controller: residentialAddressController,
+              controller: widget.residentialAddressController,
             ),
             16.h.heightBox,
             CustomInputLabelWidget(
               "Permanent Address",
               hintText: "Enter your address",
-              controller: permanentAddressController,
+              controller: widget.permanentAddressController,
             ),
             16.h.heightBox,
             CustomInputLabelWidget(
               "Deployment/Office",
               hintText: "Enter your deployment/office",
-              controller: deploymentOfficeController,
+              controller: widget.deploymentOfficeController,
             ),
             16.h.heightBox,
             CustomInputLabelWidget(
               "Office Address",
               hintText: "Enter your office address",
-              controller: officeAddressController,
+              controller: widget.officeAddressController,
             ),
             16.h.heightBox,
-            CustomAnimatedDropdownWidget(
+            CustomSearchDropdownWidget(
+              widget.states,
               hintLabel: "Enter your state",
-              ['Oyo', 'Lagos', 'Abuja', "Port harcourt"],
               labelText: "State of Origin",
-              onChanged: onSelectStateOfOrigin,
+              onChanged: widget.onSelectStateOfOrigin,
+              controller: widget.stateOfOriginCustomController,
             ),
             16.h.heightBox,
             CustomAnimatedDropdownWidget<String>(
               hintLabel: "Enter your salary grade",
               List.generate(19, (index) => (index + 1).toString()).toList(),
               labelText: "Salary Grade",
-              onChanged: onSelectSalaryGrade,
+              onChanged: widget.onSelectSalaryGrade,
+              controller: widget.salaryGradeCustomController,
             ),
             16.h.heightBox,
             CustomAnimatedDropdownWidget<String>(
               hintLabel: "Enter your salary step",
               List.generate(9, (index) => (index + 1).toString()).toList(),
               labelText: "Salary step",
-              onChanged: onSelectSalaryStep,
+              onChanged: widget.onSelectSalaryStep,
+              controller: widget.salaryStepCustomController,
             ),
             16.h.heightBox,
             CustomDatePickerWidget(
               "Employment Date *",
               hintText: "Enter your date",
-              controller: employmentDateController,
-              onSelectDate: () => onPickEmploymentDate(),
+              controller: widget.employmentDateController,
+              onSelectDate: () => widget.onPickEmploymentDate(),
             ),
             16.h.heightBox,
             AppText(
@@ -138,8 +160,8 @@ class SecondKycInfoWidget extends StatelessWidget {
                   child: FittedBox(
                     child: Radio(
                       value: true,
-                      onChanged: (e) => onSelectEmploymentStatus(true),
-                      groupValue: employmentStatus,
+                      onChanged: (e) => widget.onSelectEmploymentStatus(true),
+                      groupValue: widget.employmentStatus,
                     ),
                   ),
                 ),
@@ -156,8 +178,8 @@ class SecondKycInfoWidget extends StatelessWidget {
                   child: FittedBox(
                     child: Radio(
                       value: true,
-                      onChanged: (e) => onSelectEmploymentStatus(false),
-                      groupValue: !employmentStatus,
+                      onChanged: (e) => widget.onSelectEmploymentStatus(false),
+                      groupValue: !widget.employmentStatus,
                     ),
                   ),
                 ),
@@ -173,4 +195,7 @@ class SecondKycInfoWidget extends StatelessWidget {
           ],
         ));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

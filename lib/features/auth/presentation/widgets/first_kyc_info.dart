@@ -77,9 +77,13 @@ class FirstKycInfoWidget extends StatelessWidget {
             "IR Number",
             controller: irNumberController,
             keyboardType: TextInputType.number,
-            validator: ValidationBuilder().required().minLength(5).build(),
+            validator: ValidationBuilder()
+                .required()
+                .minLength(5)
+                .maxLength(8)
+                .build(),
             hintText: "Enter your IR number",
-            formatter: [LengthLimitingTextInputFormatter(5)],
+            formatter: [LengthLimitingTextInputFormatter(8)],
           ),
           16.h.heightBox,
           CustomInputLabelWidget(

@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_animated_dropdown.dart';
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -20,13 +21,13 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 36.h,
-        leadingWidth: 56.w,
+        leadingWidth: 58.w,
         backgroundColor: Color(0xffF8F8F9),
         surfaceTintColor: Color(0xffF8F8F9),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            20.w.widthBox,
+            20.sp.widthBox,
             InkWell(
               borderRadius: BorderRadius.circular(100.r),
               onTap: () => context.pop(),
@@ -50,7 +51,7 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
         ),
         centerTitle: false,
         title: AppText(
-          "Normal loan",
+          controller.isNormalLoan ? "Normal loan" : "Emergency loan",
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: AppColors.neutral800,
@@ -76,6 +77,8 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
               formatter: [
                 controller.formatter,
               ],
+              isAmount: true,
+              keyboardType: TextInputType.number,
             ),
             8.h.heightBox,
             AppText(
@@ -96,6 +99,18 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
               "Annual salary",
               controller: controller.annualSalaryController,
               hintText: "Enter your annual salary",
+              formatter: [
+                controller.annualSalaryFormatter,
+              ],
+              isAmount: true,
+              keyboardType: TextInputType.number,
+            ),
+            16.h.heightBox,
+            CustomAnimatedDropdownWidget<String>(
+              controller.durations,
+              controller: controller.loanDuration,
+              labelText: "Loan duration",
+              onChanged: controller.onSelectDuation,
             ),
             16.h.heightBox,
             AppText(
@@ -179,7 +194,8 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
                               ),
                             ),
                             InkWell(
-                              onTap: () => controller.onPickDocument(null),
+                              onTap: () =>
+                                  controller.onPickDocument(null, null),
                               child: Container(
                                 padding: REdgeInsets.all(6),
                                 decoration: BoxDecoration(
@@ -205,13 +221,19 @@ class NormalLoanView extends StatelessWidget implements NormalLoanViewContract {
       ),
       bottomNavigationBar: CustomBottomButtonWrapperWidget(
         "Continue to add referees",
-        onPressed: controller.selectedDocument != null
+        onPressed: controller.selectedDocument != null &&
+                controller.loanAmountController.text.isNotEmpty
             ? () => context.pushNamed(
                   RouteConstants.selectRefereeRoute,
                   extra: controller.isNormalLoan,
                   queryParameters: {
-                    'amount': controller.formatter
-                        .formatString(controller.loanAmountController.text),
+                    "annual_salary": controller.annualSalaryFormatter
+                        .getUnformattedValue()
+                        .toString(),
+                    "duration": controller.selectedDuration,
+                    "description": controller.loanPurposeController.text,
+                    'amount':
+                        controller.formatter.getUnformattedValue().toString(),
                   },
                 )
             : null,

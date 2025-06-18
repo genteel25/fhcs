@@ -7,6 +7,7 @@ import 'package:fhcs/features/auth/presentation/sheets/otp_success.dart';
 import 'package:fhcs/features/home/presentation/sheets/deposit.dart';
 import 'package:fhcs/features/home/presentation/sheets/deposit_success.dart';
 import 'package:fhcs/features/home/presentation/sheets/payment_method.dart';
+import 'package:fhcs/features/investments/presentation/sheets/investment_confirmation.dart';
 import 'package:fhcs/features/loans/presentation/sheets/file_picker.dart';
 import 'package:fhcs/features/loans/presentation/sheets/loan_confirmation.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,8 @@ class AppSheets {
       builder: (context) {
         return CustomBottomSheetWrapperWidget(
           child: OtpSuccessWidget(
+            title: "Bank Details Saved",
+            subtitle: "Your withdrawal bank details was saved successfully",
             onContinue: () => onPressed(),
             nextStepsData: [
               'Membership Payment',
@@ -167,7 +170,7 @@ class AppSheets {
   static Future<void> filePickerSheet(
     BuildContext context, {
     required File? selectedFile,
-    required Function(File? doc) onPickFile,
+    required Function(File? doc, String? url) onPickFile,
   }) async {
     return await showModalBottomSheet(
       isScrollControlled: true,
@@ -188,6 +191,7 @@ class AppSheets {
     BuildContext context, {
     required bool isNormalLoan,
     required Map<String, dynamic> loanInfo,
+    required Function applyForLoan,
   }) async {
     return await showModalBottomSheet(
       isScrollControlled: true,
@@ -199,6 +203,31 @@ class AppSheets {
           child: LoanConfirmationSheetWidget(
             isNormaLoan: isNormalLoan,
             loanInfo: loanInfo,
+            applyForLoan: applyForLoan,
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> investmentConfirmationSheet(
+    BuildContext context, {
+    required bool isNormalLoan,
+    required Map<String, dynamic> loanInfo,
+    required Function applyForLoan,
+  }) async {
+    return await showModalBottomSheet(
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+      useSafeArea: true,
+      context: context,
+      builder: (context) {
+        return CustomBottomSheetWrapperWidget(
+          child: InvestmentConfirmationSheetWidget(
+            isNormaLoan: isNormalLoan,
+            loanInfo: loanInfo,
+            applyForLoan: applyForLoan,
           ),
         );
       },

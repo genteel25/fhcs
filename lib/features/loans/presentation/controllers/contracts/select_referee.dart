@@ -1,11 +1,17 @@
 // import 'package:flutter/material.dart';
 
+import 'package:fhcs/core/data/referee.dart';
+
 abstract class SelectRefereeControllerContract {
-  late List<Map<String, dynamic>> referees;
-  late List<Map<String, dynamic>> selectedReferees;
+  late List<RefereeData> selectedReferees;
   late bool isNormalLoan;
   String? loanAmount;
+  Map<String, dynamic>? investmentData;
 
   //Methods
-  void onSelectReferee(Map<String, dynamic> referee);
+  void payViaCard({required String refId, required String amount});
+  void onSelectReferee(RefereeData referee);
+  void onVerifyFunding();
+  void onSelectWitness();
+  void onRequestLoan();
 }

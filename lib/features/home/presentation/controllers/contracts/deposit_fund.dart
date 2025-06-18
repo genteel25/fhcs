@@ -1,1 +1,3 @@
-abstract class DepositFundControllerContract {}
+abstract class DepositFundControllerContract {
+  String? amount;
+}

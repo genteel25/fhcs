@@ -2,13 +2,19 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
+import 'package:fhcs/core/utils/extensions.dart';
+import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/kyc.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/kyc.dart';
 import 'package:fhcs/core/components/custom_slider.dart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class KycView extends StatelessWidget implements KycViewContract {
@@ -62,6 +68,8 @@ class KycView extends StatelessWidget implements KycViewContract {
                 "How much do want to contribute monthly?",
                 controller: controller.monthlyContributionController,
                 hintText: "N2,000",
+                isAmount: true,
+                formatter: [controller.formatter],
               ),
               16.h.heightBox,
               CustomInputLabelWidget(
@@ -77,23 +85,27 @@ class KycView extends StatelessWidget implements KycViewContract {
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   color: AppColors.neutral500,
+                  isAmount: true,
                 ),
               8.h.heightBox,
               CustomSlider(
                 max: 100,
                 min: 1,
                 step: 25,
-                maxSlideLimit: 50,
-                value: 100 -
-                    double.parse(
-                        (controller.percentInvestmentController.text.isEmpty
-                                ? "0"
-                                : controller.percentInvestmentController.text)
-                            .replaceAll("%", "")),
-                isSlidingEnabled:
-                    controller.monthlyContributionController.text.isNotEmpty,
-                onChanged: (percent) => controller
-                    .onChangeSavingPercent(percent.toInt().toString()),
+                maxSlideLimit: _calculateMaxSavingsLimit(controller
+                    .percentInvestmentController
+                    .text
+                    .cleanCheckEmptyCurrencyText),
+                value: controller
+                    .percentSavingsController.text.cleanCheckEmptyCurrencyText,
+                isSlidingEnabled: controller.monthlyContributionController.text
+                        .cleanCheckEmptyCurrencyText >
+                    0,
+                onChanged: (percent) => controller.allocateContribution(
+                  savingPercent: percent,
+                  investmentPercent: controller.percentInvestmentController.text
+                      .cleanCheckEmptyCurrencyText,
+                ),
               ),
               49.h.heightBox,
               CustomInputLabelWidget(
@@ -109,40 +121,68 @@ class KycView extends StatelessWidget implements KycViewContract {
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   color: AppColors.neutral500,
+                  isAmount: true,
                 ),
               8.h.heightBox,
               CustomSlider(
-                max: 100,
+                max: 99,
                 min: 0,
                 step: 25,
                 maxSlideLimit: 100 -
-                    double.parse(
-                      (controller.percentSavingsController.text.isEmpty
-                              ? "0"
-                              : controller.percentSavingsController.text)
-                          .replaceAll("%", ""),
-                    ),
-                value: 100 -
-                    double.parse(
-                        (controller.percentSavingsController.text.isEmpty
-                                ? "0"
-                                : controller.percentSavingsController.text)
-                            .replaceAll("%", ""))
-                // : null
-                ,
-                isSlidingEnabled:
-                    controller.monthlyContributionController.text.isNotEmpty,
-                onChanged: (percent) => controller.onChangeInvestmentPercent(
-                    value: percent.toInt().toString()),
+                    controller.percentSavingsController.text
+                        .cleanCheckEmptyCurrencyText,
+                value: controller.percentInvestmentController.text
+                    .cleanCheckEmptyCurrencyText,
+                isSlidingEnabled: controller.monthlyContributionController.text
+                        .cleanCheckEmptyCurrencyText >
+                    0,
+                onChanged: (percent) => controller.allocateContribution(
+                  savingPercent: controller.percentSavingsController.text
+                      .cleanCheckEmptyCurrencyText,
+                  investmentPercent: percent,
+                ),
               ),
             ],
           ).paddingSymmetric(horizontal: 20.w),
         ),
       ),
-      bottomNavigationBar: CustomBottomButtonWrapperWidget(
-        "Continue",
-        onPressed: () => context.pushNamed(RouteConstants.homeRoute),
+      bottomNavigationBar:
+          BlocListener<MonthlyContributionCubit, MonthlyContributionState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            loading: () => AppDialog.showAppProgressDialog(context),
+            failure: (error) {
+              context.pop();
+              GetIt.I
+                  .get<IWidgetHelper>()
+                  .showErrorToast(context, message: error);
+            },
+            success: (response) {
+              context.pop();
+              // controller.onSuccess(response);
+              GetIt.I
+                  .get<IWidgetHelper>()
+                  .showSuccessToast(context, message: "Success");
+              context.pushNamed(RouteConstants.homeRoute);
+            },
+          );
+        },
+        child: CustomBottomButtonWrapperWidget(
+          "Continue",
+          onPressed: controller.monthlyContributionController.text.isEmpty ||
+                  controller.percentInvestmentController.text.isEmpty
+              ? null
+              : () => controller.onContinue(),
+        ),
       ),
     );
+  }
+
+  double _calculateMaxSavingsLimit(double investmentPercent) {
+    // Investment can take up to 99%, so savings must leave at least 1%
+    final double maxFromInvestment = 100 - investmentPercent.clamp(1, 99);
+
+    // Savings cannot exceed 50% (your rule)
+    return maxFromInvestment.clamp(1, 50);
   }
 }

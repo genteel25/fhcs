@@ -48,3 +48,36 @@ String formatMaskedCard(String cardNumber) {
 
   return '${start.substring(0, 4)} ${start.substring(4)}$masked ${end}';
 }
+
+String convertMonthsToYears(int totalMonths) {
+  if (totalMonths < 0) {
+    return "Invalid input: Months cannot be negative.";
+  }
+
+  if (totalMonths == 0) {
+    return "0 years"; // Or "0 months", depending on desired output for zero
+  }
+
+  final int years = totalMonths ~/ 12; // Integer division for full years
+  final int remainingMonths = totalMonths % 12; // Modulo for remaining months
+
+  String result = '';
+
+  if (years > 0) {
+    result += '$years year${years > 1 ? 's' : ''}';
+  }
+
+  if (remainingMonths > 0) {
+    if (years > 0) {
+      result += ' and ';
+    }
+    result += '$remainingMonths month${remainingMonths > 1 ? 's' : ''}';
+  }
+
+  // Handle case where years is 0 but months is not (e.g., 5 months)
+  if (years == 0 && remainingMonths > 0) {
+    result = '$remainingMonths month${remainingMonths > 1 ? 's' : ''}';
+  }
+
+  return result;
+}

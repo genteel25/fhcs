@@ -8,4 +8,5 @@ abstract class RepayLoanControllerContract {
 
   //Methods
   void onSelectRepayFrom(String value);
+  void onRepayLoan();
 }

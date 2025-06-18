@@ -38,8 +38,12 @@ class AuthRepository implements IAuthRepository {
       localStorage.saveString(StorageConstant.accessToken, token);
 
   @override
-  Future<void> clearToken() =>
-      localStorage.removeValue(StorageConstant.accessToken);
+  Future<void> clearToken() async {
+    localStorage.removeValue(StorageConstant.refreshToken);
+    localStorage.removeValue(StorageConstant.fullName);
+    localStorage.removeValue(StorageConstant.username);
+    localStorage.removeValue(StorageConstant.accessToken);
+  }
 
   @override
   Future<void> saveRegistrationToken(String regToken) =>
@@ -75,9 +79,21 @@ class AuthRepository implements IAuthRepository {
       apiServices.verifyMembershipPayment(refNo);
 
   @override
+  Future<Either<Failure, ApiResponse<String>>> setMonthlyContribution(
+          Map<String, dynamic> payload) =>
+      apiServices.setMonthlyContribution(payload);
+
+  @override
   Future<void> saveAuthToken(
       {required String accessToken, required String refreshToken}) async {
     await localStorage.saveString(StorageConstant.accessToken, accessToken);
     await localStorage.saveString(StorageConstant.refreshToken, refreshToken);
+  }
+
+  @override
+  Future<void> saveBasicUserDetail(
+      {required String fullName, required String username}) async {
+    await localStorage.saveString(StorageConstant.fullName, fullName);
+    await localStorage.saveString(StorageConstant.username, username);
   }
 }

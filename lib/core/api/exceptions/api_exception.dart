@@ -15,21 +15,21 @@ class ValidationFailure implements Failure {
 class CancelFailure implements Failure {
   @override
   String failureMessage() {
-    return "request_to_server_was_cancelled";
+    return "Request to server was cancelled";
   }
 }
 
 class ServerFailure implements Failure {
   @override
   String failureMessage() {
-    return "something_went_wrong_and_your_request_could_not_be_completed".tr();
+    return "Something went wrong and your request could not be completed".tr();
   }
 }
 
 class InternetFailure implements Failure {
   @override
   String failureMessage() {
-    return "no_internet_connection".tr();
+    return "No internet connection".tr();
   }
 }
 
@@ -47,7 +47,7 @@ class BadResponseFailure implements Failure {
 class ConnectionTimeOutFailure implements Failure {
   @override
   String failureMessage() {
-    return "connection_timeout_with_server".tr();
+    return "Connect timeout with server".tr();
   }
 }
 
@@ -61,14 +61,14 @@ class ReceivedTimeOutFailure implements Failure {
 class SendTimeOutFailure implements Failure {
   @override
   String failureMessage() {
-    return "send_timeout_in_connection_with_server";
+    return "Send timeout in connection to server";
   }
 }
 
 class ConnectionFailure implements Failure {
   @override
   String failureMessage() {
-    return "connection_to_server_failed_due_to_internet_connection".tr();
+    return "Connection to server failed due to internet connection".tr();
   }
 }
 

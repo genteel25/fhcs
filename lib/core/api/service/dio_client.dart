@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:fhcs/core/api/service/api_response_impl.dart';
@@ -63,11 +65,12 @@ class DioClient implements IApiClient {
       String token = await GetIt.I
           .get<IAppStorage>()
           .fetchString(StorageConstant.accessToken);
+      log("accessToken: $token");
       String regToken = await GetIt.I
           .get<IAppStorage>()
           .fetchString(StorageConstant.regToken);
       Options options = Options(headers: {
-        if (token.isNotEmpty) "Authorization": token,
+        if (token.isNotEmpty) "Authorization": "Bearer $token",
         if (regToken.isNotEmpty) "X-Token": regToken,
       });
       Response response;
@@ -206,10 +209,18 @@ class DioClient implements IApiClient {
       {Map<String, dynamic>? queryParameters}) async {
     try {
       Response response;
-      response = await _dio.post(
-        url,
-        data: params,
-      );
+      String token = await GetIt.I
+          .get<IAppStorage>()
+          .fetchString(StorageConstant.accessToken);
+      log("accessToken: $token");
+      String regToken = await GetIt.I
+          .get<IAppStorage>()
+          .fetchString(StorageConstant.regToken);
+      Options options = Options(headers: {
+        if (token.isNotEmpty) "Authorization": "Bearer $token",
+        if (regToken.isNotEmpty) "X-Token": regToken,
+      });
+      response = await _dio.post(url, data: params, options: options);
       var requestResponse = ApiResponseImpl<T>(
         fromJson(response.data['data']),
         response.data['errors'],
@@ -241,8 +252,11 @@ class DioClient implements IApiClient {
         failureType = BadCertificateFailure();
         break;
       case DioExceptionType.badResponse:
-        failureType = BadResponseFailure(
-            message: errorMessageHandler(error.response?.data));
+        failureType = switch (error.response?.statusCode ?? 500) {
+          502 => BadResponseFailure(message: "An error occurred"),
+          _ => BadResponseFailure(
+              message: errorMessageHandler(error.response?.data)),
+        };
         break;
       case DioExceptionType.receiveTimeout:
         failureType = ReceivedTimeOutFailure();

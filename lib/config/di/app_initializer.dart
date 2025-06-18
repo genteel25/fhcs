@@ -1,3 +1,30 @@
+import 'dart:developer';
+
+import 'package:fhcs/core/storage/storage_constant.dart';
+import 'package:fhcs/features/accounts/presentation/bloc/account_details/account_details_cubit.dart';
+import 'package:fhcs/features/accounts/repository/account_repository.dart';
+import 'package:fhcs/features/accounts/repository/contracts/iaccount_repository.dart';
+import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_withdrawal/initiate_withdrawal_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
+import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
+import 'package:fhcs/features/home/repository/home_repository.dart';
+import 'package:fhcs/features/investments/presentation/bloc/create_investment/create_investment_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/investment_tenure_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/investments/repository/contract/iinvestment_repository.dart';
+import 'package:fhcs/features/investments/repository/investment_repository.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repayment_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
+import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
+import 'package:fhcs/features/loans/repository/loan_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +59,7 @@ class AppInitializer {
   static bool isLoggedIn = false;
   static late String? email;
   static late String? password;
+  static late String? accessToken;
   static late bool? isDarkMode, isRememberMe;
 
   AppInitializer._();
@@ -55,7 +83,12 @@ class AppInitializer {
 
   static dynamic initGetIt() async {
     instanceLocator = GetIt.I;
+    instanceLocator.allowReassignment = true;
     await create();
+    accessToken = await instanceLocator
+        .get<IAppStorage>()
+        .fetchString(StorageConstant.accessToken);
+    log("Access Token: $accessToken");
     // firstTime = await GetIt.I.get<LocalStorage>().getFirstTime();
     // // isLoggedIn = await GetIt.I.get<LocalStorage>().isLoggedIn();
     // email = await GetIt.I.get<LocalStorage>().getEmail();
@@ -93,11 +126,117 @@ class AppInitializer {
         () => VerifyMembershipCubit(
               repository: instanceLocator(),
             ));
+    instanceLocator.registerLazySingleton<MonthlyContributionCubit>(
+        () => MonthlyContributionCubit(
+              authRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<UserProfileCubit>(() => UserProfileCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<DashboardCubit>(() => DashboardCubit(
+          homeRepository: instanceLocator(),
+        ));
+    instanceLocator
+        .registerLazySingleton<InitiateFundingCubit>(() => InitiateFundingCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<VerifyFundingCubit>(() => VerifyFundingCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<TransactionsCubit>(() => TransactionsCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<InitiateWithdrawalCubit>(
+        () => InitiateWithdrawalCubit(
+              homeRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<RefereesCubit>(() => RefereesCubit(
+          loanRepository: instanceLocator(),
+        ));
+    instanceLocator
+        .registerLazySingleton<LoanRequestCubit>(() => LoanRequestCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<LoanHistoryCubit>(() => LoanHistoryCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<LoanApplicationsCubit>(
+        () => LoanApplicationsCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<ActiveLoansCubit>(() => ActiveLoansCubit(
+              loanRepository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<InvestmentTypeCubit>(() => InvestmentTypeCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<LoanRepaymentCubit>(() => LoanRepaymentCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<InvestmentTypeCubit>(() => InvestmentTypeCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<RefereeRequestCubit>(() => RefereeRequestCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<LoanRefereeRequestCubit>(
+        () => LoanRefereeRequestCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<InvestmentRefereeRequestCubit>(
+        () => InvestmentRefereeRequestCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<InvestmentTenureCubit>(
+        () => InvestmentTenureCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<AccountDetailsCubit>(() => AccountDetailsCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator.registerLazySingleton<CreateInvestmentCubit>(
+        () => CreateInvestmentCubit(
+              repository: instanceLocator(),
+            ));
   }
 
   static initRepos() {
     instanceLocator.registerLazySingleton<IAuthRepository>(
       () => AuthRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<IHomeRepository>(
+      () => HomeRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<ILoanRepository>(
+      () => LoanRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<IInvestmentRepository>(
+      () => InvestmentRepository(
+        localStorage: instanceLocator(),
+        apiServices: instanceLocator(),
+      ),
+    );
+    instanceLocator.registerLazySingleton<IAccountRepository>(
+      () => AccountRepository(
         localStorage: instanceLocator(),
         apiServices: instanceLocator(),
       ),
@@ -128,6 +267,16 @@ class AppInitializer {
         apiClient: instanceLocator(),
       ),
     );
+  }
+
+  static initGlobalVariable() {
+    // instanceLocator.registerSingleton<String>(null, instanceName: 'isLoggedIn');
+    // instanceLocator.pushNewScope(
+    //   init: (getIt) => getIt.registerLazySingleton<bool>(
+    //     () => false,
+    //   ),
+    //   scopeName: 'isLoggedIn',
+    // );
   }
 
   static initializeDi() {

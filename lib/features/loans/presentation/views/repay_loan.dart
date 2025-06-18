@@ -2,13 +2,20 @@ import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repayment_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/repay_loan.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/repay_loan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class RepayLoanView extends StatelessWidget implements RepayLoanViewContract {
@@ -20,13 +27,13 @@ class RepayLoanView extends StatelessWidget implements RepayLoanViewContract {
       backgroundColor: Color(0xffF8F8F9),
       appBar: AppBar(
         toolbarHeight: 36.h,
-        leadingWidth: 56.w,
+        leadingWidth: 58.w,
         backgroundColor: Color(0xffF8F8F9),
         surfaceTintColor: Color(0xffF8F8F9),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            20.w.widthBox,
+            20.sp.widthBox,
             InkWell(
               onTap: () => context.pop(),
               borderRadius: BorderRadius.circular(100.r),
@@ -65,6 +72,7 @@ class RepayLoanView extends StatelessWidget implements RepayLoanViewContract {
             controller: controller.amountToRepayController,
             hintText: "N 2,000",
             keyboardType: TextInputType.number,
+            isAmount: true,
             formatter: [controller.formatter],
           ),
           4.h.heightBox,
@@ -74,11 +82,29 @@ class RepayLoanView extends StatelessWidget implements RepayLoanViewContract {
               border: Border.all(color: AppColors.neutral200, width: 1.w),
               borderRadius: BorderRadius.circular(100.r),
             ),
-            child: AppText(
-              "Loan balance: - N1,205,890.00",
-              fontSize: 10,
-              fontWeight: FontWeight.w400,
-              color: AppColors.neutral800,
+            child: BlocBuilder<DashboardCubit, DashboardState>(
+              builder: (context, state) {
+                return state.whenOrNull(
+                      success: (response) => AppText(
+                        response.totalLoanTaken?.toString() ?? "0",
+                        hasPrefix: true,
+                        isAmount: true,
+                        prefix: "Loan balance: - ",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.neutral800,
+                      ),
+                    ) ??
+                    AppText(
+                      "0",
+                      hasPrefix: true,
+                      isAmount: true,
+                      prefix: "Loan balance: - ",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.neutral800,
+                    );
+              },
             ),
           ),
           16.h.heightBox,
@@ -92,23 +118,50 @@ class RepayLoanView extends StatelessWidget implements RepayLoanViewContract {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              RepayFromCardWidget(
-                isSelected: controller.repayFrom.contains('Savings'),
-                subtitle: "N329,878.00",
-                title: "Savings",
-                onTap: () => controller.onSelectRepayFrom("Savings"),
+              BlocBuilder<DashboardCubit, DashboardState>(
+                builder: (context, state) {
+                  return state.whenOrNull(
+                        success: (response) => RepayFromCardWidget(
+                          isSelected: controller.repayFrom.contains('Savings'),
+                          subtitle: response.totalSavings?.toString() ?? "0",
+                          title: "Savings",
+                          onTap: () => controller.onSelectRepayFrom("Savings"),
+                        ),
+                      ) ??
+                      RepayFromCardWidget(
+                        isSelected: controller.repayFrom.contains('Savings'),
+                        subtitle: "0",
+                        title: "Savings",
+                        onTap: () => controller.onSelectRepayFrom("Savings"),
+                      );
+                },
               ),
               12.w.widthBox,
-              RepayFromCardWidget(
-                isSelected: controller.repayFrom.contains('Investment'),
-                subtitle: "N329,878.00",
-                title: "Investment",
-                onTap: () => controller.onSelectRepayFrom("Investment"),
+              BlocBuilder<DashboardCubit, DashboardState>(
+                builder: (context, state) {
+                  return state.whenOrNull(
+                        success: (response) => RepayFromCardWidget(
+                          isSelected:
+                              controller.repayFrom.contains('Investment'),
+                          subtitle: response.totalInvestment?.toString() ?? "0",
+                          title: "Investment",
+                          onTap: () =>
+                              controller.onSelectRepayFrom("Investment"),
+                        ),
+                      ) ??
+                      RepayFromCardWidget(
+                        isSelected: controller.repayFrom.contains('Investment'),
+                        subtitle: "0",
+                        title: "Investment",
+                        onTap: () => controller.onSelectRepayFrom("Investment"),
+                      );
+                },
               ),
               12.w.widthBox,
               RepayFromCardWidget(
                 isSelected: controller.repayFrom.contains('Direct'),
                 subtitle: "Cash injection",
+                isAmount: false,
                 title: "Direct",
                 onTap: () => controller.onSelectRepayFrom("Direct"),
               ),
@@ -116,9 +169,25 @@ class RepayLoanView extends StatelessWidget implements RepayLoanViewContract {
           ),
         ],
       ).paddingSymmetric(horizontal: 20.w),
-      bottomNavigationBar: CustomBottomButtonWrapperWidget(
-        "Continue to payment",
-        onPressed: () => context.pushNamed(RouteConstants.cashInjectionRoute),
+      bottomNavigationBar: BlocListener<LoanRepaymentCubit, LoanRepaymentState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            loading: () => AppDialog.showAppProgressDialog(context),
+            success: (response) {
+              context.read<DashboardCubit>().fetchDashboardData();
+            },
+            failure: (error) {
+              context.pop();
+              GetIt.I
+                  .get<IWidgetHelper>()
+                  .showErrorToast(context, message: error);
+            },
+          );
+        },
+        child: CustomBottomButtonWrapperWidget(
+          "Continue to payment",
+          onPressed: () => controller.onRepayLoan(),
+        ),
       ),
     );
   }
@@ -131,17 +200,20 @@ class RepayFromCardWidget extends StatelessWidget {
     required this.subtitle,
     required this.title,
     required this.onTap,
+    this.isAmount = true,
   });
   final String title;
   final String subtitle;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isAmount;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(8.r),
         child: Container(
           padding: REdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -163,6 +235,7 @@ class RepayFromCardWidget extends StatelessWidget {
               AppText(
                 subtitle,
                 fontSize: 10,
+                isAmount: isAmount,
                 fontWeight: FontWeight.w400,
                 color: AppColors.neutral500,
               ),

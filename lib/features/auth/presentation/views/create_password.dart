@@ -1,11 +1,13 @@
-import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_checkbox.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/helpers/validator_helper.dart';
+import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/create_password.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/create_password.dart';
@@ -16,7 +18,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+import 'package:go_router/go_router.dart';
 
 class CreatePasswordView extends StatelessWidget
     implements CreatePasswordViewContract {
@@ -134,9 +136,9 @@ class CreatePasswordView extends StatelessWidget
       bottomNavigationBar: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            passwordLoading: () => context.loaderOverlay.show(),
+            passwordLoading: () => AppDialog.showAppProgressDialog(context),
             passwordSuccess: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -145,18 +147,20 @@ class CreatePasswordView extends StatelessWidget
                     subtitle:
                         "Your account has been created successfully. Click the button below to login",
                     buttonLabel: "Continue to Login",
-                    onContinue: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AppLoadingScreen(),
-                      ),
-                    ),
+                    onContinue: () =>
+                        context.goNamed(RouteConstants.loginRoute),
+                    // onContinue: () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => AppLoadingScreen(),
+                    //   ),
+                    // ),
                   ),
                 ),
               );
             },
             passwordFailure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);

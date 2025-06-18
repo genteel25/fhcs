@@ -1,21 +1,15 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phone_form_field/phone_form_field.dart';
-
-import 'package:fhcs/core/api/api_services.dart';
 import 'package:fhcs/core/data/auth_info.dart';
-import 'package:fhcs/core/data/basic_info.dart';
-import 'package:fhcs/core/data/nok_info.dart';
-import 'package:fhcs/core/data/payment.dart';
-import 'package:fhcs/core/data/personal_info.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/extensions.dart';
@@ -23,8 +17,6 @@ import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/signup.dart';
 import 'package:fhcs/features/auth/presentation/views/signup.dart';
-import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
-import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String route = 'forgot_password';
@@ -73,6 +65,18 @@ class SignUpController extends State<SignUpScreen>
   TextEditingController employmentDateController = TextEditingController();
 
   @override
+  late SingleSelectController<String> maritalStatusCustomController;
+
+  @override
+  late SingleSelectController<String> stateOfOriginCustomController;
+
+  @override
+  late SingleSelectController<String> salaryStepCustomController;
+
+  @override
+  late SingleSelectController<String> salaryGradeCustomController;
+
+  @override
   File? pickedImagePath;
 
   @override
@@ -95,6 +99,47 @@ class SignUpController extends State<SignUpScreen>
   bool employmentStatus = false;
 
   @override
+  List<String> states = [
+    'Abia',
+    'Adamawa',
+    'Akwa Ibom',
+    'Anambra',
+    'Bauchi',
+    'Bayelsa',
+    'Benue',
+    'Borno',
+    'Cross River',
+    'Delta',
+    'Ebonyi',
+    'Edo',
+    'Ekiti',
+    'Enugu',
+    'Federal Capital Territory (FCT) - Abuja', // Including FCT
+    'Gombe',
+    'Imo',
+    'Jigawa',
+    'Kaduna',
+    'Kano',
+    'Katsina',
+    'Kebbi',
+    'Kogi',
+    'Kwara',
+    'Lagos',
+    'Nasarawa',
+    'Niger',
+    'Ogun',
+    'Ondo',
+    'Osun',
+    'Oyo',
+    'Plateau',
+    'Rivers',
+    'Sokoto',
+    'Taraba',
+    'Yobe',
+    'Zamfara',
+  ];
+
+  @override
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   GlobalKey<FormState> secondFormKey = GlobalKey<FormState>();
@@ -111,6 +156,16 @@ class SignUpController extends State<SignUpScreen>
     permanentAddressControllerListener();
     deploymentOfficeControllerListener();
     officeAddressControllerListener();
+
+    maritalStatusCustomController = SingleSelectController("Single");
+
+    selectedMaritalStatus = "Single";
+    stateOfOriginCustomController = SingleSelectController("Abia");
+    selectedStateOfOrigin = "Abia";
+    salaryStepCustomController = SingleSelectController("1");
+    selectedSalaryStep = "1";
+    salaryGradeCustomController = SingleSelectController("1");
+    selectedSalaryGrade = "1";
   }
 
   @override
@@ -183,6 +238,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectMaritalStatus(String? value) {
+    if (mounted) {
+      maritalStatusCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -195,6 +253,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectStateOfOrigin(String? value) {
+    if (mounted) {
+      stateOfOriginCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -207,6 +268,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectSalaryGrade(String? value) {
+    if (mounted) {
+      salaryGradeCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -219,6 +283,9 @@ class SignUpController extends State<SignUpScreen>
 
   @override
   void onSelectSalaryStep(String? value) {
+    if (mounted) {
+      salaryStepCustomController.value = value;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() {
         setState(() {
@@ -233,10 +300,12 @@ class SignUpController extends State<SignUpScreen>
   void onPickDateOfBirth() async {
     DateTime? result = await showDatePicker(
       context: context,
-      firstDate: DateTime(1970),
-      lastDate: DateTime(2200),
-      currentDate: DateTime.now(),
-      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime.now().subtract(const Duration(days: 18 * 365)),
+      // currentDate: DateTime.now().subtract(
+      //   const Duration(days: 18 * 365),
+      // ),
+      // initialDate: DateTime.now(),
     );
     if (result != null) {
       setState(() {
@@ -349,6 +418,10 @@ class SignUpController extends State<SignUpScreen>
     if (formKey.currentState?.validate() ?? false) {
       setState(() {
         isFirstPercentComplete = true;
+        secondPercent.addAll({"marital_status": true});
+        secondPercent.addAll({"state_of_origin": true});
+        secondPercent.addAll({"salary_step": true});
+        secondPercent.addAll({"salary_grade": true});
         onSelectEmploymentStatus(employmentStatus);
       });
     }
@@ -371,10 +444,14 @@ class SignUpController extends State<SignUpScreen>
           // return;
         } else {
           log("payment info: ${data.paymentInfo?.toJson()}");
-          context.pushNamed(RouteConstants.membershipPaymentRoute, extra: (
-            amount: data.paymentInfo?.amount?.toString(),
-            ref: data.paymentInfo?.refId
-          ));
+          context.pushNamed(
+            RouteConstants.membershipBreakdownRoute,
+            extra: data.paymentInfo,
+          );
+          // context.pushNamed(RouteConstants.membershipPaymentRoute, extra: (
+          //   amount: data.paymentInfo?.amount?.toString(),
+          //   ref: data.paymentInfo?.refId
+          // ));
           return;
         }
       }
@@ -444,6 +521,7 @@ class SignUpController extends State<SignUpScreen>
     officeAddressController
       ..removeListener(officeAddressControllerListener)
       ..dispose();
+
     super.dispose();
   }
 

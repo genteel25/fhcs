@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_back_button.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
@@ -21,31 +22,15 @@ class DepositFundView extends StatelessWidget
       backgroundColor: Color(0xffF8F8F9),
       appBar: AppBar(
         toolbarHeight: 36.h,
-        leadingWidth: 56.w,
+        leadingWidth: 58.w,
         backgroundColor: Color(0xffF8F8F9),
         surfaceTintColor: Color(0xffF8F8F9),
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            20.w.widthBox,
-            InkWell(
-              onTap: () => context.pop(),
-              borderRadius: BorderRadius.circular(100.r),
-              child: Container(
-                width: 36.w,
-                height: 36.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.neutral200,
-                    width: 1.w,
-                  ),
-                ),
-                child: SvgPicture.asset(
-                  "assets/svgs/back.svg",
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
+            20.sp.widthBox,
+            CustomBackButtonWidget(
+              borderColor: AppColors.neutral200,
             ),
           ],
         ),
@@ -83,7 +68,7 @@ class DepositFundView extends StatelessWidget
             ),
             onTap: () => context.pushNamed(
               RouteConstants.addMoneyRoute,
-              extra: (mode: FundingMode.bankTransfer, hasCreditCard: false),
+              extra: FundingMode.bankTransfer,
             ),
             trailing: Icon(
               Icons.arrow_forward_ios,
@@ -114,7 +99,8 @@ class DepositFundView extends StatelessWidget
             ),
             onTap: () => context.pushNamed(
               RouteConstants.addMoneyRoute,
-              extra: (mode: FundingMode.card, hasCreditCard: true),
+              extra: FundingMode.card,
+              queryParameters: {"amount": controller.amount},
             ),
             trailing: Icon(
               Icons.arrow_forward_ios,

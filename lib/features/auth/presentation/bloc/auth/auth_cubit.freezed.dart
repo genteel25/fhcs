@@ -60,11 +60,15 @@ mixin _$AuthState {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -111,11 +115,15 @@ mixin _$AuthState {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -162,11 +170,15 @@ mixin _$AuthState {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -191,6 +203,9 @@ mixin _$AuthState {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -214,6 +229,9 @@ mixin _$AuthState {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -237,6 +255,9 @@ mixin _$AuthState {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -345,11 +366,15 @@ class _$InitialImpl implements _Initial {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return initial();
   }
@@ -399,11 +424,15 @@ class _$InitialImpl implements _Initial {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return initial?.call();
   }
@@ -453,11 +482,15 @@ class _$InitialImpl implements _Initial {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -488,6 +521,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return initial(this);
   }
@@ -514,6 +550,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return initial?.call(this);
   }
@@ -540,6 +579,9 @@ class _$InitialImpl implements _Initial {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -636,11 +678,15 @@ class _$LoadingImpl implements _Loading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return loading();
   }
@@ -690,11 +736,15 @@ class _$LoadingImpl implements _Loading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return loading?.call();
   }
@@ -744,11 +794,15 @@ class _$LoadingImpl implements _Loading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -779,6 +833,9 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return loading(this);
   }
@@ -805,6 +862,9 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return loading?.call(this);
   }
@@ -831,6 +891,9 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -971,11 +1034,15 @@ class _$SuccessImpl implements _Success {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return success(response);
   }
@@ -1025,11 +1092,15 @@ class _$SuccessImpl implements _Success {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return success?.call(response);
   }
@@ -1079,11 +1150,15 @@ class _$SuccessImpl implements _Success {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1114,6 +1189,9 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return success(this);
   }
@@ -1140,6 +1218,9 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return success?.call(this);
   }
@@ -1166,6 +1247,9 @@ class _$SuccessImpl implements _Success {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1297,11 +1381,15 @@ class _$FailureImpl implements _Failure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return failure(error);
   }
@@ -1351,11 +1439,15 @@ class _$FailureImpl implements _Failure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return failure?.call(error);
   }
@@ -1405,11 +1497,15 @@ class _$FailureImpl implements _Failure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1440,6 +1536,9 @@ class _$FailureImpl implements _Failure {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return failure(this);
   }
@@ -1466,6 +1565,9 @@ class _$FailureImpl implements _Failure {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return failure?.call(this);
   }
@@ -1492,6 +1594,9 @@ class _$FailureImpl implements _Failure {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1596,11 +1701,15 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return verifyLoading();
   }
@@ -1650,11 +1759,15 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return verifyLoading?.call();
   }
@@ -1704,11 +1817,15 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (verifyLoading != null) {
@@ -1739,6 +1856,9 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return verifyLoading(this);
   }
@@ -1765,6 +1885,9 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return verifyLoading?.call(this);
   }
@@ -1791,6 +1914,9 @@ class _$VerifyLoadingImpl implements _VerifyLoading {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (verifyLoading != null) {
@@ -1931,11 +2057,15 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return verifySuccess(response);
   }
@@ -1985,11 +2115,15 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return verifySuccess?.call(response);
   }
@@ -2039,11 +2173,15 @@ class _$VerifySuccessImpl implements _VerifySuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (verifySuccess != null) {
@@ -2074,6 +2212,9 @@ class _$VerifySuccessImpl implements _VerifySuccess {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return verifySuccess(this);
   }
@@ -2100,6 +2241,9 @@ class _$VerifySuccessImpl implements _VerifySuccess {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return verifySuccess?.call(this);
   }
@@ -2126,6 +2270,9 @@ class _$VerifySuccessImpl implements _VerifySuccess {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (verifySuccess != null) {
@@ -2268,11 +2415,15 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return verifyFailure(error);
   }
@@ -2322,11 +2473,15 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return verifyFailure?.call(error);
   }
@@ -2376,11 +2531,15 @@ class _$VerifyFailureImpl implements _VerifyFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (verifyFailure != null) {
@@ -2411,6 +2570,9 @@ class _$VerifyFailureImpl implements _VerifyFailure {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return verifyFailure(this);
   }
@@ -2437,6 +2599,9 @@ class _$VerifyFailureImpl implements _VerifyFailure {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return verifyFailure?.call(this);
   }
@@ -2463,6 +2628,9 @@ class _$VerifyFailureImpl implements _VerifyFailure {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (verifyFailure != null) {
@@ -2568,11 +2736,15 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return nokLoading();
   }
@@ -2622,11 +2794,15 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return nokLoading?.call();
   }
@@ -2676,11 +2852,15 @@ class _$NokLoadingImpl implements _NokLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (nokLoading != null) {
@@ -2711,6 +2891,9 @@ class _$NokLoadingImpl implements _NokLoading {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return nokLoading(this);
   }
@@ -2737,6 +2920,9 @@ class _$NokLoadingImpl implements _NokLoading {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return nokLoading?.call(this);
   }
@@ -2763,6 +2949,9 @@ class _$NokLoadingImpl implements _NokLoading {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (nokLoading != null) {
@@ -2903,11 +3092,15 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return nokSuccess(response);
   }
@@ -2957,11 +3150,15 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return nokSuccess?.call(response);
   }
@@ -3011,11 +3208,15 @@ class _$NokSuccessImpl implements _NokSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (nokSuccess != null) {
@@ -3046,6 +3247,9 @@ class _$NokSuccessImpl implements _NokSuccess {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return nokSuccess(this);
   }
@@ -3072,6 +3276,9 @@ class _$NokSuccessImpl implements _NokSuccess {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return nokSuccess?.call(this);
   }
@@ -3098,6 +3305,9 @@ class _$NokSuccessImpl implements _NokSuccess {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (nokSuccess != null) {
@@ -3240,11 +3450,15 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return nokFailure(error);
   }
@@ -3294,11 +3508,15 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return nokFailure?.call(error);
   }
@@ -3348,11 +3566,15 @@ class _$NokFailureImpl implements _NokFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (nokFailure != null) {
@@ -3383,6 +3605,9 @@ class _$NokFailureImpl implements _NokFailure {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return nokFailure(this);
   }
@@ -3409,6 +3634,9 @@ class _$NokFailureImpl implements _NokFailure {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return nokFailure?.call(this);
   }
@@ -3435,6 +3663,9 @@ class _$NokFailureImpl implements _NokFailure {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (nokFailure != null) {
@@ -3539,11 +3770,15 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return bankLoading();
   }
@@ -3593,11 +3828,15 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return bankLoading?.call();
   }
@@ -3647,11 +3886,15 @@ class _$BankLoadingImpl implements _BankLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (bankLoading != null) {
@@ -3682,6 +3925,9 @@ class _$BankLoadingImpl implements _BankLoading {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return bankLoading(this);
   }
@@ -3708,6 +3954,9 @@ class _$BankLoadingImpl implements _BankLoading {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return bankLoading?.call(this);
   }
@@ -3734,6 +3983,9 @@ class _$BankLoadingImpl implements _BankLoading {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (bankLoading != null) {
@@ -3874,11 +4126,15 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return bankSuccess(response);
   }
@@ -3928,11 +4184,15 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return bankSuccess?.call(response);
   }
@@ -3982,11 +4242,15 @@ class _$BankSuccessImpl implements _BankSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (bankSuccess != null) {
@@ -4017,6 +4281,9 @@ class _$BankSuccessImpl implements _BankSuccess {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return bankSuccess(this);
   }
@@ -4043,6 +4310,9 @@ class _$BankSuccessImpl implements _BankSuccess {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return bankSuccess?.call(this);
   }
@@ -4069,6 +4339,9 @@ class _$BankSuccessImpl implements _BankSuccess {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (bankSuccess != null) {
@@ -4211,11 +4484,15 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return bankFailure(error);
   }
@@ -4265,11 +4542,15 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return bankFailure?.call(error);
   }
@@ -4319,11 +4600,15 @@ class _$BankFailureImpl implements _BankFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (bankFailure != null) {
@@ -4354,6 +4639,9 @@ class _$BankFailureImpl implements _BankFailure {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return bankFailure(this);
   }
@@ -4380,6 +4668,9 @@ class _$BankFailureImpl implements _BankFailure {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return bankFailure?.call(this);
   }
@@ -4406,6 +4697,9 @@ class _$BankFailureImpl implements _BankFailure {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (bankFailure != null) {
@@ -4510,11 +4804,15 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return passwordLoading();
   }
@@ -4564,11 +4862,15 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return passwordLoading?.call();
   }
@@ -4618,11 +4920,15 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (passwordLoading != null) {
@@ -4653,6 +4959,9 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return passwordLoading(this);
   }
@@ -4679,6 +4988,9 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return passwordLoading?.call(this);
   }
@@ -4705,6 +5017,9 @@ class _$PasswordLoadingImpl implements _PasswordLoading {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (passwordLoading != null) {
@@ -4830,11 +5145,15 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return passwordSuccess(response);
   }
@@ -4884,11 +5203,15 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return passwordSuccess?.call(response);
   }
@@ -4938,11 +5261,15 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (passwordSuccess != null) {
@@ -4973,6 +5300,9 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return passwordSuccess(this);
   }
@@ -4999,6 +5329,9 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return passwordSuccess?.call(this);
   }
@@ -5025,6 +5358,9 @@ class _$PasswordSuccessImpl implements _PasswordSuccess {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (passwordSuccess != null) {
@@ -5158,11 +5494,15 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return passwordFailure(error);
   }
@@ -5212,11 +5552,15 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return passwordFailure?.call(error);
   }
@@ -5266,11 +5610,15 @@ class _$PasswordFailureImpl implements _PasswordFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (passwordFailure != null) {
@@ -5301,6 +5649,9 @@ class _$PasswordFailureImpl implements _PasswordFailure {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return passwordFailure(this);
   }
@@ -5327,6 +5678,9 @@ class _$PasswordFailureImpl implements _PasswordFailure {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return passwordFailure?.call(this);
   }
@@ -5353,6 +5707,9 @@ class _$PasswordFailureImpl implements _PasswordFailure {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (passwordFailure != null) {
@@ -5458,11 +5815,15 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return loginLoading();
   }
@@ -5512,11 +5873,15 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return loginLoading?.call();
   }
@@ -5566,11 +5931,15 @@ class _$LoginLoadingImpl implements _LoginLoading {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loginLoading != null) {
@@ -5601,6 +5970,9 @@ class _$LoginLoadingImpl implements _LoginLoading {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return loginLoading(this);
   }
@@ -5627,6 +5999,9 @@ class _$LoginLoadingImpl implements _LoginLoading {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return loginLoading?.call(this);
   }
@@ -5653,6 +6028,9 @@ class _$LoginLoadingImpl implements _LoginLoading {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loginLoading != null) {
@@ -5676,6 +6054,7 @@ abstract class _$$LoginSuccessImplCopyWith<$Res> {
       {({
         String accessToken,
         String fullName,
+        double? monthlyContribution,
         String refreshToken,
         String username
       }) response});
@@ -5703,6 +6082,7 @@ class __$$LoginSuccessImplCopyWithImpl<$Res>
               as ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }),
@@ -5719,6 +6099,7 @@ class _$LoginSuccessImpl implements _LoginSuccess {
   final ({
     String accessToken,
     String fullName,
+    double? monthlyContribution,
     String refreshToken,
     String username
   }) response;
@@ -5793,11 +6174,15 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return loginSuccess(response);
   }
@@ -5847,11 +6232,15 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return loginSuccess?.call(response);
   }
@@ -5901,11 +6290,15 @@ class _$LoginSuccessImpl implements _LoginSuccess {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loginSuccess != null) {
@@ -5936,6 +6329,9 @@ class _$LoginSuccessImpl implements _LoginSuccess {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return loginSuccess(this);
   }
@@ -5962,6 +6358,9 @@ class _$LoginSuccessImpl implements _LoginSuccess {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return loginSuccess?.call(this);
   }
@@ -5988,6 +6387,9 @@ class _$LoginSuccessImpl implements _LoginSuccess {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loginSuccess != null) {
@@ -6002,12 +6404,18 @@ abstract class _LoginSuccess implements AuthState {
       {required final ({
         String accessToken,
         String fullName,
+        double? monthlyContribution,
         String refreshToken,
         String username
       }) response}) = _$LoginSuccessImpl;
 
-  ({String accessToken, String fullName, String refreshToken, String username})
-      get response;
+  ({
+    String accessToken,
+    String fullName,
+    double? monthlyContribution,
+    String refreshToken,
+    String username
+  }) get response;
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -6126,11 +6534,15 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)
         loginSuccess,
     required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
   }) {
     return loginFailure(error);
   }
@@ -6180,11 +6592,15 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
   }) {
     return loginFailure?.call(error);
   }
@@ -6234,11 +6650,15 @@ class _$LoginFailureImpl implements _LoginFailure {
             ({
               String accessToken,
               String fullName,
+              double? monthlyContribution,
               String refreshToken,
               String username
             }) response)?
         loginSuccess,
     TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loginFailure != null) {
@@ -6269,6 +6689,9 @@ class _$LoginFailureImpl implements _LoginFailure {
     required TResult Function(_LoginLoading value) loginLoading,
     required TResult Function(_LoginSuccess value) loginSuccess,
     required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
   }) {
     return loginFailure(this);
   }
@@ -6295,6 +6718,9 @@ class _$LoginFailureImpl implements _LoginFailure {
     TResult? Function(_LoginLoading value)? loginLoading,
     TResult? Function(_LoginSuccess value)? loginSuccess,
     TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
   }) {
     return loginFailure?.call(this);
   }
@@ -6321,6 +6747,9 @@ class _$LoginFailureImpl implements _LoginFailure {
     TResult Function(_LoginLoading value)? loginLoading,
     TResult Function(_LoginSuccess value)? loginSuccess,
     TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
     required TResult orElse(),
   }) {
     if (loginFailure != null) {
@@ -6340,5 +6769,977 @@ abstract class _LoginFailure implements AuthState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoginFailureImplCopyWith<_$LoginFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LogoutLoadingImplCopyWith<$Res> {
+  factory _$$LogoutLoadingImplCopyWith(
+          _$LogoutLoadingImpl value, $Res Function(_$LogoutLoadingImpl) then) =
+      __$$LogoutLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogoutLoadingImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$LogoutLoadingImpl>
+    implements _$$LogoutLoadingImplCopyWith<$Res> {
+  __$$LogoutLoadingImplCopyWithImpl(
+      _$LogoutLoadingImpl _value, $Res Function(_$LogoutLoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LogoutLoadingImpl implements _LogoutLoading {
+  const _$LogoutLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.logoutLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogoutLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(AuthInfoData? response) success,
+    required TResult Function(String error) failure,
+    required TResult Function() verifyLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        verifySuccess,
+    required TResult Function(String error) verifyFailure,
+    required TResult Function() nokLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        nokSuccess,
+    required TResult Function(String error) nokFailure,
+    required TResult Function() bankLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        bankSuccess,
+    required TResult Function(String error) bankFailure,
+    required TResult Function() passwordLoading,
+    required TResult Function(String response) passwordSuccess,
+    required TResult Function(String error) passwordFailure,
+    required TResult Function() loginLoading,
+    required TResult Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)
+        loginSuccess,
+    required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
+  }) {
+    return logoutLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(AuthInfoData? response)? success,
+    TResult? Function(String error)? failure,
+    TResult? Function()? verifyLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        verifySuccess,
+    TResult? Function(String error)? verifyFailure,
+    TResult? Function()? nokLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        nokSuccess,
+    TResult? Function(String error)? nokFailure,
+    TResult? Function()? bankLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        bankSuccess,
+    TResult? Function(String error)? bankFailure,
+    TResult? Function()? passwordLoading,
+    TResult? Function(String response)? passwordSuccess,
+    TResult? Function(String error)? passwordFailure,
+    TResult? Function()? loginLoading,
+    TResult? Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)?
+        loginSuccess,
+    TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
+  }) {
+    return logoutLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(AuthInfoData? response)? success,
+    TResult Function(String error)? failure,
+    TResult Function()? verifyLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        verifySuccess,
+    TResult Function(String error)? verifyFailure,
+    TResult Function()? nokLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        nokSuccess,
+    TResult Function(String error)? nokFailure,
+    TResult Function()? bankLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        bankSuccess,
+    TResult Function(String error)? bankFailure,
+    TResult Function()? passwordLoading,
+    TResult Function(String response)? passwordSuccess,
+    TResult Function(String error)? passwordFailure,
+    TResult Function()? loginLoading,
+    TResult Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)?
+        loginSuccess,
+    TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
+    required TResult orElse(),
+  }) {
+    if (logoutLoading != null) {
+      return logoutLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_VerifyLoading value) verifyLoading,
+    required TResult Function(_VerifySuccess value) verifySuccess,
+    required TResult Function(_VerifyFailure value) verifyFailure,
+    required TResult Function(_NokLoading value) nokLoading,
+    required TResult Function(_NokSuccess value) nokSuccess,
+    required TResult Function(_NokFailure value) nokFailure,
+    required TResult Function(_BankLoading value) bankLoading,
+    required TResult Function(_BankSuccess value) bankSuccess,
+    required TResult Function(_BankFailure value) bankFailure,
+    required TResult Function(_PasswordLoading value) passwordLoading,
+    required TResult Function(_PasswordSuccess value) passwordSuccess,
+    required TResult Function(_PasswordFailure value) passwordFailure,
+    required TResult Function(_LoginLoading value) loginLoading,
+    required TResult Function(_LoginSuccess value) loginSuccess,
+    required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
+  }) {
+    return logoutLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+    TResult? Function(_VerifyLoading value)? verifyLoading,
+    TResult? Function(_VerifySuccess value)? verifySuccess,
+    TResult? Function(_VerifyFailure value)? verifyFailure,
+    TResult? Function(_NokLoading value)? nokLoading,
+    TResult? Function(_NokSuccess value)? nokSuccess,
+    TResult? Function(_NokFailure value)? nokFailure,
+    TResult? Function(_BankLoading value)? bankLoading,
+    TResult? Function(_BankSuccess value)? bankSuccess,
+    TResult? Function(_BankFailure value)? bankFailure,
+    TResult? Function(_PasswordLoading value)? passwordLoading,
+    TResult? Function(_PasswordSuccess value)? passwordSuccess,
+    TResult? Function(_PasswordFailure value)? passwordFailure,
+    TResult? Function(_LoginLoading value)? loginLoading,
+    TResult? Function(_LoginSuccess value)? loginSuccess,
+    TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
+  }) {
+    return logoutLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_VerifyLoading value)? verifyLoading,
+    TResult Function(_VerifySuccess value)? verifySuccess,
+    TResult Function(_VerifyFailure value)? verifyFailure,
+    TResult Function(_NokLoading value)? nokLoading,
+    TResult Function(_NokSuccess value)? nokSuccess,
+    TResult Function(_NokFailure value)? nokFailure,
+    TResult Function(_BankLoading value)? bankLoading,
+    TResult Function(_BankSuccess value)? bankSuccess,
+    TResult Function(_BankFailure value)? bankFailure,
+    TResult Function(_PasswordLoading value)? passwordLoading,
+    TResult Function(_PasswordSuccess value)? passwordSuccess,
+    TResult Function(_PasswordFailure value)? passwordFailure,
+    TResult Function(_LoginLoading value)? loginLoading,
+    TResult Function(_LoginSuccess value)? loginSuccess,
+    TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
+    required TResult orElse(),
+  }) {
+    if (logoutLoading != null) {
+      return logoutLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LogoutLoading implements AuthState {
+  const factory _LogoutLoading() = _$LogoutLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$LogoutSuccessImplCopyWith<$Res> {
+  factory _$$LogoutSuccessImplCopyWith(
+          _$LogoutSuccessImpl value, $Res Function(_$LogoutSuccessImpl) then) =
+      __$$LogoutSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogoutSuccessImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$LogoutSuccessImpl>
+    implements _$$LogoutSuccessImplCopyWith<$Res> {
+  __$$LogoutSuccessImplCopyWithImpl(
+      _$LogoutSuccessImpl _value, $Res Function(_$LogoutSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LogoutSuccessImpl implements _LogoutSuccess {
+  const _$LogoutSuccessImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.logoutSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogoutSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(AuthInfoData? response) success,
+    required TResult Function(String error) failure,
+    required TResult Function() verifyLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        verifySuccess,
+    required TResult Function(String error) verifyFailure,
+    required TResult Function() nokLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        nokSuccess,
+    required TResult Function(String error) nokFailure,
+    required TResult Function() bankLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        bankSuccess,
+    required TResult Function(String error) bankFailure,
+    required TResult Function() passwordLoading,
+    required TResult Function(String response) passwordSuccess,
+    required TResult Function(String error) passwordFailure,
+    required TResult Function() loginLoading,
+    required TResult Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)
+        loginSuccess,
+    required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
+  }) {
+    return logoutSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(AuthInfoData? response)? success,
+    TResult? Function(String error)? failure,
+    TResult? Function()? verifyLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        verifySuccess,
+    TResult? Function(String error)? verifyFailure,
+    TResult? Function()? nokLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        nokSuccess,
+    TResult? Function(String error)? nokFailure,
+    TResult? Function()? bankLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        bankSuccess,
+    TResult? Function(String error)? bankFailure,
+    TResult? Function()? passwordLoading,
+    TResult? Function(String response)? passwordSuccess,
+    TResult? Function(String error)? passwordFailure,
+    TResult? Function()? loginLoading,
+    TResult? Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)?
+        loginSuccess,
+    TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
+  }) {
+    return logoutSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(AuthInfoData? response)? success,
+    TResult Function(String error)? failure,
+    TResult Function()? verifyLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        verifySuccess,
+    TResult Function(String error)? verifyFailure,
+    TResult Function()? nokLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        nokSuccess,
+    TResult Function(String error)? nokFailure,
+    TResult Function()? bankLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        bankSuccess,
+    TResult Function(String error)? bankFailure,
+    TResult Function()? passwordLoading,
+    TResult Function(String response)? passwordSuccess,
+    TResult Function(String error)? passwordFailure,
+    TResult Function()? loginLoading,
+    TResult Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)?
+        loginSuccess,
+    TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
+    required TResult orElse(),
+  }) {
+    if (logoutSuccess != null) {
+      return logoutSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_VerifyLoading value) verifyLoading,
+    required TResult Function(_VerifySuccess value) verifySuccess,
+    required TResult Function(_VerifyFailure value) verifyFailure,
+    required TResult Function(_NokLoading value) nokLoading,
+    required TResult Function(_NokSuccess value) nokSuccess,
+    required TResult Function(_NokFailure value) nokFailure,
+    required TResult Function(_BankLoading value) bankLoading,
+    required TResult Function(_BankSuccess value) bankSuccess,
+    required TResult Function(_BankFailure value) bankFailure,
+    required TResult Function(_PasswordLoading value) passwordLoading,
+    required TResult Function(_PasswordSuccess value) passwordSuccess,
+    required TResult Function(_PasswordFailure value) passwordFailure,
+    required TResult Function(_LoginLoading value) loginLoading,
+    required TResult Function(_LoginSuccess value) loginSuccess,
+    required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
+  }) {
+    return logoutSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+    TResult? Function(_VerifyLoading value)? verifyLoading,
+    TResult? Function(_VerifySuccess value)? verifySuccess,
+    TResult? Function(_VerifyFailure value)? verifyFailure,
+    TResult? Function(_NokLoading value)? nokLoading,
+    TResult? Function(_NokSuccess value)? nokSuccess,
+    TResult? Function(_NokFailure value)? nokFailure,
+    TResult? Function(_BankLoading value)? bankLoading,
+    TResult? Function(_BankSuccess value)? bankSuccess,
+    TResult? Function(_BankFailure value)? bankFailure,
+    TResult? Function(_PasswordLoading value)? passwordLoading,
+    TResult? Function(_PasswordSuccess value)? passwordSuccess,
+    TResult? Function(_PasswordFailure value)? passwordFailure,
+    TResult? Function(_LoginLoading value)? loginLoading,
+    TResult? Function(_LoginSuccess value)? loginSuccess,
+    TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
+  }) {
+    return logoutSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_VerifyLoading value)? verifyLoading,
+    TResult Function(_VerifySuccess value)? verifySuccess,
+    TResult Function(_VerifyFailure value)? verifyFailure,
+    TResult Function(_NokLoading value)? nokLoading,
+    TResult Function(_NokSuccess value)? nokSuccess,
+    TResult Function(_NokFailure value)? nokFailure,
+    TResult Function(_BankLoading value)? bankLoading,
+    TResult Function(_BankSuccess value)? bankSuccess,
+    TResult Function(_BankFailure value)? bankFailure,
+    TResult Function(_PasswordLoading value)? passwordLoading,
+    TResult Function(_PasswordSuccess value)? passwordSuccess,
+    TResult Function(_PasswordFailure value)? passwordFailure,
+    TResult Function(_LoginLoading value)? loginLoading,
+    TResult Function(_LoginSuccess value)? loginSuccess,
+    TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
+    required TResult orElse(),
+  }) {
+    if (logoutSuccess != null) {
+      return logoutSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LogoutSuccess implements AuthState {
+  const factory _LogoutSuccess() = _$LogoutSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$LogoutFailureImplCopyWith<$Res> {
+  factory _$$LogoutFailureImplCopyWith(
+          _$LogoutFailureImpl value, $Res Function(_$LogoutFailureImpl) then) =
+      __$$LogoutFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$LogoutFailureImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$LogoutFailureImpl>
+    implements _$$LogoutFailureImplCopyWith<$Res> {
+  __$$LogoutFailureImplCopyWithImpl(
+      _$LogoutFailureImpl _value, $Res Function(_$LogoutFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$LogoutFailureImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LogoutFailureImpl implements _LogoutFailure {
+  const _$LogoutFailureImpl({required this.error});
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'AuthState.logoutFailure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LogoutFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LogoutFailureImplCopyWith<_$LogoutFailureImpl> get copyWith =>
+      __$$LogoutFailureImplCopyWithImpl<_$LogoutFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(AuthInfoData? response) success,
+    required TResult Function(String error) failure,
+    required TResult Function() verifyLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        verifySuccess,
+    required TResult Function(String error) verifyFailure,
+    required TResult Function() nokLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        nokSuccess,
+    required TResult Function(String error) nokFailure,
+    required TResult Function() bankLoading,
+    required TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)
+        bankSuccess,
+    required TResult Function(String error) bankFailure,
+    required TResult Function() passwordLoading,
+    required TResult Function(String response) passwordSuccess,
+    required TResult Function(String error) passwordFailure,
+    required TResult Function() loginLoading,
+    required TResult Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)
+        loginSuccess,
+    required TResult Function(String error) loginFailure,
+    required TResult Function() logoutLoading,
+    required TResult Function() logoutSuccess,
+    required TResult Function(String error) logoutFailure,
+  }) {
+    return logoutFailure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(AuthInfoData? response)? success,
+    TResult? Function(String error)? failure,
+    TResult? Function()? verifyLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        verifySuccess,
+    TResult? Function(String error)? verifyFailure,
+    TResult? Function()? nokLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        nokSuccess,
+    TResult? Function(String error)? nokFailure,
+    TResult? Function()? bankLoading,
+    TResult? Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        bankSuccess,
+    TResult? Function(String error)? bankFailure,
+    TResult? Function()? passwordLoading,
+    TResult? Function(String response)? passwordSuccess,
+    TResult? Function(String error)? passwordFailure,
+    TResult? Function()? loginLoading,
+    TResult? Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)?
+        loginSuccess,
+    TResult? Function(String error)? loginFailure,
+    TResult? Function()? logoutLoading,
+    TResult? Function()? logoutSuccess,
+    TResult? Function(String error)? logoutFailure,
+  }) {
+    return logoutFailure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(AuthInfoData? response)? success,
+    TResult Function(String error)? failure,
+    TResult Function()? verifyLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        verifySuccess,
+    TResult Function(String error)? verifyFailure,
+    TResult Function()? nokLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        nokSuccess,
+    TResult Function(String error)? nokFailure,
+    TResult Function()? bankLoading,
+    TResult Function(
+            ({
+              BasicInfoData basicInfo,
+              NokInfoData? nokInfoData,
+              PaymentInfoData? paymentInfoData,
+              PersonalInfoData personalData
+            }) response)?
+        bankSuccess,
+    TResult Function(String error)? bankFailure,
+    TResult Function()? passwordLoading,
+    TResult Function(String response)? passwordSuccess,
+    TResult Function(String error)? passwordFailure,
+    TResult Function()? loginLoading,
+    TResult Function(
+            ({
+              String accessToken,
+              String fullName,
+              double? monthlyContribution,
+              String refreshToken,
+              String username
+            }) response)?
+        loginSuccess,
+    TResult Function(String error)? loginFailure,
+    TResult Function()? logoutLoading,
+    TResult Function()? logoutSuccess,
+    TResult Function(String error)? logoutFailure,
+    required TResult orElse(),
+  }) {
+    if (logoutFailure != null) {
+      return logoutFailure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_VerifyLoading value) verifyLoading,
+    required TResult Function(_VerifySuccess value) verifySuccess,
+    required TResult Function(_VerifyFailure value) verifyFailure,
+    required TResult Function(_NokLoading value) nokLoading,
+    required TResult Function(_NokSuccess value) nokSuccess,
+    required TResult Function(_NokFailure value) nokFailure,
+    required TResult Function(_BankLoading value) bankLoading,
+    required TResult Function(_BankSuccess value) bankSuccess,
+    required TResult Function(_BankFailure value) bankFailure,
+    required TResult Function(_PasswordLoading value) passwordLoading,
+    required TResult Function(_PasswordSuccess value) passwordSuccess,
+    required TResult Function(_PasswordFailure value) passwordFailure,
+    required TResult Function(_LoginLoading value) loginLoading,
+    required TResult Function(_LoginSuccess value) loginSuccess,
+    required TResult Function(_LoginFailure value) loginFailure,
+    required TResult Function(_LogoutLoading value) logoutLoading,
+    required TResult Function(_LogoutSuccess value) logoutSuccess,
+    required TResult Function(_LogoutFailure value) logoutFailure,
+  }) {
+    return logoutFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+    TResult? Function(_VerifyLoading value)? verifyLoading,
+    TResult? Function(_VerifySuccess value)? verifySuccess,
+    TResult? Function(_VerifyFailure value)? verifyFailure,
+    TResult? Function(_NokLoading value)? nokLoading,
+    TResult? Function(_NokSuccess value)? nokSuccess,
+    TResult? Function(_NokFailure value)? nokFailure,
+    TResult? Function(_BankLoading value)? bankLoading,
+    TResult? Function(_BankSuccess value)? bankSuccess,
+    TResult? Function(_BankFailure value)? bankFailure,
+    TResult? Function(_PasswordLoading value)? passwordLoading,
+    TResult? Function(_PasswordSuccess value)? passwordSuccess,
+    TResult? Function(_PasswordFailure value)? passwordFailure,
+    TResult? Function(_LoginLoading value)? loginLoading,
+    TResult? Function(_LoginSuccess value)? loginSuccess,
+    TResult? Function(_LoginFailure value)? loginFailure,
+    TResult? Function(_LogoutLoading value)? logoutLoading,
+    TResult? Function(_LogoutSuccess value)? logoutSuccess,
+    TResult? Function(_LogoutFailure value)? logoutFailure,
+  }) {
+    return logoutFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_VerifyLoading value)? verifyLoading,
+    TResult Function(_VerifySuccess value)? verifySuccess,
+    TResult Function(_VerifyFailure value)? verifyFailure,
+    TResult Function(_NokLoading value)? nokLoading,
+    TResult Function(_NokSuccess value)? nokSuccess,
+    TResult Function(_NokFailure value)? nokFailure,
+    TResult Function(_BankLoading value)? bankLoading,
+    TResult Function(_BankSuccess value)? bankSuccess,
+    TResult Function(_BankFailure value)? bankFailure,
+    TResult Function(_PasswordLoading value)? passwordLoading,
+    TResult Function(_PasswordSuccess value)? passwordSuccess,
+    TResult Function(_PasswordFailure value)? passwordFailure,
+    TResult Function(_LoginLoading value)? loginLoading,
+    TResult Function(_LoginSuccess value)? loginSuccess,
+    TResult Function(_LoginFailure value)? loginFailure,
+    TResult Function(_LogoutLoading value)? logoutLoading,
+    TResult Function(_LogoutSuccess value)? logoutSuccess,
+    TResult Function(_LogoutFailure value)? logoutFailure,
+    required TResult orElse(),
+  }) {
+    if (logoutFailure != null) {
+      return logoutFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LogoutFailure implements AuthState {
+  const factory _LogoutFailure({required final String error}) =
+      _$LogoutFailureImpl;
+
+  String get error;
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LogoutFailureImplCopyWith<_$LogoutFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

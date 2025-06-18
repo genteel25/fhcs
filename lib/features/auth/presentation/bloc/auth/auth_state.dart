@@ -28,4 +28,8 @@ class AuthState with _$AuthState {
   const factory AuthState.loginSuccess({required LoginData response}) =
       _LoginSuccess;
   const factory AuthState.loginFailure({required String error}) = _LoginFailure;
+  const factory AuthState.logoutLoading() = _LogoutLoading;
+  const factory AuthState.logoutSuccess() = _LogoutSuccess;
+  const factory AuthState.logoutFailure({required String error}) =
+      _LogoutFailure;
 }

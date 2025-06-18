@@ -1,3 +1,4 @@
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:fhcs/core/components/custom_animated_dropdown.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
@@ -110,20 +110,19 @@ class WithdrawalBankView extends StatelessWidget
       bottomNavigationBar: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            bankLoading: () => context.loaderOverlay.show(),
+            bankLoading: () => AppDialog.showAppProgressDialog(context),
             bankSuccess: (response) {
-              context.loaderOverlay.hide();
+              context.pop();
               // context.pushNamed(RouteConstants.createPasswordRoute);
               AppSheets.bankWithdrawalSuccessSheet(context, onPressed: () {
-                context
-                    .pushNamed(RouteConstants.membershipPaymentRoute, extra: (
-                  amount: response.paymentInfoData?.amount?.toString() ?? "0",
-                  ref: response.paymentInfoData?.refId ?? ""
-                ));
+                context.pushNamed(
+                  RouteConstants.membershipBreakdownRoute,
+                  extra: response.paymentInfoData,
+                );
               });
             },
             bankFailure: (error) {
-              context.loaderOverlay.hide();
+              context.pop();
               GetIt.I
                   .get<IWidgetHelper>()
                   .showErrorToast(context, message: error);

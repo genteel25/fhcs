@@ -24,6 +24,9 @@ class CustomInputLabelWidget extends StatelessWidget {
     this.prefixAsset,
     this.minLines,
     this.maxLines,
+    this.isAmount = false,
+    this.fillColor,
+    this.isEnabled,
   });
   final String labelText;
   final String hintText;
@@ -39,6 +42,9 @@ class CustomInputLabelWidget extends StatelessWidget {
   final String? prefixAsset;
   final int? minLines;
   final int? maxLines;
+  final bool isAmount;
+  final Color? fillColor;
+  final bool? isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +64,23 @@ class CustomInputLabelWidget extends StatelessWidget {
           child: TextFormField(
             cursorColor: AppColors.neutral400,
             obscureText: obscureText,
+            enabled: isEnabled ?? true,
             cursorHeight: 16.h,
             readOnly: isReadOnly ?? false,
             cursorWidth: 1.w,
-            style: GoogleFonts.onest(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w400,
-              color: AppColors.neutral800,
-              height: 1.h,
-            ),
+            style: isAmount
+                ? GoogleFonts.roboto(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.neutral800,
+                    height: 1.h,
+                  )
+                : GoogleFonts.onest(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.neutral800,
+                    height: 1.h,
+                  ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: keyboardType ?? TextInputType.text,
             textInputAction: textInputAction ?? TextInputAction.next,
@@ -79,6 +93,7 @@ class CustomInputLabelWidget extends StatelessWidget {
               isCollapsed: true,
               isDense: true,
               hintText: hintText,
+              fillColor: fillColor,
               // prefixIconConstraints: BoxConstraints(
               //     maxHeight: 16.h, minHeight: 16.w, maxWidth: 26.w),
               prefixIcon: prefixAsset != null

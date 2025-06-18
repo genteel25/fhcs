@@ -34,15 +34,31 @@ class CustomSliderState extends State<CustomSlider> {
   @override
   void initState() {
     super.initState();
-    _value = widget.value?.clamp(widget.min, widget.max) ?? widget.min;
+    // Sanitize min and max before clamping initial value
+    // Provide fallback values if min/max are NaN or Infinity
+    final double safeMin =
+        widget.min.isNaN || widget.min.isInfinite ? 0.0 : widget.min;
+    final double safeMax =
+        widget.max.isNaN || widget.max.isInfinite ? 100.0 : widget.max;
+
+    // Initialize _value, ensuring it's within safe bounds
+    _value = (widget.value ?? safeMin).clamp(safeMin, safeMax);
   }
 
   @override
   void didUpdateWidget(covariant CustomSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // Sanitize min and max before clamping updated value
+    final double safeMin =
+        widget.min.isNaN || widget.min.isInfinite ? 0.0 : widget.min;
+    final double safeMax =
+        widget.max.isNaN || widget.max.isInfinite ? 100.0 : widget.max;
+
+    // Update _value if widget.value changes and is not null
     if (widget.value != null && widget.value != oldWidget.value) {
       setState(() {
-        _value = widget.value!.clamp(widget.min, widget.max);
+        // Clamp the new value to the safe min and max
+        _value = (widget.value!).clamp(safeMin, safeMax);
       });
     }
   }
@@ -50,12 +66,69 @@ class CustomSliderState extends State<CustomSlider> {
   void _updateValue(Offset localPosition, double width) {
     if (!widget.isSlidingEnabled) return;
 
-    double newValue =
+    // --- Input Validation and Sanitization ---
+
+    // 1. Ensure track width is not zero to prevent division by zero or NaN
+    if (width == 0 || width.isNaN || width.isInfinite) {
+      debugPrint(
+          'CustomSlider Warning: Slider track width is invalid ($width). Cannot update value.');
+      return;
+    }
+
+    // 2. Calculate initial raw new value based on position
+    double rawNewValue =
         widget.min + (localPosition.dx / width) * (widget.max - widget.min);
-    newValue = ((newValue / widget.step).round() * widget.step)
-        .clamp(widget.min, math.min(widget.max, widget.maxSlideLimit));
+
+    // 3. Sanitize widget.step to prevent division issues
+    double effectiveStep = widget.step;
+    if (effectiveStep == 0 || effectiveStep.isNaN || effectiveStep.isInfinite) {
+      // Fallback to a safe step, e.g., 1.0 or a small fraction of the range
+      effectiveStep = (widget.max - widget.min) /
+          100.0; // Use 1% of the range as a fallback
+      if (effectiveStep == 0)
+        effectiveStep = 1.0; // Ensure it's not zero even if range is zero
+      debugPrint(
+          'CustomSlider Warning: widget.step is invalid (${widget.step}). Using $effectiveStep as fallback.');
+    }
+
+    // 4. Sanitize widget.min, widget.max, and widget.maxSlideLimit
+    // Provide fallback values if they are NaN or Infinity
+    final double safeMin =
+        widget.min.isNaN || widget.min.isInfinite ? 0.0 : widget.min;
+    final double safeMax =
+        widget.max.isNaN || widget.max.isInfinite ? 100.0 : widget.max;
+    double effectiveMaxSlideLimit = widget.maxSlideLimit;
+    if (effectiveMaxSlideLimit.isNaN || effectiveMaxSlideLimit.isInfinite) {
+      // Default to widget.max if maxSlideLimit is invalid
+      effectiveMaxSlideLimit = safeMax;
+      debugPrint(
+          'CustomSlider Warning: widget.maxSlideLimit is invalid (${widget.maxSlideLimit}). Using widget.max ($safeMax) as fallback.');
+    }
+
+    // --- Value Calculation ---
+
+    // Calculate the stepped value
+    double steppedValue;
+    // Check if the division result itself is NaN or Infinity before rounding
+    final double divisionResult = rawNewValue / effectiveStep;
+    if (divisionResult.isNaN || divisionResult.isInfinite) {
+      // If division leads to NaN/Infinity, use the raw value for now
+      steppedValue = rawNewValue;
+      debugPrint(
+          'CustomSlider Warning: (rawNewValue / effectiveStep) resulted in NaN/Infinity. Using rawNewValue.');
+    } else {
+      steppedValue = divisionResult.round() * effectiveStep;
+    }
+
+    // Clamp the value within the valid range and maxSlideLimit
+    // math.min will correctly handle cases where one argument is finite and the other is Infinity,
+    // but we've already sanitized `effectiveMaxSlideLimit` to prevent `NaN` here.
+    double finalNewValue =
+        steppedValue.clamp(safeMin, math.min(safeMax, effectiveMaxSlideLimit));
+
+    // --- Update State and Notify Listener ---
     setState(() {
-      _value = newValue;
+      _value = finalNewValue;
     });
     widget.onChanged(_value);
   }
@@ -64,9 +137,17 @@ class CustomSliderState extends State<CustomSlider> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double trackWidth = constraints.maxWidth - 30;
-        double thumbPosition =
-            (trackWidth * ((_value - widget.min) / (widget.max - widget.min)));
+        // Ensure trackWidth is at least 0
+        double trackWidth = math.max(0.0, constraints.maxWidth - 30);
+
+        // Ensure denominator is not zero for thumbPosition calculation
+        double range = widget.max - widget.min;
+        double thumbPosition;
+        if (range == 0 || range.isNaN || range.isInfinite) {
+          thumbPosition = 0; // If range is invalid, position thumb at start
+        } else {
+          thumbPosition = (trackWidth * ((_value - widget.min) / range));
+        }
 
         return GestureDetector(
           onPanUpdate: widget.isSlidingEnabled
@@ -120,7 +201,19 @@ class SliderPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 10.h;
 
-    double progressWidth = (value - min) / (max - min) * (size.width - 30);
+    // Sanitize min and max for painter calculations
+    final double safeMin = min.isNaN || min.isInfinite ? 0.0 : min;
+    final double safeMax = max.isNaN || max.isInfinite ? 100.0 : max;
+    final double safeValue =
+        value.clamp(safeMin, safeMax); // Clamp value to safe range
+
+    final double range = safeMax - safeMin;
+    double progressWidth;
+    if (range == 0 || range.isNaN || range.isInfinite) {
+      progressWidth = 0; // If range is invalid, no progress
+    } else {
+      progressWidth = (safeValue - safeMin) / range * (size.width - 30);
+    }
 
     canvas.drawLine(Offset(15, size.height / 2),
         Offset(size.width - 15, size.height / 2), trackPaint);
@@ -128,10 +221,22 @@ class SliderPainter extends CustomPainter {
         Offset(15 + progressWidth, size.height / 2), progressPaint);
 
     // Draw step circles
-    for (double i = min; i <= max; i += step) {
-      double dx = 15 + ((i - min) / (max - min)) * (size.width - 30);
+    // Sanitize step for the loop
+    final double effectiveStep = step.isNaN || step.isInfinite || step == 0
+        ? (safeMax - safeMin) / 10.0
+        : step;
+    if (effectiveStep == 0) return; // Avoid infinite loop if step is still zero
+
+    for (double i = safeMin; i <= safeMax; i += effectiveStep) {
+      double dx;
+      if (range == 0 || range.isNaN || range.isInfinite) {
+        dx = 15; // If range is invalid, all steps at start
+      } else {
+        dx = 15 + ((i - safeMin) / range) * (size.width - 30);
+      }
+
       final Paint stepPaint = Paint()
-        ..color = (i <= value) ? Colors.white : AppColors.neutral300
+        ..color = (i <= safeValue) ? Colors.white : AppColors.neutral300
         ..style = PaintingStyle.fill;
 
       canvas.drawCircle(Offset(dx, size.height / 2), 3, stepPaint);
@@ -154,7 +259,8 @@ class CustomThumb extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
               width: 2.w,
-              color: !isActive ? Color(0xffCBD5E1) : AppColors.neutral800),
+              color:
+                  !isActive ? const Color(0xffCBD5E1) : AppColors.neutral800),
           color: Colors.white,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(4),

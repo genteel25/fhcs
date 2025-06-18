@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,7 +16,7 @@ class CustomFilePickerSheet extends StatefulWidget {
   const CustomFilePickerSheet(
       {super.key, required this.onSelectFile, required this.selectedFile});
   final File? selectedFile;
-  final Function(File? file) onSelectFile;
+  final Function(File? file, String? url) onSelectFile;
 
   @override
   State<CustomFilePickerSheet> createState() => _CustomFilePickerSheetState();
@@ -28,8 +31,24 @@ class _CustomFilePickerSheetState extends State<CustomFilePickerSheet> {
     if (result != null) {
       setState(() {
         documentFile = File(result.path);
-        widget.onSelectFile(documentFile);
+        // widget.onSelectFile(documentFile);
       });
+      widget.onSelectFile(documentFile, "");
+      // AppDialog.showAppProgressDialog(context);
+      // final response =
+      //     await GetIt.I.get<IAuthRepository>().uploadFile(documentFile!);
+      // response.fold((l) {
+      //   context.pop();
+      //   GetIt.I
+      //       .get<IWidgetHelper>()
+      //       .showErrorToast(context, message: l.failureMessage());
+      // }, (r) {
+      //   context.pop();
+      //   GetIt.I
+      //       .get<IWidgetHelper>()
+      //       .showSuccessToast(context, message: "Image uploaded successfully");
+      //   widget.onSelectFile(documentFile, r.data as String);
+      // });
     }
     if (mounted) {
       context.pop();
@@ -39,7 +58,7 @@ class _CustomFilePickerSheetState extends State<CustomFilePickerSheet> {
   void clearPickedDocument() {
     setState(() {
       documentFile = null;
-      widget.onSelectFile(null);
+      widget.onSelectFile(null, null);
     });
   }
 

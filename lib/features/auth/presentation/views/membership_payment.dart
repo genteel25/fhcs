@@ -1,3 +1,5 @@
+import 'package:fhcs/core/router/route_constants.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
@@ -5,7 +7,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
@@ -64,19 +66,20 @@ class MembershipPaymentView extends StatelessWidget
             BlocListener<VerifyMembershipCubit, VerifyMembershipState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  loading: () => context.loaderOverlay.show(),
+                  loading: () => AppDialog.showAppProgressDialog(context),
                   failure: (error) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I
                         .get<IWidgetHelper>()
                         .showErrorToast(context, message: error);
                   },
                   success: (response) {
-                    context.loaderOverlay.hide();
+                    context.pop();
                     GetIt.I.get<IWidgetHelper>().showSuccessToast(
                           context,
                           message: "Payment successful",
                         );
+                    context.pushNamed(RouteConstants.createPasswordRoute);
                   },
                 );
               },

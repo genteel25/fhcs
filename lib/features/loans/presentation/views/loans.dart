@@ -1,16 +1,24 @@
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:fhcs/core/components/custom_error.dart';
+import 'package:fhcs/core/components/custom_loader.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/loans.dart';
+import 'package:fhcs/features/loans/presentation/widgets/active_loan.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
 import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class LoansView extends StatelessWidget implements LoansViewContract {
   const LoansView({super.key, required this.controller});
@@ -43,41 +51,60 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                     16.h.heightBox,
                     Row(
                       children: [
-                        Container(
-                          width: 43.sp,
-                          height: 43.sp,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.w,
-                              color: AppColors.neutral600,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            "assets/images/tbd/avatar.png",
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        12.w.widthBox,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            AppText(
-                              "Hi Ajangbadi",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.neutral800,
-                              height: 1,
+                            Container(
+                              width: 43.w,
+                              height: 43.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.neutral300,
+                                border: Border.all(
+                                    width: 3.w, color: AppColors.neutral600),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.person,
+                                size: 30.sp,
+                                color: AppColors.neutral600,
+                              ),
                             ),
-                            AppText(
-                              "Click to view profile >>",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.neutral500,
-                              textDecoration: TextDecoration.underline,
+                            12.w.widthBox,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BlocBuilder<UserProfileCubit, UserProfileState>(
+                                  builder: (context, state) {
+                                    return state.whenOrNull(
+                                          success: (response) => AppText(
+                                            "Hi ${response.user?.firstName ?? ""} ${response.user?.lastName ?? ""}",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.neutral800,
+                                            height: 1,
+                                          ),
+                                        ) ??
+                                        AppText(
+                                          "Hi ${controller.fullName ?? ""}",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.neutral800,
+                                          height: 1,
+                                        );
+                                  },
+                                ),
+                                AppText(
+                                  "Click to view profile >>",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.neutral500,
+                                  textDecoration: TextDecoration.underline,
+                                ),
+                              ],
                             ),
                           ],
-                        ),
+                        ).onTap(() => context.pushNamed(
+                            RouteConstants.profileRoute,
+                            extra: controller.fullName)),
                         const Spacer(),
                         Container(
                           padding: REdgeInsets.all(14),
@@ -93,7 +120,16 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                       ],
                     ).paddingSymmetric(horizontal: 20.w),
                     24.h.heightBox,
-                    AssetCardWidget(),
+                    BlocBuilder<DashboardCubit, DashboardState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => AssetCardWidget(
+                                balance: response.totalLoanTaken?.toString(),
+                              ),
+                            ) ??
+                            AssetCardWidget(balance: "0");
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -168,37 +204,161 @@ class LoansView extends StatelessWidget implements LoansViewContract {
             ),
             16.h.heightBox,
             Expanded(
-              child: SingleChildScrollView(
-                primary: true,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: REdgeInsets.symmetric(vertical: 0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        // color: AppColors.lightest,
-                      ),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        primary: false,
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) {
-                          return LoanApplicationItemWidget();
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                              color: AppColors.neutral100, height: 0.h);
-                        },
-                        itemCount: 8,
-                      ),
-                    ).paddingSymmetric(horizontal: 20.w),
-                  ],
-                ),
+              child: TabBarView(
+                // physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child: BlocBuilder<LoanApplicationsCubit,
+                              LoanApplicationsState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
+                                    success: (response) => response.isEmpty
+                                        ? CustomErrorWidget(
+                                            errorTitle: "No Loans On Record",
+                                            errorSubtitle:
+                                                "You haven't submitted any loan applications. Let's get yours started!",
+                                          )
+                                        : ListView.separated(
+                                            shrinkWrap: true,
+                                            primary: false,
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (context, index) {
+                                              return LoanApplicationItemWidget(
+                                                data: response[index],
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return Divider(
+                                                  color: AppColors.neutral100,
+                                                  height: 0.h);
+                                            },
+                                            itemCount: response.length,
+                                          ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child:
+                              BlocBuilder<ActiveLoansCubit, ActiveLoansState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
+                                    success: (response) => response.isEmpty
+                                        ? CustomErrorWidget(
+                                            errorTitle: "No Active Loans",
+                                            errorSubtitle:
+                                                "It looks like you don't have any loans currently in progress. Apply for a new loan to get started!",
+                                          )
+                                        : ListView.separated(
+                                            shrinkWrap: true,
+                                            primary: false,
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (context, index) {
+                                              return ActiveLoanWidget(
+                                                  data: response[index]);
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return Divider(
+                                                  color: AppColors.neutral100,
+                                                  height: 0.h);
+                                            },
+                                            itemCount: response.length,
+                                          ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child:
+                              BlocBuilder<LoanHistoryCubit, LoanHistoryState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
+                                    success: (response) => response.isEmpty
+                                        ? CustomErrorWidget(
+                                            errorTitle: "No Past Loans Found",
+                                            errorSubtitle:
+                                                "This section is dedicated to your completed or past loan activities. Apply for a loan to begin your history.",
+                                          )
+                                        : ListView.separated(
+                                            shrinkWrap: true,
+                                            primary: false,
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (context, index) {
+                                              return ActiveLoanWidget(
+                                                data: response[index],
+                                                isActive: false,
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return 10.h.heightBox;
+                                            },
+                                            itemCount: response.length,
+                                          ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<LottieComposition?> customDecoder(List<int> bytes) {
+    return LottieComposition.decodeZip(bytes, filePicker: (files) {
+      return files.firstWhere(
+          (f) => f.name.startsWith('animations/') && f.name.endsWith('.json'));
+    });
   }
 }

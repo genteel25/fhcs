@@ -1,6 +1,7 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/data/bank.dart';
+import 'package:fhcs/core/data/investment_type.dart';
 import 'package:fhcs/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,6 +71,7 @@ class CustomAnimatedDropdownWidget<T> extends StatelessWidget {
                 return AppText(
                   switch (item) {
                     BankData(:final name) => name ?? "",
+                    InvestmentTypeData(:final name) => name ?? "",
                     // SubCategoryData(:final name) => name ?? "",
                     _ => item?.displayText ?? "",
                   },
@@ -89,6 +91,7 @@ class CustomAnimatedDropdownWidget<T> extends StatelessWidget {
               headerBuilder: (context, selectedItem, enabled) => AppText(
                     switch (selectedItem) {
                       BankData(:final name) => name ?? "",
+                      InvestmentTypeData(:final name) => name ?? "",
                       _ => selectedItem!.displayText,
                     },
                     // selectedItem?.displayText ?? "",

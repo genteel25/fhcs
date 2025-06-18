@@ -1,9 +1,11 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/referee_request.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/referee_request.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,13 +19,13 @@ class RefereeRequestView extends StatelessWidget
         backgroundColor: Color(0xffF8F8F9),
         appBar: AppBar(
           toolbarHeight: 36.h,
-          leadingWidth: 56.w,
+          leadingWidth: 58.w,
           backgroundColor: Color(0xffF8F8F9),
           surfaceTintColor: Color(0xffF8F8F9),
           leading: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              20.w.widthBox,
+              20.sp.widthBox,
               InkWell(
                 onTap: () => context.pop(),
                 borderRadius: BorderRadius.circular(100.r),
@@ -105,16 +107,68 @@ class RefereeRequestView extends StatelessWidget
               ),
               16.h.heightBox,
               Expanded(
-                child: ListView.separated(
-                  padding: REdgeInsets.symmetric(horizontal: 20),
-                  itemBuilder: (context, index) {
-                    return RequestCardWidget();
-                  },
-                  separatorBuilder: (context, index) {
-                    return 16.h.heightBox;
-                  },
-                  itemCount: 12,
-                  // shrinkWrap: true,
+                child: TabBarView(
+                  children: [
+                    BlocBuilder<LoanRefereeRequestCubit,
+                        LoanRefereeRequestState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => ListView.separated(
+                                padding: REdgeInsets.only(
+                                    left: 20, right: 20, bottom: 20),
+                                itemBuilder: (context, index) {
+                                  return RequestCardWidget();
+                                },
+                                separatorBuilder: (context, index) {
+                                  return 16.h.heightBox;
+                                },
+                                itemCount: response.length,
+                                shrinkWrap: true,
+                              ),
+                            ) ??
+                            const SizedBox.shrink();
+                      },
+                    ),
+                    BlocBuilder<InvestmentRefereeRequestCubit,
+                        InvestmentRefereeRequestState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => ListView.separated(
+                                padding: REdgeInsets.only(
+                                    left: 20, right: 20, bottom: 20),
+                                itemBuilder: (context, index) {
+                                  return RequestCardWidget();
+                                },
+                                separatorBuilder: (context, index) {
+                                  return 16.h.heightBox;
+                                },
+                                itemCount: response.length,
+                                shrinkWrap: true,
+                              ),
+                            ) ??
+                            const SizedBox.shrink();
+                      },
+                    ),
+                    BlocBuilder<RefereeRequestCubit, RefereeRequestState>(
+                      builder: (context, state) {
+                        return state.whenOrNull(
+                              success: (response) => ListView.separated(
+                                padding: REdgeInsets.only(
+                                    left: 20, right: 20, bottom: 20),
+                                itemBuilder: (context, index) {
+                                  return RequestCardWidget();
+                                },
+                                separatorBuilder: (context, index) {
+                                  return 16.h.heightBox;
+                                },
+                                itemCount: response.length,
+                                shrinkWrap: true,
+                              ),
+                            ) ??
+                            const SizedBox.shrink();
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
