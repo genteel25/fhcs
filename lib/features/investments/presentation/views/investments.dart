@@ -1,19 +1,25 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:fhcs/core/components/custom_error.dart';
+import 'package:fhcs/core/components/custom_loader.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
+import 'package:fhcs/features/investments/presentation/bloc/fetch_investment/fetch_investment_cubit.dart';
 import 'package:fhcs/features/investments/presentation/controllers/contracts/investments.dart';
 import 'package:fhcs/features/investments/presentation/views/contracts/investments.dart';
+import 'package:fhcs/features/investments/presentation/widget/inv_application.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
 import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
 class InvestmentsView extends StatelessWidget
     implements InvestmentsViewContract {
@@ -216,35 +222,166 @@ class InvestmentsView extends StatelessWidget
               ),
             ),
             16.h.heightBox,
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     primary: true,
-            //     child: Column(
-            //       children: [
-            //         Container(
-            //           padding: REdgeInsets.symmetric(vertical: 0),
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(8.r),
-            //             // color: AppColors.lightest,
-            //           ),
-            //           child: ListView.separated(
-            //             shrinkWrap: true,
-            //             primary: false,
-            //             padding: EdgeInsets.zero,
-            //             itemBuilder: (context, index) {
-            //               return LoanApplicationItemWidget();
-            //             },
-            //             separatorBuilder: (context, index) {
-            //               return Divider(
-            //                   color: AppColors.neutral100, height: 0.h);
-            //             },
-            //             itemCount: 8,
-            //           ),
-            //         ).paddingSymmetric(horizontal: 20.w),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            Expanded(
+              child: TabBarView(
+                // physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child: BlocBuilder<FetchInvestmentCubit,
+                              FetchInvestmentState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
+                                    success: (response, active, application) =>
+                                        application.isEmpty
+                                            ? CustomErrorWidget(
+                                                errorTitle:
+                                                    "No Investment On Record",
+                                                errorSubtitle:
+                                                    "You haven't submitted any investment applications. Let's get yours started!",
+                                              )
+                                            : ListView.separated(
+                                                shrinkWrap: true,
+                                                primary: false,
+                                                padding: EdgeInsets.zero,
+                                                itemBuilder: (context, index) {
+                                                  return InvestmentApplicationItemWidget(
+                                                    data: application[index],
+                                                  );
+                                                },
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return Divider(
+                                                      color:
+                                                          AppColors.neutral100,
+                                                      height: 0.h);
+                                                },
+                                                itemCount: application.length,
+                                              ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child: BlocBuilder<FetchInvestmentCubit,
+                              FetchInvestmentState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
+                                    success: (response, active, application) =>
+                                        active.isEmpty
+                                            ? CustomErrorWidget(
+                                                errorTitle:
+                                                    "No Investments On Record",
+                                                errorSubtitle:
+                                                    "You haven't submitted any investment applications. Let's get yours started!",
+                                              )
+                                            : ListView.separated(
+                                                shrinkWrap: true,
+                                                primary: false,
+                                                padding: EdgeInsets.zero,
+                                                itemBuilder: (context, index) {
+                                                  return InvestmentApplicationItemWidget(
+                                                    data: active[index],
+                                                  );
+                                                },
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return Divider(
+                                                      color:
+                                                          AppColors.neutral100,
+                                                      height: 0.h);
+                                                },
+                                                itemCount: active.length,
+                                              ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: REdgeInsets.symmetric(vertical: 0),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            // color: AppColors.lightest,
+                          ),
+                          child: BlocBuilder<FetchInvestmentCubit,
+                              FetchInvestmentState>(
+                            builder: (context, state) {
+                              return state.whenOrNull(
+                                    loading: () =>
+                                        CustomLoaderWidget(hasPadding: false),
+                                    success: (response, active, application) =>
+                                        response.isEmpty
+                                            ? CustomErrorWidget(
+                                                errorTitle:
+                                                    "No Investments On Record",
+                                                errorSubtitle:
+                                                    "You haven't submitted any investment applications. Let's get yours started!",
+                                              )
+                                            : ListView.separated(
+                                                shrinkWrap: true,
+                                                primary: false,
+                                                padding: EdgeInsets.zero,
+                                                itemBuilder: (context, index) {
+                                                  return InvestmentApplicationItemWidget(
+                                                    data: response[index],
+                                                  );
+                                                },
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return Divider(
+                                                      color:
+                                                          AppColors.neutral100,
+                                                      height: 0.h);
+                                                },
+                                                itemCount: response.length,
+                                              ),
+                                  ) ??
+                                  const SizedBox.shrink();
+                            },
+                          ),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        8.h.heightBox,
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+
 import 'package:fhcs/core/storage/contract/istorage.dart';
 import 'package:fhcs/core/storage/storage_constant.dart';
+import 'package:fhcs/features/investments/presentation/bloc/fetch_investment/fetch_investment_cubit.dart';
 import 'package:fhcs/features/investments/presentation/controllers/contracts/investments.dart';
 import 'package:fhcs/features/investments/presentation/views/contracts/investments.dart';
 import 'package:fhcs/features/investments/presentation/views/investments.dart';
-import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 class InvestmentsScreen extends StatefulWidget {
   static const String route = 'forgot_password';
@@ -28,6 +32,7 @@ class InvestmentsController extends State<InvestmentsScreen>
     super.initState();
     view = InvestmentsView(controller: this);
     getBasicUserDetailFromStorage();
+    context.read<FetchInvestmentCubit>().fetchInvestments();
   }
 
   void getBasicUserDetailFromStorage() async {

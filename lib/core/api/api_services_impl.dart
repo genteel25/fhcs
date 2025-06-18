@@ -441,7 +441,7 @@ class ApiServicesImpl implements ApiServices {
   Future<Either<Failure, ApiResponse<List<InvestmentData>>>>
       fetchInvestment() => apiClient.request<List<InvestmentData>>(
             ApiEndpoint.createInvestment,
-            MethodType.post,
+            MethodType.get,
             (data) {
               return (data as List)
                   .map((transactionData) =>

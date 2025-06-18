@@ -1,14 +1,15 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phone_form_field/phone_form_field.dart';
+
 import 'package:fhcs/core/data/auth_info.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
@@ -157,15 +158,15 @@ class SignUpController extends State<SignUpScreen>
     deploymentOfficeControllerListener();
     officeAddressControllerListener();
 
-    maritalStatusCustomController = SingleSelectController("Single");
+    maritalStatusCustomController = SingleSelectController(null);
 
-    selectedMaritalStatus = "Single";
-    stateOfOriginCustomController = SingleSelectController("Abia");
-    selectedStateOfOrigin = "Abia";
-    salaryStepCustomController = SingleSelectController("1");
-    selectedSalaryStep = "1";
-    salaryGradeCustomController = SingleSelectController("1");
-    selectedSalaryGrade = "1";
+    // selectedMaritalStatus = "Single";
+    stateOfOriginCustomController = SingleSelectController(null);
+    // selectedStateOfOrigin = "Abia";
+    salaryStepCustomController = SingleSelectController(null);
+    // selectedSalaryStep = "1";
+    salaryGradeCustomController = SingleSelectController(null);
+    // selectedSalaryGrade = "1";
   }
 
   @override
@@ -418,10 +419,10 @@ class SignUpController extends State<SignUpScreen>
     if (formKey.currentState?.validate() ?? false) {
       setState(() {
         isFirstPercentComplete = true;
-        secondPercent.addAll({"marital_status": true});
-        secondPercent.addAll({"state_of_origin": true});
-        secondPercent.addAll({"salary_step": true});
-        secondPercent.addAll({"salary_grade": true});
+        // secondPercent.addAll({"marital_status": true});
+        // secondPercent.addAll({"state_of_origin": true});
+        // secondPercent.addAll({"salary_step": true});
+        // secondPercent.addAll({"salary_grade": true});
         onSelectEmploymentStatus(employmentStatus);
       });
     }

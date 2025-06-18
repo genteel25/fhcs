@@ -1,30 +1,5 @@
 import 'dart:developer';
 
-import 'package:fhcs/core/storage/storage_constant.dart';
-import 'package:fhcs/features/accounts/presentation/bloc/account_details/account_details_cubit.dart';
-import 'package:fhcs/features/accounts/repository/account_repository.dart';
-import 'package:fhcs/features/accounts/repository/contracts/iaccount_repository.dart';
-import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
-import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
-import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
-import 'package:fhcs/features/home/presentation/bloc/initiate_withdrawal/initiate_withdrawal_cubit.dart';
-import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
-import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
-import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
-import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
-import 'package:fhcs/features/home/repository/home_repository.dart';
-import 'package:fhcs/features/investments/presentation/bloc/create_investment/create_investment_cubit.dart';
-import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/investment_tenure_cubit.dart';
-import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
-import 'package:fhcs/features/investments/repository/contract/iinvestment_repository.dart';
-import 'package:fhcs/features/investments/repository/investment_repository.dart';
-import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
-import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repayment_cubit.dart';
-import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
-import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
-import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
-import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
-import 'package:fhcs/features/loans/repository/loan_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,11 +22,37 @@ import 'package:fhcs/core/storage/contract/ilocal.dart';
 import 'package:fhcs/core/storage/contract/istorage.dart';
 import 'package:fhcs/core/storage/local_storage.dart';
 import 'package:fhcs/core/storage/storage.dart';
+import 'package:fhcs/core/storage/storage_constant.dart';
+import 'package:fhcs/features/accounts/presentation/bloc/account_details/account_details_cubit.dart';
+import 'package:fhcs/features/accounts/repository/account_repository.dart';
+import 'package:fhcs/features/accounts/repository/contracts/iaccount_repository.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/bloc/bank_list/bank_list_cubit.dart';
+import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
 import 'package:fhcs/features/auth/presentation/bloc/verify_membership/verify_membership_cubit.dart';
 import 'package:fhcs/features/auth/repository/auth_repository.dart';
 import 'package:fhcs/features/auth/repository/contract/iauth_repository.dart';
+import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/initiate_withdrawal/initiate_withdrawal_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
+import 'package:fhcs/features/home/repository/contract/ihome_repository.dart';
+import 'package:fhcs/features/home/repository/home_repository.dart';
+import 'package:fhcs/features/investments/presentation/bloc/create_investment/create_investment_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/fetch_investment/fetch_investment_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/investment_tenure_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/investments/repository/contract/iinvestment_repository.dart';
+import 'package:fhcs/features/investments/repository/investment_repository.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repayment_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
+import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
+import 'package:fhcs/features/loans/repository/loan_repository.dart';
 
 class AppInitializer {
   static late GetIt instanceLocator;
@@ -206,6 +207,10 @@ class AppInitializer {
             ));
     instanceLocator.registerLazySingleton<CreateInvestmentCubit>(
         () => CreateInvestmentCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<FetchInvestmentCubit>(() => FetchInvestmentCubit(
               repository: instanceLocator(),
             ));
   }

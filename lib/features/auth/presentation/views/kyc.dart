@@ -1,6 +1,14 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
+import 'package:fhcs/core/components/custom_slider.dart.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
@@ -10,12 +18,6 @@ import 'package:fhcs/core/utils/extensions.dart';
 import 'package:fhcs/features/auth/presentation/bloc/monthly_contribution/monthly_contribution_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/kyc.dart';
 import 'package:fhcs/features/auth/presentation/views/contracts/kyc.dart';
-import 'package:fhcs/core/components/custom_slider.dart.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 class KycView extends StatelessWidget implements KycViewContract {
   const KycView({super.key, required this.controller});
@@ -92,10 +94,8 @@ class KycView extends StatelessWidget implements KycViewContract {
                 max: 100,
                 min: 1,
                 step: 25,
-                maxSlideLimit: _calculateMaxSavingsLimit(controller
-                    .percentInvestmentController
-                    .text
-                    .cleanCheckEmptyCurrencyText),
+                maxSlideLimit:
+                    50, // Fixed to 50 since savings cannot exceed 50%
                 value: controller
                     .percentSavingsController.text.cleanCheckEmptyCurrencyText,
                 isSlidingEnabled: controller.monthlyContributionController.text
@@ -103,8 +103,8 @@ class KycView extends StatelessWidget implements KycViewContract {
                     0,
                 onChanged: (percent) => controller.allocateContribution(
                   savingPercent: percent,
-                  investmentPercent: controller.percentInvestmentController.text
-                      .cleanCheckEmptyCurrencyText,
+                  investmentPercent: 100 -
+                      percent, // Automatically calculate investment percent
                 ),
               ),
               49.h.heightBox,
@@ -128,17 +128,15 @@ class KycView extends StatelessWidget implements KycViewContract {
                 max: 99,
                 min: 0,
                 step: 25,
-                maxSlideLimit: 100 -
-                    controller.percentSavingsController.text
-                        .cleanCheckEmptyCurrencyText,
+                maxSlideLimit: 99, // Investment can go up to 99%
                 value: controller.percentInvestmentController.text
                     .cleanCheckEmptyCurrencyText,
                 isSlidingEnabled: controller.monthlyContributionController.text
                         .cleanCheckEmptyCurrencyText >
                     0,
                 onChanged: (percent) => controller.allocateContribution(
-                  savingPercent: controller.percentSavingsController.text
-                      .cleanCheckEmptyCurrencyText,
+                  savingPercent:
+                      100 - percent, // Automatically calculate savings percent
                   investmentPercent: percent,
                 ),
               ),

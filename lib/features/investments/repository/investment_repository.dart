@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import 'package:fhcs/core/api/api_services.dart';
 import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
@@ -26,4 +27,6 @@ class InvestmentRepository implements IInvestmentRepository {
   Future<Either<Failure, ApiResponse<InvestmentData>>> createInvestment(
           {required Map<String, dynamic> payload}) =>
       apiServices.createInvestment(payload: payload);
+  Future<Either<Failure, ApiResponse<List<InvestmentData>>>>
+      fetchInvestments() => apiServices.fetchInvestment();
 }

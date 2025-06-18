@@ -1,6 +1,13 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_paystack_max/flutter_paystack_max.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/app_constant.dart';
@@ -10,15 +17,11 @@ import 'package:fhcs/features/auth/presentation/controllers/membership_payment.d
 import 'package:fhcs/features/home/presentation/bloc/dashboard/dashboard_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/initiate_funding/initiate_funding_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/transactions/transactions_cubit.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/verify_funding/verify_funding_cubit.dart';
 import 'package:fhcs/features/home/presentation/controllers/contracts/add_money.dart';
 import 'package:fhcs/features/home/presentation/views/add_money.dart';
 import 'package:fhcs/features/home/presentation/views/contracts/add_money.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_paystack_max/flutter_paystack_max.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 enum FundingMode {
   bankTransfer,
@@ -62,6 +65,9 @@ class AddMoneyController extends State<AddMoneyScreen>
   );
 
   @override
+  bool useDefaultMD = true;
+
+  @override
   late FundingMode mode;
 
   @override
@@ -74,6 +80,17 @@ class AddMoneyController extends State<AddMoneyScreen>
   String selectedCard = creditCards.first;
 
   @override
+  TextEditingController percentSavingsController = TextEditingController();
+  @override
+  TextEditingController percentInvestmentController = TextEditingController();
+
+  @override
+  String initialSavingsPercent = "0";
+
+  @override
+  String initialInvestmentPercent = "0";
+
+  @override
   void initState() {
     super.initState();
     view = AddMoneyView(controller: this);
@@ -81,53 +98,84 @@ class AddMoneyController extends State<AddMoneyScreen>
       amountController.text = widget.amount!;
     }
     mode = widget.mode;
-    amountControllerListener();
-    savingControllerListener();
     savingsFormatter = CurrencyTextInputFormatter.currency(
       symbol: GlobalVariables.nairaCurrencySymbol,
       decimalDigits: 0,
       minValue: 0,
       maxValue: amountController.text.cleanCheckEmptyCurrencyText,
     );
+    useDefaultMdDetail();
   }
 
-  void amountControllerListener() {
-    amountController.addListener(() {
-      log("amount: ${amountController.text.cleanCheckEmptyCurrencyText}");
-      savingsFormatter = CurrencyTextInputFormatter.currency(
-        symbol: GlobalVariables.nairaCurrencySymbol,
-        decimalDigits: 0,
-        minValue: 0,
-        maxValue: amountController.text.cleanCheckEmptyCurrencyText,
-      );
-      setState(() {});
-    });
+  void useDefaultMdDetail() {
+    savingsAmountController.text = GlobalVariables
+            .rootNavigatorKey.currentContext!
+            .read<UserProfileCubit>()
+            .state
+            .whenOrNull(
+              success: (data) => (((data.cooperator?.monthlyContribution ?? 0) *
+                          (data.cooperator?.savingsPercentage ?? 0)) /
+                      100)
+                  .toStringAsFixed(0)
+                  .formatInputCurrency,
+            ) ??
+        0.toStringAsFixed(0).formatInputCurrency;
+    investmentAmountController.text = GlobalVariables
+            .rootNavigatorKey.currentContext!
+            .read<UserProfileCubit>()
+            .state
+            .whenOrNull(
+              success: (data) => (((data.cooperator?.monthlyContribution ?? 0) *
+                          (data.cooperator?.investmentPercentage ?? 0)) /
+                      100)
+                  .toStringAsFixed(0)
+                  .formatInputCurrency,
+            ) ??
+        0.toStringAsFixed(0).formatInputCurrency;
+
+    amountController.text = GlobalVariables.rootNavigatorKey.currentContext!
+            .read<UserProfileCubit>()
+            .state
+            .whenOrNull(
+              success: (data) => (data.cooperator?.monthlyContribution ?? 0)
+                  .toStringAsFixed(0)
+                  .formatInputCurrency,
+            ) ??
+        0.toStringAsFixed(0).formatInputCurrency;
+    // calculateInvestmentDetail();
+
+    savingsPercent = GlobalVariables.rootNavigatorKey.currentContext!
+            .read<UserProfileCubit>()
+            .state
+            .whenOrNull(
+              success: (data) =>
+                  (data.cooperator?.savingsPercentage ?? 0).toStringAsFixed(0),
+            ) ??
+        0.toStringAsFixed(0);
+    investmentPercent = GlobalVariables.rootNavigatorKey.currentContext!
+            .read<UserProfileCubit>()
+            .state
+            .whenOrNull(
+              success: (data) => (data.cooperator?.investmentPercentage ?? 0)
+                  .toStringAsFixed(0),
+            ) ??
+        0.toStringAsFixed(0);
   }
 
-  void savingControllerListener() {
-    savingsAmountController.addListener(() {
-      log("savings: ${savingsAmountController.text.cleanCheckEmptyCurrencyText}");
-      calculateInvestmentDetail();
-    });
-  }
+  @override
+  void toggleDefaultMD() {
+    useDefaultMD = !useDefaultMD;
 
-  void calculateInvestmentDetail() {
-    investmentAmountController.text =
-        (amountController.text.cleanCheckEmptyCurrencyText -
-                savingsAmountController.text.cleanCheckEmptyCurrencyText)
-            .toStringAsFixed(0)
-            .formatInputCurrency;
-    investmentPercent =
-        ((investmentAmountController.text.cleanCheckEmptyCurrencyText /
-                    amountController.text.cleanCheckEmptyCurrencyText) *
-                100)
-            .toStringAsFixed(0);
+    if (useDefaultMD) {
+      useDefaultMdDetail();
+    } else {
+      savingsAmountController.text = '0';
+      investmentAmountController.text = '0';
+      amountController.text = '0';
+      percentSavingsController.text = '0';
+      percentInvestmentController.text = '0';
+    }
 
-    savingsPercent =
-        ((savingsAmountController.text.cleanCheckEmptyCurrencyText /
-                    amountController.text.cleanCheckEmptyCurrencyText) *
-                100)
-            .toStringAsFixed(0);
     setState(() {});
   }
 
@@ -150,7 +198,7 @@ class AddMoneyController extends State<AddMoneyScreen>
           .roundToDouble(),
       currency: PaystackCurrency.ngn,
       channel: [
-        PaystackPaymentChannel.card,
+        PaystackPaymentChannel.bank,
         // PaystackPaymentChannel.bankTransfer,
       ],
     );
@@ -189,8 +237,10 @@ class AddMoneyController extends State<AddMoneyScreen>
   @override
   void onDeposit() {
     final payload = {
-      "amount": formatter.getUnformattedValue(),
-      "investment_percentage": num.parse(investmentPercent),
+      "amount": amountController.text.cleanCheckEmptyCurrencyText,
+      "investment_percentage": useDefaultMD
+          ? num.parse(investmentPercent)
+          : percentInvestmentController.text.cleanCheckEmptyCurrencyText,
     };
     context.read<InitiateFundingCubit>().initiateFunding(payload);
   }
@@ -210,13 +260,41 @@ class AddMoneyController extends State<AddMoneyScreen>
   }
 
   @override
+  void allocateContribution({
+    required double savingPercent,
+    required double investmentPercent,
+  }) {
+    // Ensure savings is between 1% and 50%
+    double adjustedSavings = savingPercent.clamp(1, 50);
+
+    // Calculate investment to maintain 100% total
+    double adjustedInvestment = 100 - adjustedSavings;
+
+    // Ensure investment doesn't exceed 99%
+    if (adjustedInvestment > 99) {
+      adjustedInvestment = 99;
+      adjustedSavings = 100 - adjustedInvestment;
+    }
+
+    // Update the text controllers
+    percentSavingsController.text = "${adjustedSavings.toStringAsFixed(0)}%";
+    percentInvestmentController.text =
+        "${adjustedInvestment.toStringAsFixed(0)}%";
+
+    // Calculate and update the actual amounts
+    final amount = amountController.text.cleanCheckEmptyCurrencyText;
+    initialSavingsPercent =
+        ((amount * adjustedSavings) / 100).toStringAsFixed(0);
+    initialInvestmentPercent =
+        ((amount * adjustedInvestment) / 100).toStringAsFixed(0);
+
+    setState(() {});
+  }
+
+  @override
   void dispose() {
-    amountController
-      ..removeListener(amountControllerListener)
-      ..dispose();
-    savingsAmountController
-      ..removeListener(savingControllerListener)
-      ..dispose();
+    amountController.dispose();
+    savingsAmountController.dispose();
     investmentAmountController.dispose();
     super.dispose();
   }

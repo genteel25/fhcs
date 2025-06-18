@@ -51,33 +51,27 @@ class KycController extends State<KycScreen> implements KycControllerContract {
     required double savingPercent,
     required double investmentPercent,
   }) {
-    // Convert percentages to ratios
-    final savingsPct = (savingPercent / 100).clamp(0.01, 0.5);
-    final investmentPct = (investmentPercent / 100).clamp(0.0, 0.99);
-
-    // Ensure total does not exceed 100%
-    final total = savingsPct + investmentPct;
-    final adjustedSavings = total > 1 ? savingsPct / total : savingsPct;
-    final adjustedInvestment =
-        total > 1 ? investmentPct / total : investmentPct;
-    percentInvestmentController.text =
-        "${(adjustedInvestment * 100).toStringAsFixed(0)}%";
-    percentSavingsController.text =
-        "${(adjustedSavings * 100).toStringAsFixed(0)}%";
-
-    // Calculate amounts (with rounding)
-    final savingsAmount =
-        (monthlyContributionController.text.cleanCheckEmptyCurrencyText *
-                adjustedSavings)
-            .toStringAsFixed(0);
-    final investmentAmount =
-        (monthlyContributionController.text.cleanCheckEmptyCurrencyText *
-                adjustedInvestment)
-            .toStringAsFixed(0);
-
-    // Update UI
-    initialSavingsPercent = savingsAmount;
-    initialInvestmentPercent = investmentAmount;
+    // Ensure savings is between 1% and 50%
+    double adjustedSavings = savingPercent.clamp(1, 50);
+    
+    // Calculate investment to maintain 100% total
+    double adjustedInvestment = 100 - adjustedSavings;
+    
+    // Ensure investment doesn't exceed 99%
+    if (adjustedInvestment > 99) {
+      adjustedInvestment = 99;
+      adjustedSavings = 100 - adjustedInvestment;
+    }
+    
+    // Update the text controllers
+    percentSavingsController.text = "${adjustedSavings.toStringAsFixed(0)}%";
+    percentInvestmentController.text = "${adjustedInvestment.toStringAsFixed(0)}%";
+    
+    // Calculate and update the actual amounts
+    final amount = monthlyContributionController.text.cleanCheckEmptyCurrencyText;
+    initialSavingsPercent = ((amount * adjustedSavings) / 100).toStringAsFixed(0);
+    initialInvestmentPercent = ((amount * adjustedInvestment) / 100).toStringAsFixed(0);
+    
     setState(() {});
   }
 

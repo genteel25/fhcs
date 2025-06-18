@@ -1,5 +1,6 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart'; // Required for @freezed
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'investment.freezed.dart';
 part 'investment.g.dart';
@@ -10,26 +11,31 @@ class InvestmentData with _$InvestmentData {
     int? id,
     String? iid,
     @JsonKey(name: 'investment_type') InvestmentType? investmentType,
-    double? amount, // Use double for monetary values
+    double? amount,
     @JsonKey(name: 'investment_amount') double? investmentAmount,
     @JsonKey(name: 'amount_repaid') double? amountRepaid,
     Tenure? tenure,
-    @JsonKey(name: 'profit_percentage')
-    double? profitPercentage, // Can be int or double
+    @JsonKey(name: 'profit_percentage') double? profitPercentage,
     String? status,
     @JsonKey(name: 'approval_status') String? approvalStatus,
-    Object?
-        user, // 'user' is null in your example, so `Object?` is a safe fallback. Could be a specific User model if it ever contains data.
+    User? user,
     List<RefereeItem>? referees,
-    @JsonKey(name: 'changes_requested')
-    Map<String, dynamic>? changesRequested, // Empty object, so a Map
+    @JsonKey(name: 'changes_requested') Map<String, dynamic>? changesRequested,
     @JsonKey(name: 'vendor_contact') String? vendorContact,
     @JsonKey(name: 'vendor_name') String? vendorName,
     List<Witness>? witnesses,
-    @JsonKey(name: 'created_at')
-    DateTime? createdAt, // Using DateTime for timestamps
-    @JsonKey(name: 'updated_at')
-    DateTime? updatedAt, // Using DateTime for timestamps
+    @JsonKey(name: 'investment_limit') double? investmentLimit,
+    @JsonKey(name: 'investment_balance') double? investmentBalance,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    @JsonKey(name: 'disbursed_at') DateTime? disbursedAt,
+    @JsonKey(name: 'approved_at') DateTime? approvedAt,
+    @JsonKey(name: 'rejected_at') DateTime? rejectedAt,
+    String? description,
+    String? purpose,
+    @JsonKey(name: 'can_approve') bool? canApprove,
+    @JsonKey(name: 'next_approval_step') NextApprovalStep? nextApprovalStep,
+    @JsonKey(name: 'current_approval_step') Object? currentApprovalStep,
   }) = _InvestmentData;
 
   factory InvestmentData.fromJson(Map<String, dynamic> json) =>
@@ -67,7 +73,7 @@ class Tenure with _$Tenure {
 class RefereeItem with _$RefereeItem {
   const factory RefereeItem({
     int? id,
-    RefereeUser? referee,
+    @JsonKey(name: "user") RefereeUser? referee,
     String? status,
   }) = _RefereeItem;
 
@@ -101,4 +107,52 @@ class Witness with _$Witness {
 
   factory Witness.fromJson(Map<String, dynamic> json) =>
       _$WitnessFromJson(json);
+}
+
+@freezed
+class User with _$User {
+  const factory User({
+    int? id,
+    @JsonKey(name: 'ir_number') String? irNumber,
+    @JsonKey(name: 'first_name') String? firstName,
+    @JsonKey(name: 'last_name') String? lastName,
+    @JsonKey(name: 'image_url') String? imageUrl,
+  }) = _User;
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+enum InvestmentStatus { approved, rejected, pending }
+
+@freezed
+class NextApprovalStep with _$NextApprovalStep {
+  const NextApprovalStep._();
+  const factory NextApprovalStep({
+    int? order,
+    List<Role>? roles,
+    String? status,
+    @JsonKey(name: 'action_by') String? actionBy,
+    @JsonKey(name: 'action_type') String? actionType,
+  }) = _NextApprovalStep;
+
+  factory NextApprovalStep.fromJson(Map<String, dynamic> json) =>
+      _$NextApprovalStepFromJson(json);
+
+  InvestmentStatus get investmentStatus {
+    return switch (status ?? "") {
+      "Pending" => InvestmentStatus.pending,
+      "Approved" => InvestmentStatus.approved,
+      _ => InvestmentStatus.rejected,
+    };
+  }
+}
+
+@freezed
+class Role with _$Role {
+  const factory Role({
+    String? id,
+    String? name,
+  }) = _Role;
+
+  factory Role.fromJson(Map<String, dynamic> json) => _$RoleFromJson(json);
 }
