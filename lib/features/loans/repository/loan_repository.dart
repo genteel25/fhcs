@@ -1,4 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:fhcs/core/api/api_services.dart';
 import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
@@ -48,4 +51,9 @@ class LoanRepository implements ILoanRepository {
   @override
   Future<Either<Failure, ApiResponse<List<RefereeRequestData>>>>
       refereeRequest() => apiServices.refereeRequest();
+  @override
+  Future<Either<Failure, ApiResponse<String>>> changeRequestStatus(
+          String requestId,
+          {required Map<String, dynamic> payload}) =>
+      apiServices.changeRequestStatus(requestId, payload: payload);
 }

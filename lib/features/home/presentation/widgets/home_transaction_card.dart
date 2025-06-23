@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/data/transaction.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/core/utils/extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeTransactionCardWidget extends StatelessWidget {
   const HomeTransactionCardWidget({super.key, required this.data});

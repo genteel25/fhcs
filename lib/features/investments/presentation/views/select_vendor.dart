@@ -1,14 +1,17 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
+import 'package:fhcs/core/components/custom_phone_field.dart';
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/investments/presentation/controllers/contracts/select_vendor.dart';
 import 'package:fhcs/features/investments/presentation/views/contracts/select_vendor.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
 class SelectVendorView extends StatelessWidget
     implements SelectVendorViewContract {
@@ -75,11 +78,10 @@ class SelectVendorView extends StatelessWidget
               color: AppColors.neutral500,
             ),
             16.h.heightBox,
-            CustomInputLabelWidget(
-              "Seller/Vendor name",
-              controller: controller.sellerContactController,
-              keyboardType: TextInputType.phone,
-              hintText: "Enter seller/vendor name",
+            CustomPhoneFieldWidget(
+              "Seller/Vendor contact",
+              controller: controller.vendorContactController,
+              hintText: "Enter seller/vendor phone number",
             ),
           ],
         ).paddingSymmetric(horizontal: 20.r),

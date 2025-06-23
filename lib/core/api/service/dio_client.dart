@@ -1,14 +1,17 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
+
 import 'package:fhcs/core/api/service/api_response_impl.dart';
 import 'package:fhcs/core/api/service/contracts/api_client.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
 import 'package:fhcs/core/storage/contract/istorage.dart';
 import 'package:fhcs/core/storage/storage_constant.dart';
-import 'package:flutter/foundation.dart';
-import 'package:get_it/get_it.dart';
+
 import '../../../config/flavor/app_flavor.dart';
 import '../exceptions/api_exception.dart';
 import '../exceptions/contracts/failure.dart';
@@ -220,6 +223,7 @@ class DioClient implements IApiClient {
         if (token.isNotEmpty) "Authorization": "Bearer $token",
         if (regToken.isNotEmpty) "X-Token": regToken,
       });
+      log("response: $params");
       response = await _dio.post(url, data: params, options: options);
       var requestResponse = ApiResponseImpl<T>(
         fromJson(response.data['data']),

@@ -18,8 +18,10 @@ class ApiEndpoint {
   static const loanRequest = "loans";
   static const investmentType = "investment-types";
   static const loanRepayment = "repayments/loans";
+  static const investmentRepayment = "repayments/investments";
   static const refereeRequest = "referees";
   static const investmentTenure = "investment-tenures";
   static const accountInfo = "dashboard/withdrawals";
   static const createInvestment = "investments";
+  static requestStatus(String requestId) => "referees/$requestId/approval";
 }

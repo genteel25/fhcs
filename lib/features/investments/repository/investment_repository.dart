@@ -27,6 +27,13 @@ class InvestmentRepository implements IInvestmentRepository {
   Future<Either<Failure, ApiResponse<InvestmentData>>> createInvestment(
           {required Map<String, dynamic> payload}) =>
       apiServices.createInvestment(payload: payload);
+
+  @override
   Future<Either<Failure, ApiResponse<List<InvestmentData>>>>
       fetchInvestments() => apiServices.fetchInvestment();
+
+  @override
+  Future<Either<Failure, ApiResponse<InvestmentData>>>
+      initiateInvestmentRepayment(Map<String, dynamic> payload) =>
+          apiServices.initiateInvestmentRepayment(payload);
 }

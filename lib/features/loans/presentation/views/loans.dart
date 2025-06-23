@@ -1,4 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:fhcs/core/components/custom_error.dart';
 import 'package:fhcs/core/components/custom_loader.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -13,12 +21,6 @@ import 'package:fhcs/features/loans/presentation/views/contracts/loans.dart';
 import 'package:fhcs/features/loans/presentation/widgets/active_loan.dart';
 import 'package:fhcs/features/loans/presentation/widgets/asset_card.dart';
 import 'package:fhcs/features/loans/presentation/widgets/loan_application.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 
 class LoansView extends StatelessWidget implements LoansViewContract {
   const LoansView({super.key, required this.controller});
@@ -153,8 +155,9 @@ class LoansView extends StatelessWidget implements LoansViewContract {
                   actionLabel: "Referee request",
                   actionAsset: "person_group",
                   iconSize: 18.sp,
-                  onTap: () =>
-                      context.pushNamed(RouteConstants.refereeRequestRoute),
+                  onTap: () => context.pushNamed(
+                      RouteConstants.refereeRequestRoute,
+                      extra: false),
                 ),
               ],
             ).paddingSymmetric(horizontal: 20.w),

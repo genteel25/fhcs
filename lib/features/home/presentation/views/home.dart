@@ -1,4 +1,13 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:fhcs/core/components/custom_error.dart';
 import 'package:fhcs/core/components/custom_loader.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -12,13 +21,6 @@ import 'package:fhcs/features/home/presentation/views/contracts/home.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_action.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_balance_card.dart';
 import 'package:fhcs/features/home/presentation/widgets/home_transaction_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeView extends StatelessWidget implements HomeViewContract {
   const HomeView({super.key, required this.controller});
@@ -305,7 +307,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                           color: AppColors.neutral100,
                                           height: 1.h);
                                     },
-                                    itemCount: response.take(4).length,
+                                    itemCount: response.length,
                                   ),
                           ) ??
                           const SizedBox.shrink();

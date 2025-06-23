@@ -1,4 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_checkbox.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -11,11 +18,6 @@ import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/contracts/select_referee.dart';
 import 'package:fhcs/features/loans/presentation/views/contracts/select_referee.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get_it/get_it.dart';
 
 class SelectRefereeView extends StatelessWidget
     implements SelectRefereeViewContract {
@@ -162,64 +164,68 @@ class SelectRefereeView extends StatelessWidget
                 ],
               ),
             ),
-            Expanded(child: BlocBuilder<RefereesCubit, RefereesState>(
-              builder: (context, state) {
-                return state.whenOrNull(
-                      success: (response) => ListView.separated(
-                        padding: REdgeInsets.only(left: 20, right: 20, top: 16),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () =>
-                                controller.onSelectReferee(response[index]),
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: REdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.neutral300,
-                                    shape: BoxShape.circle,
+            Expanded(
+              child: BlocBuilder<RefereesCubit, RefereesState>(
+                builder: (context, state) {
+                  return state.whenOrNull(
+                        success: (response) => ListView.separated(
+                          padding:
+                              REdgeInsets.only(left: 20, right: 20, top: 16),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () =>
+                                  controller.onSelectReferee(response[index]),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: REdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.neutral300,
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                                12.w.widthBox,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppText(
-                                      "${response[index].firstName} ${response[index].lastName}",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.neutral800,
-                                    ),
-                                    4.h.heightBox,
-                                    AppText(
-                                      "IR-${response[index].irNumber}",
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.neutral500,
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                CustomCheckbox(
-                                  value: controller.selectedReferees
-                                      .contains(response[index]),
-                                  onChanged: (e) => controller
-                                      .onSelectReferee(response[index]),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return 24.h.heightBox;
-                        },
-                        itemCount: response.length,
-                        shrinkWrap: true,
-                      ),
-                    ) ??
-                    const SizedBox.shrink();
-              },
-            )),
+                                  12.w.widthBox,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(
+                                        "${response[index].firstName} ${response[index].lastName}",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.neutral800,
+                                      ),
+                                      4.h.heightBox,
+                                      AppText(
+                                        "IR-${response[index].irNumber}",
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.neutral500,
+                                      ),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  CustomCheckbox(
+                                    value: controller.selectedReferees
+                                        .contains(response[index]),
+                                    onChanged: (e) => controller
+                                        .onSelectReferee(response[index]),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return 24.h.heightBox;
+                          },
+                          itemCount: response.length,
+                          shrinkWrap: true,
+                        ),
+                      ) ??
+                      const SizedBox.shrink();
+                },
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: MultiBlocListener(

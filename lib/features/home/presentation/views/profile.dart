@@ -1,6 +1,14 @@
-import 'dart:developer';
+// import 'dart:developer';
+
+import 'package:flutter/material.dart';
 
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/components/custom_back_button.dart';
 import 'package:fhcs/core/components/custom_switch.dart';
 import 'package:fhcs/core/components/custom_text.dart';
@@ -11,12 +19,6 @@ import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 import 'package:fhcs/features/home/presentation/controllers/contracts/profile.dart';
 import 'package:fhcs/features/home/presentation/views/contracts/profile.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 class ProfileView extends StatelessWidget implements ProfileViewContract {
   const ProfileView({super.key, required this.controller});
@@ -125,7 +127,8 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                 _buildProfileItem(
                   title: "Profile details",
                   assetName: "user",
-                  onTap: () {},
+                  onTap: () =>
+                      context.pushNamed(RouteConstants.profileDetailsRoute),
                 ),
                 _buildProfileItem(
                   title: "Account settings",
@@ -140,7 +143,7 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                 _buildProfileItem(
                   title: "Request statement",
                   assetName: "user_document",
-                  onTap: () {},
+                  onTap: () => context.pushNamed(RouteConstants.statementRoute),
                 ),
                 _buildProfileItem(
                   title: "Biometric authentication",

@@ -1,5 +1,6 @@
-import 'package:fhcs/core/data/loan.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'package:fhcs/core/data/loan.dart';
 part 'loan_repayment.freezed.dart';
 part 'loan_repayment.g.dart';
 

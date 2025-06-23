@@ -1,15 +1,20 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/components/custom_animated_dropdown.dart';
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/components/custom_text.dart';
+import 'package:fhcs/core/helpers/email_marker_helper.dart';
 import 'package:fhcs/core/ui/colors.dart';
 import 'package:fhcs/features/accounts/presentation/controllers/contracts/statement.dart';
 import 'package:fhcs/features/accounts/presentation/views/contracts/statement.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fhcs/features/home/presentation/bloc/user_profile/user_profile_cubit.dart';
 
 class StatementView extends StatelessWidget implements StatementViewContract {
   const StatementView({super.key, required this.controller});
@@ -94,12 +99,25 @@ class StatementView extends StatelessWidget implements StatementViewContract {
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AppText(
-            "Your account(s) statement will be forwarded to your email address “b*******i@*****.com in few minutes",
-            textAlign: TextAlign.center,
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: AppColors.neutral500,
+          BlocBuilder<UserProfileCubit, UserProfileState>(
+            builder: (context, state) {
+              return state.whenOrNull(
+                    success: (response) => AppText(
+                      "Your account(s) statement will be forwarded to your email address “${EmailMasker.maskEmail(response.user?.email ?? "@gmail.com")} in few minutes",
+                      textAlign: TextAlign.center,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.neutral500,
+                    ),
+                  ) ??
+                  AppText(
+                    "You need to be authenticated to get your statement",
+                    textAlign: TextAlign.center,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.neutral500,
+                  );
+            },
           ).paddingSymmetric(horizontal: 16.w),
           Padding(
             padding: MediaQuery.viewInsetsOf(context),

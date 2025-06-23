@@ -1,5 +1,3 @@
-import 'package:fhcs/core/router/route_constants.dart';
-import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
@@ -11,7 +9,9 @@ import 'package:go_router/go_router.dart';
 
 import 'package:fhcs/core/components/custom_text.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
+import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/ui/colors.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
 import 'package:fhcs/features/auth/presentation/bloc/verify_membership/verify_membership_cubit.dart';
 import 'package:fhcs/features/auth/presentation/controllers/contracts/membership_payment.dart';
@@ -57,10 +57,7 @@ class MembershipPaymentView extends StatelessWidget
                 "Transfer to a virtual account number",
                 "Payment will be verified within 24 hours",
               ],
-              onTap: () => AppSheets.membershipPaymentSheet(
-                context,
-                onPressed: () {},
-              ),
+              onTap: () => controller.payViaCard(isCard: false),
             ),
             16.h.heightBox,
             BlocListener<VerifyMembershipCubit, VerifyMembershipState>(

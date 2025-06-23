@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
+
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/bloc/bank_list/bank_list_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../views/contracts/withdrawal_bank.dart';
 import '../views/withdrawal_bank.dart';
+
 import 'contracts/withdrawal_bank.dart';
 
 class WithdrawalBankScreen extends StatefulWidget {
@@ -52,7 +55,7 @@ class WithdrawalBankController extends State<WithdrawalBankScreen>
     super.initState();
     view = WithdrawalBankView(controller: this);
     context.read<BankListCubit>().getBankList();
-    bankNameController = SingleSelectController<BankData>(BankData());
+    bankNameController = SingleSelectController<BankData>(null);
   }
 
   @override

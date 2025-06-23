@@ -1,23 +1,15 @@
 import 'dart:io';
 
-import 'package:fhcs/config/di/app_initializer.dart';
-import 'package:fhcs/core/data/investment_type.dart';
-import 'package:fhcs/core/data/loan.dart';
-import 'package:fhcs/core/data/payment.dart';
-import 'package:fhcs/features/auth/presentation/controllers/membership_breakdown.dart';
-import 'package:fhcs/features/auth/presentation/controllers/splash.dart';
-import 'package:fhcs/features/home/presentation/controllers/profile.dart';
-import 'package:fhcs/features/investments/presentation/controllers/apply_for_investments.dart';
-import 'package:fhcs/features/investments/presentation/controllers/investment_detail.dart';
-import 'package:fhcs/features/investments/presentation/controllers/select_vendor.dart';
-import 'package:fhcs/features/loans/presentation/controllers/active_loan.dart';
-import 'package:fhcs/features/loans/presentation/controllers/select_witness.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
+import 'package:fhcs/config/di/app_initializer.dart';
 import 'package:fhcs/core/components/custom_scaffold_menu.dart';
+import 'package:fhcs/core/data/investment_type.dart';
+import 'package:fhcs/core/data/loan.dart';
+import 'package:fhcs/core/data/payment.dart';
 import 'package:fhcs/core/router/route_constants.dart';
 import 'package:fhcs/core/utils/global_variables.dart';
 import 'package:fhcs/features/accounts/presentation/controllers/accounts.dart';
@@ -26,19 +18,28 @@ import 'package:fhcs/features/auth/presentation/controllers/create_password.dart
 import 'package:fhcs/features/auth/presentation/controllers/enter_otp.dart';
 import 'package:fhcs/features/auth/presentation/controllers/kyc.dart';
 import 'package:fhcs/features/auth/presentation/controllers/login.dart';
+import 'package:fhcs/features/auth/presentation/controllers/membership_breakdown.dart';
 import 'package:fhcs/features/auth/presentation/controllers/membership_payment.dart';
 import 'package:fhcs/features/auth/presentation/controllers/next_of_kin.dart';
 import 'package:fhcs/features/auth/presentation/controllers/onboarding.dart';
 import 'package:fhcs/features/auth/presentation/controllers/set_transaction_pin.dart';
 import 'package:fhcs/features/auth/presentation/controllers/signup.dart';
+import 'package:fhcs/features/auth/presentation/controllers/splash.dart';
 import 'package:fhcs/features/auth/presentation/controllers/withdrawal_bank.dart';
 import 'package:fhcs/features/home/presentation/controllers/add_money.dart';
 import 'package:fhcs/features/home/presentation/controllers/card_deposit.dart';
 import 'package:fhcs/features/home/presentation/controllers/deposit_fund.dart';
 import 'package:fhcs/features/home/presentation/controllers/home.dart';
+import 'package:fhcs/features/home/presentation/controllers/personal_details.dart';
+import 'package:fhcs/features/home/presentation/controllers/profile.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_from.dart';
 import 'package:fhcs/features/home/presentation/controllers/withdraw_funds.dart';
+import 'package:fhcs/features/investments/presentation/controllers/apply_for_investments.dart';
+import 'package:fhcs/features/investments/presentation/controllers/investment_detail.dart';
 import 'package:fhcs/features/investments/presentation/controllers/investments.dart';
+import 'package:fhcs/features/investments/presentation/controllers/repay_investment.dart';
+import 'package:fhcs/features/investments/presentation/controllers/select_vendor.dart';
+import 'package:fhcs/features/loans/presentation/controllers/active_loan.dart';
 import 'package:fhcs/features/loans/presentation/controllers/cash_injection.dart';
 import 'package:fhcs/features/loans/presentation/controllers/loan_application.dart';
 import 'package:fhcs/features/loans/presentation/controllers/loans.dart';
@@ -46,6 +47,7 @@ import 'package:fhcs/features/loans/presentation/controllers/normal_loan.dart';
 import 'package:fhcs/features/loans/presentation/controllers/referee_request.dart';
 import 'package:fhcs/features/loans/presentation/controllers/repay_loan.dart';
 import 'package:fhcs/features/loans/presentation/controllers/select_referee.dart';
+import 'package:fhcs/features/loans/presentation/controllers/select_witness.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
@@ -219,7 +221,9 @@ class AppRouter {
       GoRoute(
         path: RouteConstants.refereeRequestRoute,
         name: RouteConstants.refereeRequestRoute,
-        pageBuilder: (context, state) => _buildPage(RefereeRequestScreen()),
+        pageBuilder: (context, state) => _buildPage(RefereeRequestScreen(
+          isInvestment: state.extra as bool,
+        )),
       ),
       GoRoute(
         path: RouteConstants.applyForInvestmentsRoute,
@@ -244,6 +248,11 @@ class AppRouter {
             paymentInfo: state.extra as PaymentInfoData,
           ),
         ),
+      ),
+      GoRoute(
+        path: RouteConstants.profileDetailsRoute,
+        name: RouteConstants.profileDetailsRoute,
+        pageBuilder: (context, state) => _buildPage(PersonalDetailsScreen()),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -300,6 +309,13 @@ class AppRouter {
                       pageBuilder: (context, state) => _buildPage(
                         SelectVendorScreen(data: {}),
                       ),
+                    ),
+                    GoRoute(
+                      path: RouteConstants.repayInvestmentRoute,
+                      name: RouteConstants.repayInvestmentRoute,
+                      parentNavigatorKey: GlobalVariables.rootNavigatorKey,
+                      pageBuilder: (context, state) =>
+                          _buildPage(RepayInvestmentScreen()),
                     ),
                   ]),
             ],

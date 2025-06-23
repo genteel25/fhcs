@@ -39,6 +39,7 @@ class ApiServicesImpl implements ApiServices {
   @override
   Future<Either<Failure, ApiResponse<({String? token, AuthInfoData? data})>>>
       register(Map<String, dynamic> payload, File file) async {
+    log("file path: ${file.path}");
     return apiClient.multipartRequest<({String? token, AuthInfoData? data})>(
       ApiEndpoint.signup,
       MethodType.post,
@@ -56,6 +57,7 @@ class ApiServicesImpl implements ApiServices {
 
       // (data) => data['verification_info']['token'],
       // payload,
+
       FormData.fromMap({
         ...payload,
         if (file.path.isNotEmpty)
@@ -417,6 +419,17 @@ class ApiServicesImpl implements ApiServices {
         payload,
       );
   @override
+  Future<Either<Failure, ApiResponse<InvestmentData>>>
+      initiateInvestmentRepayment(Map<String, dynamic> payload) =>
+          apiClient.request<InvestmentData>(
+            ApiEndpoint.investmentRepayment,
+            MethodType.post,
+            (data) {
+              return InvestmentData.fromJson(data);
+            },
+            payload,
+          );
+  @override
   Future<Either<Failure, ApiResponse<AccountInfoData>>> accountDetails() =>
       apiClient.request<AccountInfoData>(
         ApiEndpoint.accountInfo,
@@ -450,4 +463,16 @@ class ApiServicesImpl implements ApiServices {
             },
             null,
           );
+  @override
+  Future<Either<Failure, ApiResponse<String>>> changeRequestStatus(
+          String requestId,
+          {required Map<String, dynamic> payload}) =>
+      apiClient.request<String>(
+        ApiEndpoint.requestStatus(requestId),
+        MethodType.post,
+        (data) {
+          return "";
+        },
+        payload,
+      );
 }

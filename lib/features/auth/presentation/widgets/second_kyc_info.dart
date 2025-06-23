@@ -72,7 +72,13 @@ class _SecondKycInfoWidgetState extends State<SecondKycInfoWidget>
           children: [
             CustomAnimatedDropdownWidget<String>(
               hintLabel: "Enter your marital status",
-              ['Single', 'Married', 'Divorce'],
+              [
+                'Single',
+                'Married',
+                'Divorced',
+                'Widowed',
+                'Separated',
+              ],
               labelText: "Marital Status",
               onChanged: widget.onSelectMaritalStatus,
               controller: widget.maritalStatusCustomController,

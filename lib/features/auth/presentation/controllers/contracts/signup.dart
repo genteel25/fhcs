@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 import 'package:fhcs/core/data/auth_info.dart';
@@ -12,8 +12,8 @@ abstract class SignUpControllerContract {
   late Map<String, dynamic> firstPercent;
   late Map<String, dynamic> secondPercent;
   late bool isFirstPercentComplete;
-  late GlobalKey<FormState> formKey;
   late GlobalKey<FormState> secondFormKey;
+  late GlobalKey<FormState> formKey;
   late String selectedMaritalStatus;
   late String selectedStateOfOrigin;
   late String selectedSalaryGrade;

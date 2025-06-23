@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart'; // Required for @freezed
+
+import 'package:fhcs/core/data/investment.dart';
+import 'package:fhcs/core/data/loan.dart';
 import 'package:fhcs/core/data/referee.dart'
     show $RefereeDataCopyWith, RefereeData;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart'; // Required for @freezed
 
 part 'referee_request.freezed.dart';
 part 'referee_request.g.dart';
@@ -11,9 +14,11 @@ class RefereeRequestData with _$RefereeRequestData {
   const factory RefereeRequestData({
     int? id,
     RefereeData? referee, // Using your existing RefereeData model
-    Investment? investment, // This is null in your example, so it's nullable
+    User? user,
+    InvestmentData?
+        investment, // This is null in your example, so it's nullable
     String? status,
-    Loan? loan, // Nested loan object
+    LoanData? loan, // Nested loan object
   }) = _RefereeRequestData;
 
   factory RefereeRequestData.fromJson(Map<String, dynamic> json) =>

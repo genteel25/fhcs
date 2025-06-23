@@ -34,4 +34,6 @@ class RouteConstants {
   static const String investmentDetailRoute = '/investment_detail';
   static const String selectVendorRoute = '/select_vendor';
   static const String selectWitnessRoute = '/select_witness';
+  static const String repayInvestmentRoute = '/repay_investment';
+  static const String profileDetailsRoute = '/profile_details';
 }

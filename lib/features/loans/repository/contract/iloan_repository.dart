@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import 'package:fhcs/core/api/exceptions/contracts/failure.dart';
 import 'package:fhcs/core/api/service/contracts/api_response.dart';
 import 'package:fhcs/core/data/loan.dart';
@@ -22,4 +23,7 @@ abstract class ILoanRepository {
       investmentRefereeRequest();
   Future<Either<Failure, ApiResponse<List<RefereeRequestData>>>>
       refereeRequest();
+  Future<Either<Failure, ApiResponse<String>>> changeRequestStatus(
+          String requestId,
+          {required Map<String, dynamic> payload}) ;
 }

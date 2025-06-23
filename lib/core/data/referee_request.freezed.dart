@@ -23,10 +23,11 @@ mixin _$RefereeRequestData {
   int? get id => throw _privateConstructorUsedError;
   RefereeData? get referee =>
       throw _privateConstructorUsedError; // Using your existing RefereeData model
-  Investment? get investment =>
+  User? get user => throw _privateConstructorUsedError;
+  InvestmentData? get investment =>
       throw _privateConstructorUsedError; // This is null in your example, so it's nullable
   String? get status => throw _privateConstructorUsedError;
-  Loan? get loan => throw _privateConstructorUsedError;
+  LoanData? get loan => throw _privateConstructorUsedError;
 
   /// Serializes this RefereeRequestData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,13 +48,15 @@ abstract class $RefereeRequestDataCopyWith<$Res> {
   $Res call(
       {int? id,
       RefereeData? referee,
-      Investment? investment,
+      User? user,
+      InvestmentData? investment,
       String? status,
-      Loan? loan});
+      LoanData? loan});
 
   $RefereeDataCopyWith<$Res>? get referee;
-  $InvestmentCopyWith<$Res>? get investment;
-  $LoanCopyWith<$Res>? get loan;
+  $UserCopyWith<$Res>? get user;
+  $InvestmentDataCopyWith<$Res>? get investment;
+  $LoanDataCopyWith<$Res>? get loan;
 }
 
 /// @nodoc
@@ -73,6 +76,7 @@ class _$RefereeRequestDataCopyWithImpl<$Res, $Val extends RefereeRequestData>
   $Res call({
     Object? id = freezed,
     Object? referee = freezed,
+    Object? user = freezed,
     Object? investment = freezed,
     Object? status = freezed,
     Object? loan = freezed,
@@ -86,10 +90,14 @@ class _$RefereeRequestDataCopyWithImpl<$Res, $Val extends RefereeRequestData>
           ? _value.referee
           : referee // ignore: cast_nullable_to_non_nullable
               as RefereeData?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       investment: freezed == investment
           ? _value.investment
           : investment // ignore: cast_nullable_to_non_nullable
-              as Investment?,
+              as InvestmentData?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -97,7 +105,7 @@ class _$RefereeRequestDataCopyWithImpl<$Res, $Val extends RefereeRequestData>
       loan: freezed == loan
           ? _value.loan
           : loan // ignore: cast_nullable_to_non_nullable
-              as Loan?,
+              as LoanData?,
     ) as $Val);
   }
 
@@ -119,12 +127,26 @@ class _$RefereeRequestDataCopyWithImpl<$Res, $Val extends RefereeRequestData>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $InvestmentCopyWith<$Res>? get investment {
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
+
+  /// Create a copy of RefereeRequestData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $InvestmentDataCopyWith<$Res>? get investment {
     if (_value.investment == null) {
       return null;
     }
 
-    return $InvestmentCopyWith<$Res>(_value.investment!, (value) {
+    return $InvestmentDataCopyWith<$Res>(_value.investment!, (value) {
       return _then(_value.copyWith(investment: value) as $Val);
     });
   }
@@ -133,12 +155,12 @@ class _$RefereeRequestDataCopyWithImpl<$Res, $Val extends RefereeRequestData>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $LoanCopyWith<$Res>? get loan {
+  $LoanDataCopyWith<$Res>? get loan {
     if (_value.loan == null) {
       return null;
     }
 
-    return $LoanCopyWith<$Res>(_value.loan!, (value) {
+    return $LoanDataCopyWith<$Res>(_value.loan!, (value) {
       return _then(_value.copyWith(loan: value) as $Val);
     });
   }
@@ -155,16 +177,19 @@ abstract class _$$RefereeRequestDataImplCopyWith<$Res>
   $Res call(
       {int? id,
       RefereeData? referee,
-      Investment? investment,
+      User? user,
+      InvestmentData? investment,
       String? status,
-      Loan? loan});
+      LoanData? loan});
 
   @override
   $RefereeDataCopyWith<$Res>? get referee;
   @override
-  $InvestmentCopyWith<$Res>? get investment;
+  $UserCopyWith<$Res>? get user;
   @override
-  $LoanCopyWith<$Res>? get loan;
+  $InvestmentDataCopyWith<$Res>? get investment;
+  @override
+  $LoanDataCopyWith<$Res>? get loan;
 }
 
 /// @nodoc
@@ -182,6 +207,7 @@ class __$$RefereeRequestDataImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? referee = freezed,
+    Object? user = freezed,
     Object? investment = freezed,
     Object? status = freezed,
     Object? loan = freezed,
@@ -195,10 +221,14 @@ class __$$RefereeRequestDataImplCopyWithImpl<$Res>
           ? _value.referee
           : referee // ignore: cast_nullable_to_non_nullable
               as RefereeData?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       investment: freezed == investment
           ? _value.investment
           : investment // ignore: cast_nullable_to_non_nullable
-              as Investment?,
+              as InvestmentData?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -206,7 +236,7 @@ class __$$RefereeRequestDataImplCopyWithImpl<$Res>
       loan: freezed == loan
           ? _value.loan
           : loan // ignore: cast_nullable_to_non_nullable
-              as Loan?,
+              as LoanData?,
     ));
   }
 }
@@ -217,7 +247,12 @@ class _$RefereeRequestDataImpl
     with DiagnosticableTreeMixin
     implements _RefereeRequestData {
   const _$RefereeRequestDataImpl(
-      {this.id, this.referee, this.investment, this.status, this.loan});
+      {this.id,
+      this.referee,
+      this.user,
+      this.investment,
+      this.status,
+      this.loan});
 
   factory _$RefereeRequestDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$RefereeRequestDataImplFromJson(json);
@@ -228,16 +263,18 @@ class _$RefereeRequestDataImpl
   final RefereeData? referee;
 // Using your existing RefereeData model
   @override
-  final Investment? investment;
+  final User? user;
+  @override
+  final InvestmentData? investment;
 // This is null in your example, so it's nullable
   @override
   final String? status;
   @override
-  final Loan? loan;
+  final LoanData? loan;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RefereeRequestData(id: $id, referee: $referee, investment: $investment, status: $status, loan: $loan)';
+    return 'RefereeRequestData(id: $id, referee: $referee, user: $user, investment: $investment, status: $status, loan: $loan)';
   }
 
   @override
@@ -247,6 +284,7 @@ class _$RefereeRequestDataImpl
       ..add(DiagnosticsProperty('type', 'RefereeRequestData'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('referee', referee))
+      ..add(DiagnosticsProperty('user', user))
       ..add(DiagnosticsProperty('investment', investment))
       ..add(DiagnosticsProperty('status', status))
       ..add(DiagnosticsProperty('loan', loan));
@@ -259,6 +297,7 @@ class _$RefereeRequestDataImpl
             other is _$RefereeRequestDataImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.referee, referee) || other.referee == referee) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.investment, investment) ||
                 other.investment == investment) &&
             (identical(other.status, status) || other.status == status) &&
@@ -268,7 +307,7 @@ class _$RefereeRequestDataImpl
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, referee, investment, status, loan);
+      Object.hash(runtimeType, id, referee, user, investment, status, loan);
 
   /// Create a copy of RefereeRequestData
   /// with the given fields replaced by the non-null parameter values.
@@ -291,9 +330,10 @@ abstract class _RefereeRequestData implements RefereeRequestData {
   const factory _RefereeRequestData(
       {final int? id,
       final RefereeData? referee,
-      final Investment? investment,
+      final User? user,
+      final InvestmentData? investment,
       final String? status,
-      final Loan? loan}) = _$RefereeRequestDataImpl;
+      final LoanData? loan}) = _$RefereeRequestDataImpl;
 
   factory _RefereeRequestData.fromJson(Map<String, dynamic> json) =
       _$RefereeRequestDataImpl.fromJson;
@@ -303,11 +343,14 @@ abstract class _RefereeRequestData implements RefereeRequestData {
   @override
   RefereeData? get referee; // Using your existing RefereeData model
   @override
-  Investment? get investment; // This is null in your example, so it's nullable
+  User? get user;
+  @override
+  InvestmentData?
+      get investment; // This is null in your example, so it's nullable
   @override
   String? get status;
   @override
-  Loan? get loan;
+  LoanData? get loan;
 
   /// Create a copy of RefereeRequestData
   /// with the given fields replaced by the non-null parameter values.

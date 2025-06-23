@@ -1,4 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:awesome_extensions/awesome_extensions.dart' hide NavigatorExt;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:form_validator/form_validator.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:fhcs/core/components/custom_animated_dropdown.dart';
 import 'package:fhcs/core/components/custom_bottom_button_wrapper.dart';
 import 'package:fhcs/core/components/custom_input_label.dart';
@@ -12,12 +20,6 @@ import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/in
 import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
 import 'package:fhcs/features/investments/presentation/controllers/contracts/investment_detail.dart';
 import 'package:fhcs/features/investments/presentation/views/contracts/investment_detail.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:form_validator/form_validator.dart';
-import 'package:go_router/go_router.dart';
 
 class InvestmentDetailView extends StatelessWidget
     implements InvestmentDetailViewContract {
@@ -103,6 +105,7 @@ class InvestmentDetailView extends StatelessWidget
                   formatter: [controller.formatter],
                   controller: controller.amountController,
                   hintText: "amount",
+                  isAmount: true,
                   validator: ValidationBuilder().required().build(),
                 ),
                 16.h.heightBox,
@@ -170,6 +173,7 @@ class InvestmentDetailView extends StatelessWidget
                   hintText: 'Enter repayment amount',
                   formatter: [controller.repaymentAmountformatter],
                   isReadOnly: true,
+                  isAmount: true,
                   validator: ValidationBuilder().required().build(),
                 ),
                 16.h.heightBox,

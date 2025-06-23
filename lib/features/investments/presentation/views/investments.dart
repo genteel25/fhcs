@@ -164,7 +164,8 @@ class InvestmentsView extends StatelessWidget
                   actionAsset: "curve",
                   assetColor: AppColors.neutral800,
                   boldBorder: true,
-                  onTap: () => context.pushNamed(RouteConstants.repayLoanRoute),
+                  onTap: () =>
+                      context.pushNamed(RouteConstants.repayInvestmentRoute),
                 ),
                 HomeActionWidget(
                   actionLabel: "Request",
@@ -172,8 +173,9 @@ class InvestmentsView extends StatelessWidget
                   boldBorder: true,
                   assetColor: AppColors.neutral800,
                   iconSize: 18.sp,
-                  onTap: () =>
-                      context.pushNamed(RouteConstants.refereeRequestRoute),
+                  onTap: () => context.pushNamed(
+                      RouteConstants.refereeRequestRoute,
+                      extra: true),
                 ),
               ],
             ).paddingSymmetric(horizontal: 20.w),

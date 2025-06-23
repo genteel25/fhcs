@@ -1,1 +1,4 @@
-abstract class AccountsControllerContract {}
+abstract class AccountsControllerContract {
+  String? username;
+  String? fullName;
+}

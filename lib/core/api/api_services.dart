@@ -80,4 +80,9 @@ abstract class ApiServices {
   Future<Either<Failure, ApiResponse<InvestmentData>>> createInvestment(
       {required Map<String, dynamic> payload});
   Future<Either<Failure, ApiResponse<List<InvestmentData>>>> fetchInvestment();
+  Future<Either<Failure, ApiResponse<InvestmentData>>>
+      initiateInvestmentRepayment(Map<String, dynamic> payload);
+  Future<Either<Failure, ApiResponse<String>>> changeRequestStatus(
+      String requestId,
+      {required Map<String, dynamic> payload});
 }

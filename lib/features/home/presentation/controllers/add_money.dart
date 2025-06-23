@@ -188,6 +188,7 @@ class AddMoneyController extends State<AddMoneyScreen>
 
   @override
   void payViaCard({required String refId, required String amount}) async {
+    log("payment method: ${widget.mode}");
     // log("payment amount: ${PaymentClass().calculatePaymentAmount(double.parse(widget.data.amount ?? '0'))}");
     final request = PaystackTransactionRequest(
       reference: refId,
@@ -198,8 +199,9 @@ class AddMoneyController extends State<AddMoneyScreen>
           .roundToDouble(),
       currency: PaystackCurrency.ngn,
       channel: [
-        PaystackPaymentChannel.bank,
-        // PaystackPaymentChannel.bankTransfer,
+        widget.mode == FundingMode.card
+            ? PaystackPaymentChannel.card
+            : PaystackPaymentChannel.bankTransfer,
       ],
     );
 

@@ -1,20 +1,26 @@
 import 'dart:ui';
 
-import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 import '../ui/colors.dart';
+
 import 'custom_text.dart';
 
 class CustomPhoneFieldWidget extends StatelessWidget {
   const CustomPhoneFieldWidget(this.labelText,
-      {super.key, required this.controller, required this.hintText});
+      {super.key,
+      required this.controller,
+      required this.hintText,
+      this.isEnabled = true});
   final String labelText;
   final String hintText;
   final PhoneController controller;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +38,7 @@ class CustomPhoneFieldWidget extends StatelessWidget {
           data:
               MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
           child: PhoneFormField(
+            enabled: isEnabled,
             isCountryButtonPersistent: true,
             isCountrySelectionEnabled: false,
             controller: controller,

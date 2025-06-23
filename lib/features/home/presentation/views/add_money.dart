@@ -182,9 +182,8 @@ class AddMoneyView extends StatelessWidget implements AddMoneyViewContract {
                       50, // Fixed to 50 since savings cannot exceed 50%
                   value: controller.percentSavingsController.text
                       .cleanCheckEmptyCurrencyText,
-                  isSlidingEnabled: controller
-                          .amountController.text.cleanCheckEmptyCurrencyText >
-                      0,
+                  isSlidingEnabled:
+                      controller.formatter.getUnformattedValue() > 0,
                   onChanged: (percent) => controller.allocateContribution(
                     savingPercent: percent,
                     investmentPercent: 100 -

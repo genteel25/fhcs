@@ -1,4 +1,4 @@
 abstract class MembershipPaymentControllerContract {
   //Methods
-  void payViaCard();
+  void payViaCard({bool? isCard});
 }

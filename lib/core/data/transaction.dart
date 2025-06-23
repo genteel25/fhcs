@@ -1,5 +1,6 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart'; // Required for @freezed
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction.freezed.dart';
 part 'transaction.g.dart';

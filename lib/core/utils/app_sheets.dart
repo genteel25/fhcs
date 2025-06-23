@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
 import 'package:fhcs/core/components/custom_bottom_sheet_wrapper.dart';
 import 'package:fhcs/features/auth/presentation/sheets/bank_transfer.dart';
 import 'package:fhcs/features/auth/presentation/sheets/membership_payment.dart';
@@ -8,9 +10,10 @@ import 'package:fhcs/features/home/presentation/sheets/deposit.dart';
 import 'package:fhcs/features/home/presentation/sheets/deposit_success.dart';
 import 'package:fhcs/features/home/presentation/sheets/payment_method.dart';
 import 'package:fhcs/features/investments/presentation/sheets/investment_confirmation.dart';
+import 'package:fhcs/features/loans/presentation/sheets/approve_referee_request.dart';
 import 'package:fhcs/features/loans/presentation/sheets/file_picker.dart';
 import 'package:fhcs/features/loans/presentation/sheets/loan_confirmation.dart';
-import 'package:flutter/material.dart';
+import 'package:fhcs/features/loans/presentation/sheets/reject_referee_request.dart';
 
 class AppSheets {
   static Future<void> otpVerificationSuccessSheet(BuildContext context,
@@ -228,6 +231,46 @@ class AppSheets {
             isNormaLoan: isNormalLoan,
             loanInfo: loanInfo,
             applyForLoan: applyForLoan,
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> approveRefereeRequestSheet(
+    BuildContext context, {
+    required Function onApprove,
+  }) async {
+    return await showModalBottomSheet(
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+      useSafeArea: true,
+      context: context,
+      builder: (context) {
+        return CustomBottomSheetWrapperWidget(
+          child: ApproveRefereeRequestSheetWidget(
+            onApprove: onApprove,
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> rejectRefereeRequestSheet(
+    BuildContext context, {
+    required Function onReject,
+  }) async {
+    return await showModalBottomSheet(
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+      useSafeArea: true,
+      context: context,
+      builder: (context) {
+        return CustomBottomSheetWrapperWidget(
+          child: RejectRefereeRequestSheetWidget(
+            onReject: onReject,
           ),
         );
       },

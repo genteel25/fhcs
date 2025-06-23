@@ -482,7 +482,7 @@ class SignUpController extends State<SignUpScreen>
       "last_name": fullNameController.text.trim().split(" ").last,
       "email": emailController.text,
       "ir_number": irNumberController.text,
-      "image_url": '',
+      // "image_url": '',
       "marital_status": selectedMaritalStatus,
       "dob": dobController.text,
       "residential_address": residentialAddressController.text,
@@ -498,9 +498,7 @@ class SignUpController extends State<SignUpScreen>
       "stage": "Personal Info",
     };
     if (pickedImagePath != null) {
-      context.read<AuthCubit>().register(payload, File("")
-          // pickedImagePath!,
-          );
+      context.read<AuthCubit>().register(payload, pickedImagePath!);
     } else {
       GetIt.I
           .get<IWidgetHelper>()

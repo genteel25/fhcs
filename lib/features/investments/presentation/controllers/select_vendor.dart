@@ -1,13 +1,16 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phone_form_field/phone_form_field.dart';
+
 import 'package:fhcs/features/investments/presentation/controllers/contracts/select_vendor.dart';
 import 'package:fhcs/features/investments/presentation/views/contracts/select_vendor.dart';
 import 'package:fhcs/features/investments/presentation/views/select_vendor.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
 import 'package:fhcs/features/loans/presentation/controllers/select_referee.dart';
 import 'package:fhcs/features/loans/presentation/controllers/select_witness.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectVendorScreen extends StatefulWidget {
   static const String route = 'select_vendor';
@@ -23,6 +26,10 @@ class SelectVendorController extends State<SelectVendorScreen>
   late SelectVendorViewContract view;
   @override
   TextEditingController sellerNameController = TextEditingController();
+
+  @override
+  PhoneController vendorContactController =
+      PhoneController(initialValue: PhoneNumber.parse("+234"));
 
   @override
   TextEditingController sellerContactController = TextEditingController();
@@ -50,7 +57,7 @@ class SelectVendorController extends State<SelectVendorScreen>
               data: {
                 ...widget.data,
                 "vendor_name": sellerNameController.text,
-                "vendor_contact": sellerContactController.text,
+                "vendor_contact": vendorContactController.value.nsn,
               },
             );
           },

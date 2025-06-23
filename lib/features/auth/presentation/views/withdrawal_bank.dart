@@ -1,4 +1,3 @@
-import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +13,7 @@ import 'package:fhcs/core/components/custom_input_label.dart';
 import 'package:fhcs/core/data/bank.dart';
 import 'package:fhcs/core/helpers/contracts/iwidget_helper.dart';
 import 'package:fhcs/core/router/route_constants.dart';
+import 'package:fhcs/core/utils/app_dialog.dart';
 import 'package:fhcs/core/utils/app_sheets.dart';
 import 'package:fhcs/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:fhcs/features/auth/presentation/bloc/bank_list/bank_list_cubit.dart';
@@ -64,7 +64,7 @@ class WithdrawalBankView extends StatelessWidget
                 listener: (context, state) {
                   state.whenOrNull(
                     success: (response) {
-                      controller.onSetController(response.first);
+                      // controller.onSetController(response.first);
                     },
                   );
                 },
@@ -75,6 +75,7 @@ class WithdrawalBankView extends StatelessWidget
                           response,
                           labelText: "Bank name",
                           controller: controller.bankNameController,
+                          onChanged: controller.setBank,
                         ),
                       ) ??
                       CustomAnimatedDropdownWidget<String>(

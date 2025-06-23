@@ -23,11 +23,13 @@ import 'package:fhcs/features/investments/presentation/bloc/create_investment/cr
 import 'package:fhcs/features/investments/presentation/bloc/fetch_investment/fetch_investment_cubit.dart';
 import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/investment_tenure_cubit.dart';
 import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/repay_investment.dart/repay_investment_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repayment_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/request_status/request_status_cubit.dart';
 
 class FhcsApp extends StatelessWidget {
   const FhcsApp({super.key});
@@ -110,6 +112,12 @@ class FhcsApp extends StatelessWidget {
         ),
         BlocProvider<FetchInvestmentCubit>(
           create: (context) => GetIt.I.get<FetchInvestmentCubit>(),
+        ),
+        BlocProvider<RepayInvestmentCubit>(
+          create: (context) => GetIt.I.get<RepayInvestmentCubit>(),
+        ),
+        BlocProvider<RequestStatusCubit>(
+          create: (context) => GetIt.I.get<RequestStatusCubit>(),
         ),
       ],
       child: ScreenUtilInit(

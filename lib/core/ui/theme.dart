@@ -1,7 +1,9 @@
-import 'package:fhcs/core/ui/colors.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:fhcs/core/ui/colors.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
@@ -92,7 +94,7 @@ class AppTheme {
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: AppColors.neutral100, width: 1.w),
+            borderSide: BorderSide(color: AppColors.neutral200, width: 1.w),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),

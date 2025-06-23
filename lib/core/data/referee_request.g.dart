@@ -13,13 +13,16 @@ _$RefereeRequestDataImpl _$$RefereeRequestDataImplFromJson(
       referee: json['referee'] == null
           ? null
           : RefereeData.fromJson(json['referee'] as Map<String, dynamic>),
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
       investment: json['investment'] == null
           ? null
-          : Investment.fromJson(json['investment'] as Map<String, dynamic>),
+          : InvestmentData.fromJson(json['investment'] as Map<String, dynamic>),
       status: json['status'] as String?,
       loan: json['loan'] == null
           ? null
-          : Loan.fromJson(json['loan'] as Map<String, dynamic>),
+          : LoanData.fromJson(json['loan'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$RefereeRequestDataImplToJson(
@@ -27,6 +30,7 @@ Map<String, dynamic> _$$RefereeRequestDataImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'referee': instance.referee,
+      'user': instance.user,
       'investment': instance.investment,
       'status': instance.status,
       'loan': instance.loan,

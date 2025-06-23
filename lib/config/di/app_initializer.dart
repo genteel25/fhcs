@@ -44,6 +44,7 @@ import 'package:fhcs/features/investments/presentation/bloc/create_investment/cr
 import 'package:fhcs/features/investments/presentation/bloc/fetch_investment/fetch_investment_cubit.dart';
 import 'package:fhcs/features/investments/presentation/bloc/investment_tenure/investment_tenure_cubit.dart';
 import 'package:fhcs/features/investments/presentation/bloc/investment_type/investment_type_cubit.dart';
+import 'package:fhcs/features/investments/presentation/bloc/repay_investment.dart/repay_investment_cubit.dart';
 import 'package:fhcs/features/investments/repository/contract/iinvestment_repository.dart';
 import 'package:fhcs/features/investments/repository/investment_repository.dart';
 import 'package:fhcs/features/loans/presentation/bloc/loan_history/loan_history_cubit.dart';
@@ -51,6 +52,7 @@ import 'package:fhcs/features/loans/presentation/bloc/loan_repayment/loan_repaym
 import 'package:fhcs/features/loans/presentation/bloc/loan_request/loan_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referee_request/referee_request_cubit.dart';
 import 'package:fhcs/features/loans/presentation/bloc/referees/referees_cubit.dart';
+import 'package:fhcs/features/loans/presentation/bloc/request_status/request_status_cubit.dart';
 import 'package:fhcs/features/loans/repository/contract/iloan_repository.dart';
 import 'package:fhcs/features/loans/repository/loan_repository.dart';
 
@@ -211,6 +213,14 @@ class AppInitializer {
             ));
     instanceLocator
         .registerLazySingleton<FetchInvestmentCubit>(() => FetchInvestmentCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<RepayInvestmentCubit>(() => RepayInvestmentCubit(
+              repository: instanceLocator(),
+            ));
+    instanceLocator
+        .registerLazySingleton<RequestStatusCubit>(() => RequestStatusCubit(
               repository: instanceLocator(),
             ));
   }
